@@ -1,0 +1,186 @@
+<section class="our-advisory">
+    <div class="our-advisory__container">
+        <div class="our-advisory__header">
+            <h2 class="our-advisory__title">{{ section.settings.title }}</h2>
+            {% if section.settings.sub_title != blank %}
+                <p class="our-advisory__subtitle">{{ section.settings.sub_title }}</p>
+            {% endif %}
+        </div>
+
+        {% if section.blocks.size > 0 %}
+            <div class="our-advisory__row">
+                {% for block in section.blocks %}
+                    <div class="our-advisory__col">
+                        <div class="user-card js-user-card" data-row="{{ forloop.index0 | divided_by: 4 }}" data-row-mobile="{{ forloop.index0 | divided_by: 2 }}">
+                            {% if block.settings.image != blank %}
+                                <img class="user-card__photo" src="{{ block.settings.image | img_url: '180x180' }}" alt="{{ block.settings.image.alt }}">
+                            {% endif %}
+
+                            <h3 class="user-card__name">{{ block.settings.title }}</h3>
+                            {% if block.settings.user_position != blank %}
+                                <p class="user-card__position">{{ block.settings.user_position }}</p>
+                            {% endif %}
+
+                            <div class="user-card__triangle"></div>
+
+                            <div class="user-card__description js-user-card-desc">
+                                <p class="user-card__description-name">{{ block.settings.title }}</p>
+
+                                {% if block.settings.user_position != blank %}
+                                    <p class="user-card__description-position">{{ block.settings.user_position }}</p>
+                                {% endif %}
+
+                                {% if block.settings.description != blank %}
+                                    <div class="user-card__description-text">{{ block.settings.description }}</div>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+
+    section.our-advisory{
+        padding-top: 50px;
+    }
+
+    section.our-advisory .our-advisory__container{
+        max-width: 1160px;
+        padding: 0 27px;
+    }
+
+    section.our-advisory .our-advisory__title{
+        font-size: 35px;
+        font-family: "Copernicus-Bold",sans-serif;
+    }
+
+    section.our-advisory .our-advisory__title strong{
+        color: #85853E;
+    }
+
+    section.our-advisory .our-advisory__header{
+        max-width: 100%;
+    }
+
+    section.our-advisory .our-advisory__header .our-advisory__subtitle{
+        font-size: 18px;
+        max-width: 720px;
+        margin: 0px auto;
+    }
+
+    section.our-advisory .our-advisory__container .our-advisory__col .user-card__photo{
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+
+    section.our-advisory .our-advisory__container .our-advisory__col .user-card__name{
+        text-align: center;
+        font-family: "Copernicus-Bold",sans-serif;
+        font-size: 20px;
+        color: #193438;
+    }
+
+    section.our-advisory .our-advisory__container .our-advisory__col .user-card__position{
+        text-align: center;
+        font-family: "BrownPro Regular";
+        font-size: 16px;
+        color: #202F30;
+        opacity: 0.7;
+        line-height: 1.4;
+        margin-top: 15px;
+    }
+
+    @media (max-width: 768px){
+        section.our-advisory .our-advisory__title{
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        section.our-advisory .our-advisory__header .our-advisory__subtitle{
+            font-size: 18px;
+            margin: 0px auto;
+            color: #1F3337;
+        }
+
+        section.our-advisory .our-advisory__container .our-advisory__col{
+            margin-bottom: 0px;
+        }
+
+        section.our-advisory .our-advisory__container .our-advisory__col .user-card__photo{
+            margin-left: auto;
+            margin-right: auto;
+            width: 140px;
+            height: 140px;
+            display: block;
+        }
+
+        section.our-advisory .our-advisory__container .our-advisory__col .user-card__name{
+            text-align: center;
+            font-size: 17px;
+            color: #193438;
+        }
+
+        section.our-advisory .our-advisory__container .our-advisory__col .user-card__position{
+            text-align: center;
+            font-size: 14px;
+            opacity: 0.7;
+            line-height: 1.3;
+            margin-top: 12px;
+        }
+    }
+</style>
+
+{% schema %}
+    {
+        "name": "Our practioner partners",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Heading",
+                "default": "meet our practioner partners."
+            },
+              {
+                "type": "textarea",
+                "id": "sub_title",
+                "label": "Sub heading",
+                "default": "body copy that explains how needed works with it’s referenced experts. body copy that explains how needed works with it’s referenced experts. body copy that explains how needed works with it’s referenced experts."
+            }
+            ],
+            "blocks": [
+                {
+                "type": "partner",
+                "name": "partner",
+                "settings": [
+	                {
+	                	"type": "image_picker",
+	                	"id": "image",
+	                	"label": "Partner photo"
+	                },
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Partner name"
+                    },
+                    {
+                        "type": "text",
+                        "id": "user_position",
+                        "label": "Partner position"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "description",
+                        "label": "About partner",
+                        "default": "<p>this is the bio of the seleted users, providing ample space to expand on their background and how they interact with needed. this is the bio of the seleted users, providing ample space to expand on their background and how they interact with needed.</p>"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

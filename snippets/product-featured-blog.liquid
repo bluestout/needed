@@ -1,0 +1,45 @@
+{% assign related_articles = product.metafields.airf['articles'] %}
+
+{% if related_articles and related_articles != blank and related_articles != '&nbsp' %}
+    <section class="featured-blog" data-section-id="{{ section.id }}" data-section-type="featured-blog">
+        <div class="container">
+            <h2 class="featured-blog__heading">omega-3 education</h2>
+
+            <div class="row" id="featured-blog-slider">
+                {% assign separator = "###" %}
+                {% assign articles_related_handles = related_articles | split: separator %}
+                {% for handle in articles_related_handles %}
+
+                    {% assign article = articles[handle] %}
+                    {% unless article.empty? %}
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <article
+                                    class="article-card"
+                                    {% if article.image != blank %}
+                                        style="background-image: url({{ article.image | img_url: '1000x' }});"
+                                    {% endif %}
+                            >
+                                <div class="article-card__content">
+                                    <h3 class="article-card__title">
+                                        <a href="{{ article.url }}">{{ article.title }}</a>
+                                    </h3>
+                                </div>
+                            </article>
+                        </div>
+                    {% endunless %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endif %}
+
+
+{% assign bgc_articles_card = product.metafields.airf.bgc_arts %}
+
+<style>
+    .featured-blog[data-section-id="{{ section.id }}"] .article-card .article-card__content {
+    {% if bgc_articles_card and bgc_articles_card != '&nbsp' %}
+        background-color: {{ bgc_articles_card | color_modify: 'alpha', 0.8 }};
+    {% endif %}
+    }
+</style>

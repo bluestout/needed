@@ -1,0 +1,80 @@
+<section id="our-values" class="our-values">
+    <div class="container">
+        <div class="our-values__header">
+            <h2 class="our-values__title">{{ section.settings.title }}</h2>
+
+            {% if section.settings.description != blank %}
+                <p class="our-values__subtitle">{{ section.settings.description }}</p>
+            {% endif %}
+        </div>
+
+
+        {% if section.blocks.size > 0 %}
+            <ul class="values-list">
+                {% for block in section.blocks  %}
+                    <li class="values-list__item js-animate animate-fade-in animate-delay-300">
+                        <div class="values-list__icon" style="background-color: {{ block.settings.icon_bg }}">
+							{% if block.settings.image != blank %}
+								<img src="{{ block.settings.image | img_url: "300x" }}" alt="{{ block.settings.image.alt }}">
+							{% endif %}
+                        </div>
+
+                        <div class="values-list__content">
+                            <h3 class="values-list__title">{{ block.settings.title }}</h3>
+                            <p class="values-list__text">{{ block.settings.text }}</p>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</section>
+
+
+{% schema %}
+    {
+        "name": "Our Values",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Main heading",
+                "default": "our values"
+            },
+            {
+                "type": "textarea",
+                "id": "description",
+                "label": "Description",
+                "default": "this is supporting text that leads into the values.  this is supporting text that leads into the values.  this is supporting text that leads into the values.  this is supporting text that leads into the values.  this is supporting text that leads into the values."
+            }
+        ],
+        "blocks": [
+            {
+                "type": "value",
+                "name": "Value",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Value icon"
+                    },
+                    {
+                        "type": "color",
+                        "id": "icon_bg",
+                        "label": "Icon background color"
+                    },
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Value heading"
+                    },
+                    {
+                        "type": "textarea",
+                        "id": "text",
+                        "label": "Value description"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

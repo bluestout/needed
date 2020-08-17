@@ -1,0 +1,141 @@
+{% assign author = article.metafields.airf.author %}
+{% if author and author != blank %}
+    {% assign separator = "###" %}
+    {% assign author_namespaces = author | split: separator %}
+
+    {% assign namespace = author_namespaces[0] %}
+    {% assign custom_object = shop.metafields[namespace] %}
+
+    {% assign avatar = custom_object['avatar'] %}
+    {% comment %}
+        {% if avatar and avatar != '&nbsp' %}
+            <img src="{{ avatar }}" />
+        {% endif %}
+    {% endcomment %}
+
+    {% assign name = custom_object['name'] %}
+    {% comment %}
+        {% if name and name != '&nbsp' %}
+            {{ name }}
+        {% endif %}
+    {% endcomment %}
+
+    {% assign position = custom_object['position'] %}
+    {% comment %}
+        {% if position and position != '&nbsp' %}
+            {{ position }}
+        {% endif %}
+    {% endcomment %}
+
+    {% assign biography = custom_object['biography'] %}
+    {% comment %}
+        {% if biography and biography != '&nbsp' %}
+            {{ biography }}
+        {% endif %}
+    {% endcomment %}
+{% endif %}
+
+<article class="article-page">
+    <div class="article-page__banner"
+         {% if article.image != blank %}style="background-image: url({{ article.image | img_url: '2000x' }});" {% endif %}>
+    </div>
+
+    <div class="container">
+        <div class="rte">
+            <div class="article-page__header">
+                <h1 class="article-page__title" data-keyword><span class="article-page__title-icon" data-icon></span>{{ article.title }}</h1>
+                {% if name and name != '&nbsp' %}
+                    <h4 class="article-user__name">{{ name }}</h4>
+
+                    <div class="article-page__author">by {{ name }}, {% if position and position != '&nbsp' %}<strong>{{ position }}</strong>{% endif %}</div>
+                {% endif %}
+            </div>
+
+            <div class="article-page__body">{{ article.content }}</div>
+        </div>
+
+        <ul class="article-page__tags">
+            {% for tag in article.tags %}
+                {% unless tag contains "_main:" %}
+                    <li class="tag tag--active"><span class="tag__link">{{ tag }}</span></li>
+                {% endunless %}
+            {% endfor %}
+        </ul>
+
+        {% if author and author != blank %}
+            <div class="article-user">
+                <div class="article-user__photo"
+                     style="{% if avatar and avatar != '&nbsp' %}
+                        background-image: url('{{ avatar }}');
+                     {% else %}
+                        background-image: url({{ 'avatar-placeholder.png' | asset_img_url: '400x' }});
+                    {% endif %}">
+                </div>
+
+                <div class="article-user__info">
+                    {% if name and name != '&nbsp' %}
+                        <h4 class="article-user__name">{{ name }}</h4>
+                    {% endif %}
+
+
+                    {% if position and position != '&nbsp' %}
+                        <p class="article-user__position">{{ position }}</p>
+                    {% endif %}
+
+                    {% if biography and biography != '&nbsp' %}
+                        <div class="article-user__bio">{{ biography }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% unless blog.articles_count == 0 %}
+            <section class="featured-blog">
+
+                {% if section.settings.related_articles_title != blank %}
+                    <h2 class="featured-blog__heading">{{ section.settings.related_articles_title }}</h2>
+                {% endif %}
+
+                <div id="featured-blog-slider" class="row">
+                    {% assign related_articles = blog.articles %}
+                    {% assign articles_count = 0 %}
+
+                    {% for related_article in related_articles %}
+                        {% if article.id != related_article.id and articles_count < 5 %}
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <article
+                                        class="article-card"
+                                        {% if related_article.image != blank %}
+                                            style="background-image: url({{ related_article.image | img_url: '1000x' }});"
+                                        {% endif %}
+                                >
+                                    <div class="article-card__content">
+                                        <h3 class="article-card__title">
+                                            <a href="{{ related_article.url }}">{{ related_article.title }}</a>
+                                        </h3>
+                                    </div>
+                                </article>
+                            </div>
+                            {% assign articles_count = articles_count | plus: 1 %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </section>
+        {% endunless %}
+    </div>
+</article> 
+
+{% schema %}
+  {
+    "name": "Article page",
+    "settings": [
+        {
+            "type": "richtext",
+            "id": "related_articles_title",
+            "label": "Related articles heading",
+            "default": "<p><strong>integrated education is</strong> needed.</p>"
+        }
+    ]
+  }
+{% endschema %}
+

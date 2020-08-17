@@ -1,0 +1,204 @@
+<section class="section-newsletter" data-section-id="{{section.id}}" data-section-type="newsletter">
+    <img class="desktop-background" src="{{ section.settings.desktop_background | img_url : 'master'}}">
+    <img class="mobile-background" src="{{ section.settings.mobile_background | img_url : 'master'}}">
+    <div class="container">
+        <div class="content-wrapper">
+            {% if section.settings.section_title != nil %}
+                <h1 class="section-title">
+                    {{section.settings.section_title}}
+                </h1>
+            {% endif %}
+
+            <form action="/"
+                data-subscribe-form
+                data-klaviyo-list-id="{{ section.settings.klaviyo_list_id }}"
+                data-klaviyo-form-id="{{ section.settings.klaviyo_form_id }}"
+            >
+                <div class="subscribe-form">
+                    <input class="subscribe-form__input" type="email" required placeholder="{{ section.settings.placeholder_text }}" />
+                    <input type="submit" class="subscribe-form__button" value="{{ section.settings.button_text }}" />
+                </div>
+                
+                <p class="footer__subscribe-error hidden" data-error>
+                    This email is invalid
+                </p>
+
+                <p class="footer__subscribe-success hidden" data-success>
+                    Thank you for subscribing
+                </p>
+            </form>
+
+            <p class="newsletter-footer-text">
+                {{ section.settings.footer_text }}
+            </p>
+        </div>
+    </div>
+</section>
+
+<style>
+    section.section-newsletter{
+        position: relative;
+        margin-top: 82px;
+    }
+
+    section.section-newsletter:after{
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 2;
+        background: #331b1026;
+    }
+
+    section.section-newsletter .content-wrapper{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+    }
+
+    section.section-newsletter .mobile-background{
+        display: none;
+    }
+
+    section.section-newsletter .content-wrapper .section-title{
+        font-family: "Copernicus-Bold";
+        font-size: 35px;
+        text-align: center;
+        max-width: 720px;
+        line-height: 1.4;
+        color: #FFF;
+        margin-bottom: 30px;
+    }
+
+    section.section-newsletter .content-wrapper form .subscribe-form{
+        max-width: 520px;
+        margin: 0px auto;
+        background-color: #FFF;
+    }
+
+    section.section-newsletter .content-wrapper form .footer__subscribe-success{
+        text-align: center;
+        padding-top: 5px;
+        color: #25ff0b;
+    }
+
+    section.section-newsletter .content-wrapper form .footer__subscribe-error{
+        text-align: center;
+        padding-top: 5px;
+        color: #ff0000;
+    }
+
+    section.section-newsletter .content-wrapper form .subscribe-form .subscribe-form__input{
+        font-family: "BrownPro Regular";
+        font-size: 15px;
+        color: #1F3337;
+    }
+
+    section.section-newsletter .content-wrapper form .subscribe-form .subscribe-form__button{
+        font-family: "BrownPro Regular";
+        font-size: 15px;
+        color: #FFF;
+    }
+
+    section.section-newsletter .content-wrapper .newsletter-footer-text{
+        font-family: "BrownPro Regular";
+        font-size: 13px;
+        color: #FFF;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    @media (max-width: 768px){
+        section.section-newsletter{
+            margin-top: 60px;
+        }
+
+        section.section-newsletter .desktop-background{
+            display: none;
+        }
+
+        section.section-newsletter .mobile-background{
+            display: block;
+        }
+
+        section.section-newsletter .content-wrapper{
+            width: 100%;
+            padding: 0px 20px;
+        }
+
+        section.section-newsletter .content-wrapper .section-title{
+            font-size: 26px;
+            margin-bottom: 45px;
+        }
+
+        section.section-newsletter .content-wrapper .subscribe-form{
+            background-color: transparent !important;
+        }
+
+        section.section-newsletter .content-wrapper .subscribe-form .subscribe-form__input{
+            background-color: #FFF;
+        }
+
+        section.section-newsletter .content-wrapper .subscribe-form .subscribe-form__button{
+            margin: 0px;
+            margin-top: 3px;
+        }
+    }
+</style>
+
+
+{% schema %}
+ {
+        "name": "Join newsletter",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "desktop_background",
+                "label": "Desktop background"
+            },
+            {
+                "type": "image_picker",
+                "id": "mobile_background",
+                "label": "Mobile background"
+            },
+            {
+                "type": "textarea",
+                "id": "section_title",
+                "label": "Title",
+                "default": "Join our newsletter to be the first to know about upcoming events."
+            },
+			{
+				"type": "text",
+				"id": "placeholder_text",
+				"label": "Placeholder text",
+                "default": "Your email is needed"
+			},
+			{
+				"type": "text",
+				"id": "button_text",
+				"label": "Button text",
+                "default": "join our mailing list."
+			},
+			{
+				"type": "text",
+				"id": "footer_text",
+				"label": "Footer text"
+			},
+			{
+				"type": "text",
+				"id": "klaviyo_list_id",
+				"label": "Klaviyo list id"
+			},
+			{
+				"type": "text",
+				"id": "klaviyo_form_id",
+				"label": "Klaviyo form id"
+			}
+        ]
+    }
+{% endschema %}

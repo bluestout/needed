@@ -1,0 +1,84 @@
+{% if section.blocks.size > 0 %}
+	{% capture slides %}
+		{% for block in section.blocks %}
+			{% assign blog_post = articles[block.settings.article_post] %}
+
+			{% if blog_post.published_at != blank %}
+				<div>
+					<div class="blog-slider__slide">
+						<div class="blog-slider__content">
+							<div class="blog-slider__information">
+								<h2 class="blog-slider__title">
+									{% if block.settings.title_icon != blank %}
+										<span class="blog-slider__title-icon" style="background-image: url({{ block.settings.title_icon | img_url: '100x' }});"></span>
+									{% endif %}
+
+									{{ blog_post.title }}
+								</h2>
+
+								<div class="blog-slider__description">
+									{% if blog_post.excerpt != blank %}
+										{{ blog_post.excerpt | truncatewords: 50 }}
+									{% else %}
+										{{ blog_post.content | truncatewords: 50 }}
+									{% endif %}
+								</div>
+
+								<a href="{{ blog_post.url }}" class="button button--primary button--small">read more</a>
+							</div>
+						</div>
+
+						<div class="blog-slider__image">
+							{% if block.settings.image != blank %}
+								<img src="{{ block.settings.image | img_url: '1800x' }}" alt="{{ block.settings.image.alt }}">
+							{% else %}
+								<img src="{{ blog_post.image | img_url: '1800x' }}" alt="{{ blog_post.image.alt }}">
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+	{% endcapture %}
+
+	{% assign slides = slides | strip %}
+
+	{% if slides != "" %}
+		<section id="blog-slider" class="blog-slider">
+			{{ slides }}
+		</section>
+	{% else %}
+		<div class="blog-lists__empty-slider"></div>
+	{% endif %}
+{% endif %}
+
+
+{% schema %}
+    {
+        "name": "Slider",
+        "blocks": [
+            {
+                "type": "post",
+                "name": "Blog post",
+                "settings": [
+                    {
+                        "type": "article",
+                        "id": "article_post",
+                        "label": "Featured blog post"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Post image",
+                        "info": "If this image not using, the featured image of  the article would be set."
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "title_icon",
+                        "label": "Heading icon"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

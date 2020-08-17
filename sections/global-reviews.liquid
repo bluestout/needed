@@ -1,0 +1,111 @@
+{% if section.settings.show_section %}
+    <section class="reviews">
+        <h2 class="reviews__title">{{ section.settings.section_title }}</h2>
+		{% if section.settings.section_subtitle != blank %}
+			<p class="reviews__subtitle">{{ section.settings.section_subtitle }}</p>
+		{% endif %}
+
+
+
+        {% assign review_types = section.settings.review_types %}
+        {% assign types_array = review_types | split: "," %}
+
+        {% if types_array.size > 0 %}
+            <div class="reviews__filter">
+                {% for type in types_array  %}
+                    <a href="{{ type | handle }}" class="reviews__filter-link js-review-type-link">{{ type }}</a>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+		<div id="reviews-slider-wrapper" class="reviews__slider">
+			<div id="reviews-slider">
+				{% for block in section.blocks  %}
+					<div class="reviews__slide" data-type="{{ block.settings.review_type | strip | handle  }}">
+						<div class="review-card">
+							<div class="review-card__photo">
+								<img src="{{ block.settings.image | img_url: "1200x" }}" alt="{{ block.settings.image.alt }}">
+							</div>
+
+							<div class="review-card__content">
+								<h3 class="review-card__title">{{ block.settings.title }}</h3>
+								<blockquote class="review-card__quote">{{ block.settings.text }}</blockquote>
+								<p class="review-card__author">{{ block.settings.author }}</p>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+    </section>
+{% endif %}
+
+
+{% schema %}
+  {
+    "name": "Reviews",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "show_section",
+            "label": "Show section",
+            "default": true
+        },
+        {
+            "type": "text",
+            "id": "section_title",
+            "label": "Main heading",
+            "default": "proof from our community."
+        },
+		{
+			"type": "textarea",
+			"id": "section_subtitle",
+			"label": "Main subheading"
+		},
+        {
+            "type": "header", 
+            "content": "Filter"
+        },
+        {
+            "type": "textarea",
+            "id": "review_types",
+            "label": "Review types",
+            "info": "Write down review types separated by comma, e.g. (our customers, our practioners, our scientific partners)"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "slide",
+            "name": "Review",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image for review"
+                },
+                {
+                    "type": "text",
+                    "id": "review_type",
+                    "label": "Review type",
+                    "info": "Set review type for use review filter"    
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Review heading"
+                },
+                {
+                    "type": "richtext",
+                    "id": "text",
+                    "label": "Review text"
+                },
+                {
+                    "type": "text",
+                    "id": "author",
+                    "label": "Review author"
+                }
+            ]
+        }
+    ]
+  }
+{% endschema %}

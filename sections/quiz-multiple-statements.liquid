@@ -1,0 +1,36 @@
+<script>
+window.quizSections = window.quizSections || {}
+
+window.quizSections['{{ section.settings.id }}'] = {
+    vueComponentAlias: 'multiple-statements',
+    settings: {{ section.settings | json }},
+    blocks: [{%- for block in section.blocks -%}
+        {{ block.settings | json }},
+    {%- endfor -%}]
+}
+</script>
+
+{% schema %}
+{
+    "name": "Multiple statements",
+    "settings": [{
+        "type": "text",
+        "id": "id",
+        "label": "Section UID",
+        "info": "Then you should use this UID in [statement like this](http:\/\/prntscr.com\/mlda51)"
+    }],
+    "blocks": [{
+        "type": "statement",
+        "name": "Statement",
+        "settings": [{
+            "type": "text",
+            "id": "title",
+            "label": "Statement title"
+        },{
+            "type": "richtext",
+            "id": "content",
+            "label": "Statement content"
+        }]
+    }]
+}
+{% endschema %}

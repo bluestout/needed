@@ -1,0 +1,141 @@
+<section id="intro-nutrients" class="intro-nutrients intro-nutrients-mp">
+
+    <div id="intro-nutrients-container" class="intro-nutrients__wrapper">
+        <div  class="intro-nutrients__container">
+
+			<div class="intro-nutrients__photo">
+				<div class="intro-nutrients__photo-inner">
+					{% comment %} {% if section.settings.image != nil %}
+                        <img class="js-intro-nutrients-image intro-nutrients__image {% if forloop.index == 1 %}intro-nutrients__image--active{% endif %}" src="{{ block.settings.image | img_url: '1200x' }}" alt="{{ block.settings.image.alt }}">
+					{% endif %} {% endcomment %}
+                    {% for block in section.blocks  %}
+                        <img class="js-intro-nutrients-image intro-nutrients__image {% if forloop.index == 1 %}intro-nutrients__image--active{% endif %}" src="{{ block.settings.image | img_url: '1200x' }}" alt="{{ block.settings.image.alt }}">
+                    {% endfor %}
+				</div>
+			</div>
+
+			<div class="intro-nutrients__content">
+                {% if section.blocks.size > 0 %}
+                <div class="intro-nutrients-nav">
+                    {% for block in section.blocks %}
+                        <span data-step="{{ forloop.index }}" class="js-intro-nutrients-nav-link intro-nutrients-nav__item {% if forloop.index == 1 %}intro-nutrients-nav__item--active{% endif %}">0{{ forloop.index }}</span>
+                    {% endfor %}
+                </div>
+				<div class="intro-nutrients__steps">
+                        <div class="intro-nutrients__step-wrapper">
+						{% for block in section.blocks %}
+							<div class="js-intro-nutrients-step intro-nutrients__step {% if forloop.index == 1 %}intro-nutrients__step--active{% endif %}" title="0{{forloop.index}}">
+								<h2 class="intro-nutrients__step-title">{{ block.settings.title }}</h2>
+								<div class="intro-nutrients__text">
+									{{ block.settings.step_text }}
+								</div>
+							</div>
+						{% endfor %}
+                        </div>
+				</div>
+                {% endif %}
+			</div>
+        </div>
+    </div>
+
+</section>
+<style>
+.intro-nutrients-mp .intro-nutrients__step h2 {
+    font-size: 24px;
+    line-height: 31px;
+    margin-bottom: 25px;
+}
+
+.intro-nutrients-mp .intro-nutrients__step .intro-nutrients__text {
+    font-size: 16px;
+    line-height: 22px;
+}
+.intro-nutrients-mp .intro-nutrients__step .intro-nutrients__text a {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.intro-nutrients-mp .intro-nutrients__step .intro-nutrients__text ul {
+    padding-left: 27px;
+    margin-bottom: 37px;
+}
+.intro-nutrients-mp .intro-nutrients__step .intro-nutrients__text ul li {
+    position: relative;
+    margin-top: 10px;
+}
+.intro-nutrients-mp .intro-nutrients__step .intro-nutrients__text ul li::before {
+    position: absolute;
+    content: url({{"icon-check.svg" | asset_url}});
+    width: 14px;
+    height: 14px;
+    top: 2px;
+    left: -27px;
+}
+.intro-nutrients .intro-nutrients__content {
+    background-color: {{section.settings.background-color}};
+}
+.intro-nutrients .intro-nutrients__photo {
+    {% if section.settings.image != nil %}
+    background-image: url("{{ section.settings.image | img_url: '1200x' }}");
+    {% endif %}
+}
+.intro-nutrients-mp .intro-nutrients__wrapper.bottom-position {
+    bottom: 0 !important;
+}
+{% comment %} @media (max-width: 767px) {
+    .intro-nutrients .intro-nutrients__photo {
+        {% if section.settings.image_mob != nil %}
+        background-image: url({{ section.settings.image_mob | img_url: '800x' }});
+        {% else %}
+            {% if section.settings.image != nil %}
+            background-image: url("{{ section.settings.image | img_url: '1200x' }}");
+            {% endif %}
+        {% endif %}
+    }
+} {% endcomment %}
+@media(max-width: 991px) {
+    .intro-nutrients .intro-nutrients__content {
+        max-width: calc(100% - 30px);
+        padding: 42px 20px 50px;
+    }
+    .intro-nutrients-mp .intro-nutrients__step h2 {
+        font-size: 18px !important;
+        line-height: 1.5 !important;
+    }
+}
+</style>
+{% schema %}
+    {
+        "name": "Intro Nutrients | MP",
+        "max_blocks": 5,
+        "settings": [
+            {
+                "type": "color",
+                "id": "background-color",
+                "label": "Background Color"
+            }
+        ],
+        "blocks": [
+            {
+            "type": "step",
+            "name": "Step",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Desktop background"
+                },
+                {
+                    "type": "text", 
+                    "id": "title",
+                    "label": "Step heading"
+                },
+                {
+                    "type": "textarea",
+                    "id": "step_text",
+                    "label": "Step description"
+                }
+            ]
+        }
+        ]
+    }
+{% endschema %}

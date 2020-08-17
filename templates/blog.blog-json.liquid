@@ -1,0 +1,55 @@
+{% layout none %}
+{% assign articles = '' %}
+
+{% paginate blog.articles by 12 %}
+    {%- for article in blog.articles -%}
+        {%- capture image_json -%}
+            {%- if article.image-%}
+                {
+                    "alt": "{{ article.image.alt }}",
+                    "width": {{ article.image.width }},
+                    "height": {{ article.image.height }},
+                    "src": "{{ article.image.src | img_url: '1400x' }}"
+                }
+            {% else %}
+                null
+            {%- endif -%}
+        {%- endcapture -%}
+        {%- capture article_json -%}
+            {
+                "id": {{ article.id }},
+                "title": "{{ article.title }}",
+                "created_at": "{{ article.title }}",
+                "blog_id": {{ blog.id }},
+                "author": "{{ article.author }}", 
+                "published_at": "{{ article.published_at }}",
+                "updated_at": "{{ article.moderated? }}",
+                "summary_html": "",
+                "template_suffix": null,
+                "handle": "{{ article.handle }}",
+                "tags": "{{ article.tags }}",
+                "url": "{{ article.url }}",
+                "image": {{ image_json }},
+                "bigImage": "{{ article.image | img_url: '1400x' }}",
+                "previewImage": "{{ article.image | img_url: '1400x' }}"
+            }
+        {%- endcapture -%}
+
+        {%- assign article_json = article_json -%}
+
+        {%- if articles == '' -%}
+            {%- assign articles = articles | append: article_json -%}
+        {%- else -%}
+            {%- assign articles = articles | append: ',' -%}
+            {%- assign articles = articles | append: article_json -%}
+        {%- endif -%}
+    {%- endfor -%}
+{% endpaginate %}
+
+{%- capture result -%}
+[
+    {{ articles }}
+]
+{%- endcapture -%}
+
+{{ result }}

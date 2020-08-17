@@ -1,0 +1,43 @@
+<section class="pro-o3-testing-quant">
+    <div class="container">
+        <div class="content-wrapper__row js-animate animate-fade-in">
+            {% if section.settings.section_title != blank %}
+            <h1 class="quant__title">{{ section.settings.section_title }}</h1>
+            {% endif %}
+            {% if section.settings.section_desc != blank %}
+            <div class="quant__desc">
+                <p>{{ section.settings.section_desc }}</p>
+            </div>
+            {% endif %}
+
+            {% if section.settings.section_bottom_text != blank %}
+            <div class="quant-bottom__content">
+                <p>{{ section.settings.section_bottom_text }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Text | O3 testing",
+    "settings": [
+        {
+            "type": "textarea",
+            "id": "section_title",
+            "label": "Heading"
+        },
+        {
+            "type": "textarea",
+            "id": "section_desc",
+            "label": "Sub heading"
+        },
+        {
+            "type": "richtext",
+            "id": "section_bottom_text",
+            "label": "Bottom Text"
+        }
+    ]
+}
+{% endschema %}

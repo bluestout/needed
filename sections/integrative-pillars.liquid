@@ -1,0 +1,69 @@
+<section class="pillars">
+
+	{% if section.settings.title != blank %}
+		<h2 class="pillars__title">{{ section.settings.title }}</h2>
+	{% endif %}
+
+    <div class="pillars__container">
+        <div class="pillars__tabs-nav">
+            {% for block in section.blocks  %}
+                <a class="pillars__link js-pillars-link {% if forloop.index == 1 %}active{% endif %}" href="{{ block.settings.title | handle }}">{{ block.settings.title }}</a>
+            {% endfor %}
+        </div>
+
+        <div class="pillars__content">
+            {% for block in section.blocks  %}
+                <div id="{{ block.settings.title | handle }}" class="pillars__tab js-pillars-tab {% if forloop.index == 1 %}active{% endif %}">
+					{% if block.settings.sub_title != blank %}
+						<p class="pillars__subtitle">{{ block.settings.sub_title }}</p>
+					{% endif %}
+
+					{% if block.settings.description != blank %}
+						<div class="pillars__description">{{ block.settings.description }}</div>
+					{% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</section>
+
+
+{% schema %}
+    {
+        "name": "Our pillars",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Main heading",
+                "default": "our pillars."
+            }
+            ],
+            "blocks": [
+                {
+                "type": "pillar",
+                "name": "pillar",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Tab"
+                    },
+                    {
+                        "type": "text",
+                        "id": "sub_title",
+                        "label": "Sub heading",
+                        "default": "the more we learn, the more we thrive."
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "description",
+                        "label": "Description",
+                        "default": "<p>this copy explains a step, and is accompanied by an applicable image. as you scroll, the image changes. this copy explains a step, and is accompanied by an applicable image. as you scroll, the image changes. this copy explains a step, and is accompanied by an applicable image. as you scroll, the image changes.</p>"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

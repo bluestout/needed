@@ -1,0 +1,55 @@
+{% if section.settings.show_section %}
+    <section class="text-bar">
+        <div class="container">
+            {{ section.settings.text }}
+
+            {% if section.settings.animate_words != blank %}
+                {% assign words_array = section.settings.animate_words | split: "," %}
+
+                <strong class="text-bar__words {% if words_array.size > 1 %}js-animate-words{% endif %}">
+                    {% for word in words_array  %}
+                        <span class="js-word word {% if forloop.index == 1 %}word-visible {% else %}word-hidden{% endif %}">{{ word }}</span>
+                    {% endfor %}
+                </strong>
+            {% endif %}
+
+			{% if section.settings.text_after_animate_words != blank %}
+				{{ section.settings.text_after_animate_words }}
+			{% endif %}
+        </div>
+    </section>
+{% endif %}
+
+
+{% schema %}
+    {
+        "name": "Text bar",
+        "settings": [
+        {
+            "type": "checkbox",
+            "id": "show_section",
+            "label": "Show section",
+            "default": true
+        },
+        {
+            "type": "textarea",
+            "id": "text",
+            "label": "Heading",
+            "default": "to drive the best results we integrate perspectives from"
+        },
+        {
+            "type": "textarea",
+            "id": "animate_words",
+            "label": "Words for animating",
+            "info": "Write words for animate, separating by comma. Example (ancient traditions, best practices,)"
+        },
+		{
+			"type": "text",
+			"id": "text_after_animate_words",
+			"label": "Text after animated word",
+			"default": "to inform our"
+		}
+        ]
+    }
+
+{% endschema %}

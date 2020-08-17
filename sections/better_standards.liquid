@@ -1,0 +1,436 @@
+<section class="section-better-standards" data-section-id="{{ section.id }}" data-section-type="banner">
+  <div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="top-heading js-animate animate-fade-in">
+                {%- if section.settings.title != blank -%}
+                <h1 class="banner__title"><span class="banner__title-shape">{{ section.settings.title }}</span></span></h1>
+                {%- endif -%}
+                
+                {%- if section.settings.sub_heading != blank -%}
+                <p>{{ section.settings.sub_heading }}</p>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+
+    <div class="columns-container">
+        <div class="left-description">
+            <div class="sub-block sub-block-1">
+                <div class="block-image js-animate animate-fade-in" style="background-image: url({{ section.settings.sub_image1 | img_url : 'master' }});">
+                </div>
+                <h3 class="block-title js-animate animate-fade-in">
+                    {{ section.settings.sub_title1 }}
+                </h3>
+                <p class="flex-left js-animate animate-fade-in">
+                    {{ section.settings.description1 }}
+                </p>
+            </div>
+            <div class="sub-block sub-block-3">
+                <div class="block-image js-animate animate-fade-in" style="background-image: url({{ section.settings.sub_image3 | img_url : 'master' }});">
+                </div>
+                <h3 class="block-title js-animate animate-fade-in">
+                    {{ section.settings.sub_title3 }}
+                </h3>
+                <p class="flex-left js-animate animate-fade-in">
+                    {{ section.settings.description3 }}
+                </p>
+            </div>
+        </div>
+        <div class="main-image js-animate animate-fade-in">
+            <img src="{{ section.settings.thumb_main_icon | img_url: '380x' }}">
+        </div>
+        <div class="right-description">
+            <div class="sub-block sub-block-2">
+                <div class="block-image js-animate animate-fade-in" style="background-image: url({{ section.settings.sub_image2 | img_url : 'master' }});">
+                </div>
+                <h3 class="block-title js-animate animate-fade-in">
+                    {{ section.settings.sub_title2 }}
+                </h3>
+                <p class="flex-right js-animate animate-fade-in">
+                    {{ section.settings.description2 }}
+                </p>
+            </div>
+            <div class="sub-block sub-block-4">
+                <div class="block-image js-animate animate-fade-in" style="background-image: url({{ section.settings.sub_image4 | img_url : 'master' }});">
+                </div>
+                <h3 class="block-title js-animate animate-fade-in">
+                    {{ section.settings.sub_title4 }}
+                </h3>
+                <p class="flex-right js-animate animate-fade-in">
+                    {{ section.settings.description4 }}
+                </p>
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+
+<style>
+    .section-better-standards {
+        text-align: center;
+        background-color: #FFF;
+        padding: 105px 0px 0px;
+    }
+    
+    .section-better-standards .top-heading .banner__title .banner__title-shape:after{
+        display: none;
+    }
+
+    .section-better-standards .top-heading .banner__title .banner__title-shape{
+        font-size: 35px;
+        line-height: 1.3;
+        letter-spacing: 0px;
+    }
+
+    .section-better-standards .columns-container{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        margin-top: 42px;
+    }
+
+    .section-better-standards .columns-container .left-description{
+        width: 34%;
+    }
+
+    .section-better-standards .columns-container .main-image{
+        width: 32%;
+    }
+
+    .section-better-standards .columns-container .right-description{
+        width: 34%;
+    }
+
+    .section-better-standards .columns-container .sub-block .block-image{
+        width: 120px;
+        height: 120px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: auto 60px;
+        background-color: #F2E1E8;
+        border-radius: 50%;
+        margin: 0px auto;
+        margin-bottom: 20px;
+    }
+
+    .section-better-standards .columns-container .sub-block .block-title{
+        font-family: "Copernicus-Bold";
+        font-size: 20px;
+        color: #193438;
+        margin-bottom: 20px;
+    }
+
+    @media (min-width: 769px){
+
+        .section-better-standards .columns-container .main-image img{
+            max-width: 380px;
+            height: auto;
+            margin: 0px auto;
+            margin-top: 120px;
+        }
+
+        .section-better-standards .columns-container .sub-block{
+            height: 380px;
+        }
+
+        .section-better-standards .columns-container .left-description{
+            padding-left: 20px;
+            padding-right: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-better-standards .columns-container .left-description p.flex-left{
+            text-align: left;
+            position: relative;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .section-better-standards .columns-container .left-description .sub-block{
+            position: relative;
+        }
+
+        .section-better-standards .columns-container .left-description .sub-block:after{
+            display: block;
+            content: '';
+            width: 90px;
+            height: 1px;
+            border-top: 1px dashed #000;
+            position: absolute;
+            right: -90px;
+        }
+
+        .section-better-standards .columns-container .right-description{
+            padding-left: 100px;
+            padding-right: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        .section-better-standards .columns-container .right-description p.flex-right{
+            text-align: left;
+            position: relative;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .section-better-standards .columns-container .right-description .sub-block{
+            position: relative;
+        }
+
+        .section-better-standards .columns-container .right-description .sub-block:before{
+            display: block;
+            content: '';
+            width: 90px;
+            height: 1px;
+            border-top: 1px dashed #000;
+            position: absolute;
+            left: -90px;
+        }
+
+        .section-better-standards .columns-container .sub-block-1:after{
+            transform: rotate(30deg) !important;
+            top: 180px;
+            right: -110px !important;
+        }
+
+        .section-better-standards .columns-container .sub-block-3:after{
+            transform: rotate(-30deg) !important;
+            top: 60px;
+            right: -110px !important;
+        }
+
+        .section-better-standards .columns-container .sub-block-2:before{
+            transform: rotate(-30deg) !important;
+            top: 180px;
+            left: -110px !important;
+        }
+
+        .section-better-standards .columns-container .sub-block-4:before{
+            transform: rotate(30deg) !important;
+            top: 60px;
+            left: -110px !important;
+        }
+    }
+
+    @media (max-width: 768px){
+        .section-better-standards{
+            padding: 30px 0px 50px;
+        }
+        
+        .section-better-standards .columns-container .sub-block .block-image{
+            width: 80px;
+            height: 80px;
+            background-size: auto 40px;
+        }
+
+        .section-better-standards .columns-container{
+            margin-top: 25px;
+        }
+
+        .section-better-standards .top-heading .banner__title .banner__title-shape{
+            font-size: 26px;
+            line-height: 1.4;
+        }
+
+        .section-better-standards .columns-container .left-description{
+            width: 50%;
+            order: 2;
+        }
+
+        .section-better-standards .columns-container .main-image{
+            width: 100%;
+            order: 1;
+        }
+
+        .section-better-standards .columns-container .right-description{
+            width: 50%;
+            order: 3;
+        }
+
+        .section-better-standards .columns-container .main-image img{
+            width: 65%;
+        }
+
+        .section-better-standards .columns-container .block-title{
+            font-size: 17px !important;
+            margin-bottom: 13px !important;
+        }
+
+        .section-better-standards .columns-container .block-image{
+            margin-bottom: 10px;
+        }
+
+        .section-better-standards .columns-container .left-description{
+            margin-top: 40px;
+            padding-right: 15px;
+            position: relative;
+        }
+
+        .section-better-standards .columns-container .left-description:before{
+            content: '';
+            display: block;
+            border: 1px dashed #000;
+            width: 0px;
+            height: 33px;
+            transform: rotate(25deg);
+            position: absolute;
+            top: -42px;
+            left: 65%;
+        }
+
+        .section-better-standards .columns-container .right-description{
+            margin-top: 40px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .section-better-standards .columns-container .right-description:before{
+            content: '';
+            display: block;
+            border: 1px dashed #000;
+            width: 0px;
+            height: 33px;
+            transform: rotate(-25deg);
+            position: absolute;
+            top: -42px;
+            left: 35%;
+        }
+
+        .section-better-standards .columns-container .left-description .flex-left{
+            text-align: left;
+            font-size: 16px;
+            line-height: 1.7;
+            padding-top: 0px;
+        }
+
+        .section-better-standards .columns-container .right-description .flex-right{
+            text-align: left;
+            font-size: 16px;
+            line-height: 1.7;
+            padding-top: 0px;
+        }
+
+        .section-better-standards .columns-container .right-description .flex-right + .flex-right{
+            margin-top: 40px;
+        }
+
+        .section-better-standards .columns-container .sub-block + .sub-block{
+            margin-top: 45px;
+        }
+    }
+
+    @media (max-width: 450px){
+        .section-better-standards .columns-container .sub-block p{
+            min-height: 220px;
+        }
+    }
+</style>
+
+
+{% schema %}
+    {
+        "name": "Better standards",
+        "settings": [
+            {
+                "type": "textarea",
+                "id": "title",
+                "label": "Heading",
+                "default": "Our liposomes ensure <span class='color-2'>optimal nutrient absorption and protection.</span>"
+            },
+            {
+                "type": "textarea",
+                "id": "sub_heading",
+                "label": "Sub heading",
+                "default": "we paire nutrients found together in nature-that context matters for absorption and optimal usability."
+            },
+            {
+                "type": "image_picker",
+                "id": "thumb_main_icon",
+                "label": "Main Image"
+            },
+            {
+                "type": "header",
+                "content": "Image block1"
+            },
+            {
+                "type": "image_picker",
+                "id": "sub_image1",
+                "label": "Block1 image"
+            },
+            {
+                "type": "text",
+                "id": "sub_title1",
+                "label": "Block1 title"
+            },
+            {
+                "type": "textarea",
+                "id": "description1",
+                "label": "Description1"
+            },
+            {
+                "type": "header",
+                "content": "Image block2"
+            },
+            {
+                "type": "image_picker",
+                "id": "sub_image2",
+                "label": "Block2 image"
+            },
+            {
+                "type": "text",
+                "id": "sub_title2",
+                "label": "Block2 title"
+            },
+            {
+                "type": "textarea",
+                "id": "description2",
+                "label": "Description2"
+            },
+            {
+                "type": "header",
+                "content": "Image block3"
+            },
+            {
+                "type": "image_picker",
+                "id": "sub_image3",
+                "label": "Block3 image"
+            },
+            {
+                "type": "text",
+                "id": "sub_title3",
+                "label": "Block3 title"
+            },
+            {
+                "type": "textarea",
+                "id": "description3",
+                "label": "Description3"
+            },
+            {
+                "type": "header",
+                "content": "Image block4"
+            },
+            {
+                "type": "image_picker",
+                "id": "sub_image4",
+                "label": "Block4 image"
+            },
+            {
+                "type": "text",
+                "id": "sub_title4",
+                "label": "Block4 title"
+            },
+            {
+                "type": "textarea",
+                "id": "description4",
+                "label": "Description4"
+            }
+        ]
+    }
+
+{% endschema %}

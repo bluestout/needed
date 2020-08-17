@@ -1,0 +1,89 @@
+{% comment %}
+	<div class="ticker" data-ticker data-speed="{{ section.settings.ticker_speed }}">
+		<div class="ticker__content" data-ticker-content>
+			{% if section.settings.text != blank %}
+				<a href="#">
+					{{ section.settings.text }}
+				</a>
+			{% endif %}
+		</div>
+	</div>
+{% endcomment %}
+
+<script>
+	window.ticker = {};
+	window.ticker.section_id = '{{ section.settings.section_id }}';
+	window.ticker.url = '{{ section.settings.url }}';
+</script>
+
+{% if template == 'index' %}
+	<div class="ticker ticker--homepage" data-speed="{{ section.settings.ticker_speed }}">
+		<div class="ticker__content">
+			{% if section.settings.homepage_text != blank %}
+				<p>{{ section.settings.homepage_text }}</p>
+			{% endif %}
+		</div>
+	</div>
+{% else %}
+	<div class="ticker" data-ticker data-speed="{{ section.settings.ticker_speed }}">
+		<div class="ticker__content" {% if section.settings.url == blank %}data-ticker-content{% endif %}>
+			{% if section.settings.text != blank %}
+				{% if section.settings.url != blank %}
+					<a class="js-ticker-url" href="{{ section.settings.url }}" data-ticker-content>
+						{{ section.settings.text }}
+					</a>
+				{% else %}
+					{{ section.settings.text }}
+				{% endif %}
+			{% endif %}
+		</div>
+	</div>
+{% endif %}
+
+{% schema %}
+    {
+        "name": "Ticker",
+        "settings": [
+			{
+				"type": "text",
+				"id": "homepage_text",
+				"label": "Homepage text",
+				"default": "We deliver thoughtful nutrition to emposer you to take control of your health at every stage of life"
+			},
+            {
+                "type": "richtext",
+                "id": "text",
+                "label": "Ticker text"
+            },
+			{
+				"type": "url",
+				"id": "url",
+				"label": "Ticker link"
+			},
+			{
+				"type": "text",
+				"id": "section_id",
+				"label": "Scroll to section id",
+				"default": "our-values"
+			},
+            {
+                "type": "range",
+                "id": "ticker_speed",
+                "label": "Ticker speed px/s",
+                "info": "Declare ticker speed in pixels per second",
+                "min": 10,
+                "max": 200,
+                "step": 5,
+                "default": 50,
+                "unit": "p/s"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Ticker",
+                "category": "Banner"
+            }
+        ]
+    }
+
+{% endschema %}

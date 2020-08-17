@@ -1,0 +1,271 @@
+
+<div class="shopify-section product-list bottom-spacing-{{ section.settings.margin_bottom }} top-spacing-{{ section.settings.margin_top }}" id="shopify-section-{{ section.id }}" data-section-id="{{ section.id }}">
+    <div class="container">
+        <div class="collection__list">
+
+            {% if section.blocks.size > 0 %}
+            <ul class="collection-list-items">
+
+                {% for block in section.blocks %}
+                
+                <li class="collection-list-item  js-animate animate-fade-in animated">
+                    <div class="item_container">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-7">
+                                <div class="product-card__content-wrapper">
+                                    <h3 class="product-card__title">{{ block.settings.product_title }}</h3>
+                                    <p class="product-card__description">{{ block.settings.product_description }}</p>
+                                    <ul class="product-card__plans">
+                                        {{ block.settings.product_plans }}
+                                    </ul>
+                                    <ul class="product-card__prices">
+                                        {{ block.settings.product_prices }}
+                                    </ul>
+
+                                    <a class="product-card__link" href="{{ block.settings.link }}">{{ block.settings.button_title }}</a>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-5">
+                                <div class="product-card__image-wrapper">
+                                    {{ block.settings.product_image | img_url: '460x320' | img_tag: block.settings.product_image.alt }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+
+<style>
+
+#shopify-section-collection-product-list.top-spacing-none{
+  margin-top: 0px;
+}
+#shopify-section-collection-product-list.bottom-spacing-none{
+  margin-bottom: 0px;
+}
+#shopify-section-collection-product-list.top-spacing-small{
+  margin-top: 80px;
+}
+#shopify-section-collection-product-list.bottom-spacing-small{
+  margin-bottom: 80px;
+}
+#shopify-section-collection-product-list.top-spacing-medium{
+  margin-top: 130px;
+}
+#shopify-section-collection-product-list.bottom-spacing-medium{
+  margin-bottom: 130px;
+}
+#shopify-section-collection-product-list.top-spacing-large{
+  margin-top: 200px;
+}
+#shopify-section-collection-product-list.bottom-spacing-large{
+  margin-bottom: 200px;
+}
+
+#shopify-section-collection-product-list .item_container{
+  padding: 60px 110px;
+  margin-bottom: 20px;
+  background-color: {{ section.settings.background_color }}b5;
+}
+
+#shopify-section-collection-product-list .item_container .product-card__content-wrapper .product-card__title{
+  font-family: "Copernicus-Bold";
+  font-size: 28px;
+  color: #1F3437;
+  margin-top: 0px;
+}
+
+#shopify-section-collection-product-list .item_container .product-card__content-wrapper .product-card__description{
+  font-family: "BrownPro-Regular";
+  font-size: 16px;
+  color: #1F3337;
+  margin-top: 18px;
+  max-width: 430px;
+  line-height: 1.4;
+}
+
+#shopify-section-collection-product-list .item_container .product-card__content-wrapper .product-card__plans{
+  margin-top: 20px;
+}
+#shopify-section-collection-product-list .item_container .product-card__content-wrapper .product-card__plans li{
+  font-family: "BrownPro-Regular";
+  font-size: 16px;
+  color: #1F3337;
+  line-height: 1.7;
+  position: relative;
+  padding-left: 26px;
+}
+
+#shopify-section-collection-product-list .item_container .product-card__content-wrapper .product-card__plans li:before{
+  position: absolute;
+  content: url(https://cdn.shopify.com/s/files/1/0195/3293/9328/t/34/assets/icon-check.svg);
+  width: 14px;
+  height: 14px;
+  top: 2px;
+  left: 0px;
+}
+
+#shopify-section-collection-product-list .item_container .product-card__content-wrapper .product-card__prices{
+  margin-top: 40px;
+}
+
+#shopify-section-collection-product-list .item_container .product-card__content-wrapper .product-card__prices li{
+  font-family: "BrownPro-Regular";
+  font-size: 16px;
+  color: #1F3337;
+  line-height: 1.6;
+}
+
+#shopify-section-collection-product-list .item_container .product-card__content-wrapper .product-card__prices li .text-bold{
+  font-family: "BrownPro-Bold";
+}
+
+#shopify-section-collection-product-list .item_container .product-card__content-wrapper a.product-card__link{
+  border-radius: 30px;
+  background-color: #1F3337;
+  display: inline-block;
+  text-decoration: none;
+  padding: 18px 85px;
+  margin-top: 20px;
+  font-family: "BrownPro-Regular";
+  color: #FFFFFF;
+  font-size: 16px;
+  text-align: center;
+  min-width: 330px;
+}
+
+#shopify-section-collection-product-list .item_container .product-card__content-wrapper a.product-card__link:hover{
+  background-color: #4d5e5f;
+}
+
+</style>
+
+
+{% schema %}
+  {
+    "name": "Product List",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color for list item"
+      },
+      {
+        "type": "select",
+        "id": "margin_top",
+        "label": "Section Top Space",
+        "options": [
+            {
+                "value": "none", "label": "No Spacing"
+            }, 
+            {
+                "value": "small", "label": "Small"
+            }, 
+            {
+                "value": "medium", "label": "Medium"
+            }, 
+            {
+                "value": "large", "label": "Large"
+            }
+        ],
+        "default": "medium"
+      },
+      {
+        "type": "select",
+        "id": "margin_bottom",
+        "label": "Section Bottom Space",
+        "options": [
+            {
+                "value": "none", "label": "No Spacing"
+            }, 
+            {
+                "value": "small", "label": "Small"
+            }, 
+            {
+                "value": "medium", "label": "Medium"
+            }, 
+            {
+                "value": "large", "label": "Large"
+            }
+        ],
+        "default": "medium"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "product_list",
+        "name": "product-block",
+        "settings": [
+          {
+            "type": "text",
+            "id": "product_title",
+            "label": "Product title"
+          },
+          {
+            "type": "image_picker",
+            "id": "product_image",
+            "label": "Product image"
+          },
+          {
+            "type": "textarea",
+            "id": "product_description",
+            "label": "Product description",
+            "default": "Product description"
+          },
+          {
+            "type": "textarea",
+            "id": "product_plans",
+            "label": "Plan Content",
+            "default": "<li>Lorem ipsum</li><li>Dolor sit amet, consectetur adipiscing elit.</li><li>Nunc mattis ornare.</li>"
+          },
+          {
+            "type": "textarea",
+            "id": "product_prices",
+            "label": "Product Prices",
+            "default": "<li>One-time purchase - $0.00</li><li>Subscribe & Save 17% - $0.00</li>"
+          },
+          {
+            "type": "text",
+            "id": "button_title",
+            "label": "Button title"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Button Link",
+            "info": "Optional"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Collection Product List",
+        "category": "Collection Product List", 
+        "blocks": [
+          {
+            "type": "product_list"
+          },
+          {
+            "type": "product_list"
+          },
+          {
+            "type": "product_list"
+          },
+          {
+            "type": "product_list"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

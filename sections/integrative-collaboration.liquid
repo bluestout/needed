@@ -1,0 +1,105 @@
+<section id="collaboration" class="collaboration">
+
+
+    <div id="collaboration-container" class="collaboration__wrapper">
+        {% if section.settings.title != blank %}
+            <h2 class="collaboration__title collaboration__title--mobile">{{ section.settings.title }}</h2>
+        {% endif %}
+
+        <div  class="collaboration__container">
+
+            <div class="collaboration__content">
+                {% if section.settings.title != blank %}
+                    <h2 class="collaboration__title collaboration__title--desktop">{{ section.settings.title }}</h2>
+                {% endif %}
+
+                <div class="collaboration__steps">
+                    {% if section.blocks.size > 0 %}
+                        {% for block in section.blocks %}
+                            <div class="js-collaboration-step collaboration__step {% if forloop.index == 1 %}collaboration__step--active{% endif %}">
+                                <h2 class="collaboration__subtitle">{{ block.settings.title }}</h2>
+
+                                {% if block.settings.words_sum != blank %}
+                                    <div class="collaboration__words-sum">{{ block.settings.words_sum }}</div>
+                                {% endif %}
+
+                                <div class="collaboration__description">
+                                    {{ block.settings.step_text }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="collaboration__photo">
+                <div class="collaboration__photo-inner">
+                    {% if section.blocks.size > 0%}
+
+                        {% for block in section.blocks  %}
+                            <div class="collaboration__circle {% if forloop.index == 1 %}collaboration__circle--active{% endif %}">
+                                <div class="collaboration__circle-label {% if forloop.index == 1 %}active{% endif %} js-circle-dot" data-step="{{ forloop.index }}"><span class="collaboration__circle-label-title">{{ block.settings.title }}</span></div>
+                            </div>
+                        {% endfor %}
+
+
+                        {% comment %}
+                            {% for block in section.blocks  %}
+                                <img class="js-collaboration-image collaboration__image {% if forloop.index == 1 %}collaboration__image--active{% endif %}" src="{{ block.settings.step_image | img_url: "1200x" }}" alt="{{ block.settings.step_image.alt }}">
+                            {% endfor %}
+                        {% endcomment %}
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</section>
+
+{% schema %}
+    {
+        "name": "Collaboration",
+        "max_blocks": 4,
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Main heading",
+                "default": "sourced from a collaboration of experts."
+            }
+        ],
+        "blocks": [
+            {
+                "type": "step",
+                "name": "Step",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "step_image",
+                        "label": "Step image"
+                    },
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Step heading"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "words_sum",
+                        "label": "Words sum",
+                        "default": "<p><strong>scientists</strong> + <em>doctors</em> + <strong>diverse wellness professionals</strong> = advisors</p>",
+						"info": "Use bold text style, if You want use #c67e6c color for text. Use italic text style, if You want use #5a95a9 color"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "step_text",
+                        "label": "Step description"
+                    }
+                ]
+            }
+        ]
+    }
+
+{% endschema %}

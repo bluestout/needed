@@ -1,0 +1,138 @@
+<section class="pro-video-o3-testing">
+    <div class="container">
+        <div class="content-wrapper">
+            {% if section.settings.heading != blank or section.settings.sub_heading != blank %}
+            <div class="heading-wrapper">
+                {% if section.settings.heading != blank %}
+                <h2><span class="banner__title-shape">{{ section.settings.heading }}</span></h2>
+                {% endif %}
+                {% if section.settings.sub_heading != blank %}
+                <p>{{ section.settings.sub_heading }}</p>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% if section.settings.video != blank %}
+              {% assign videoUrl = section.settings.video %}
+              {% assign videoLink = '' %}
+              {% assign videoID = '' %}
+              {% assign videoImg = '' %}
+              {% if videoUrl contains 'vimeo' %}
+                {% assign videoLinkTmp = videoUrl | split: '/' | last %}
+                {% if videoLinkTmp contains '?' %}
+                  {% assign videoID = videoLinkTmp | split: '?' | first %}
+                {% else %}
+                  {% assign videoID = videoLinkTmp %}
+                {% endif %}
+                {% assign videoLink = 'https://player.vimeo.com/video/' | append: videoID | append: '?autoplay=1&' %}
+              {% elsif videoUrl contains 'youtube' %}
+                {% assign videoLinkTmp = videoUrl | split: '&' %}
+                {% if videoLinkTmp.size > 0 %}
+                  {% assign videoLinkTmp = videoLinkTmp | first %}
+                  {% assign videoID = videoLinkTmp | split: '?v' | last %}
+                {% else %}
+                  {% assign videoID = videoLinkTmp | split: '?v' | last %}
+                {% endif %}
+                {% assign videoLink = 'https://www.youtube.com/embed/' | append: videoID %}
+                {% assign videoImg = 'https://i.ytimg.com/vi/' | append: videoID | append: '/maxresdefault.jpg' %}
+              {% endif %}
+            <div class="video-container section-{{section.id}}">
+                {% if videoImg != blank %}
+                <img src="{{ videoImg }}">
+                <div class="video-play"><a class="video-play-btn" href="{{ videoLink }}"><img src="{{ 'play-icon.png' | asset_url }}"></a></div>
+                {% else %}
+                <div class="video-play"><a class="video-play-btn" href="{{ videoLink }}"><img src="{{ 'play-icon.png' | asset_url }}"></a></div>
+                <script>
+                  $(document).ready(function($) {
+                     $.ajax({
+                        type:'GET',
+                        url: 'https://vimeo.com/api/v2/video/{{ videoID }}.json',
+                        jsonp: 'callback',
+                        dataType: 'jsonp',
+                        success: function(data){
+                            var thumbnail_src = data[0].thumbnail_large.replace('_640', '_900');
+                            var img = '<img src="' + thumbnail_src + '"/>';
+                            var playBtnImg = '{{ "play-icon.png" | asset_url }}';
+                            var playBtn = '<div class="video-play"><a class="video-play-btn" href="{{ videoLink }}"><img src="'+ playBtnImg +'"></a></div>';
+                            $('.pro-video-o3-testing .video-container').append(img);
+                        }
+                    });
+                    
+                    $('.pro-video-o3-testing .video-play-btn').fancybox({
+                      openEffect: 'fade',
+                      closeEffect: 'fade',
+                      helpers: {
+                        media: {}
+                      }
+                    });
+                  });
+                </script>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% if section.settings.description != blank %}
+            <div class="desc-wrapper">
+                <p>{{ section.settings.description }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<style>
+  .video-container{
+    padding-bottom: {{ section.settings.ratio }}%;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Video | O3 testing",
+    "settings": [
+      {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Why test your levels"
+      },
+      {
+          "type": "text",
+          "id": "sub_heading",
+          "label": "Sub Heading",
+          "default": "See out practitioner video explanation."
+      },
+      {
+          "type": "text",
+          "id": "video",
+          "label": "Video link"
+      },
+      {
+		  "type": "select",
+		  "id": "ratio",
+		  "label": "Video Ratio",
+          "options": [
+			{
+              "value": "100",
+              "label": "1:1"
+            },
+			{
+              "value": "75.09",
+              "label": "4:3"
+            },
+            {
+              "value": "56.25",
+              "label": "16:9"
+            },
+			{
+              "value": "42.19",
+              "label": "2.35:1"
+            }
+        ],
+        "default":   "56.25"
+	  },
+      {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+      }
+    ]
+  }
+{% endschema %}

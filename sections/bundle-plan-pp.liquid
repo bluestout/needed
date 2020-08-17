@@ -1,0 +1,97 @@
+<section id="bundle-plan-pp" class="bundle-plan-pp">
+    <h1 class="bundle-plan-pp__title">
+        {{ section.settings.title }}
+    </h1>
+    <div class="bundle-plan-pp__content">
+        <div class="content__body">
+            <img src="{{ section.settings.content_iamge1 | img_url }}" class="content__img1" alt="img1">
+            <img src="{{ section.settings.content_iamge2 | img_url }}" class="content__img2" alt="img2">
+            <img src="{{ section.settings.content_iamge3 | img_url }}" class="content__img3" alt="img3">
+            <h3 class="content__title">
+                {{ section.settings.content_title }}
+            </h3>
+            <p class="content__description">
+                {{ section.settings.content_description }}
+            </p>
+            {% if section.blocks %}
+                <ul class="content__product-list">
+                    {% for block in section.blocks %}
+                        <li>{{block.settings.product_name}}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <button class="shop-complete-plan">
+                Shop Complete Plan
+            </button>
+        </div>
+    </div>
+</section>
+<style>
+    #bundle-plan-pp {
+        {% if section.settings.background_image != blank %}
+            background: url({{ section.settings.background_image | img_url: "800x"}});
+            background-repeat: no-repeat;
+            background-size: cover;
+        {% else %}
+            background: linear-gradient(211.41deg, #F0F9EB 0%, #DDF0D3 100%);
+        {% endif %}
+    }
+</style>
+{% schema %}
+{
+    "name": "Bundle Plan | PP",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "background_image",
+            "label": "Background Image"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Fill in the gaps with nutrition plan designed for an optimal you."
+        },
+        {
+            "type": "image_picker",
+            "id": "content_iamge1",
+            "label": "Image1"
+        },
+        {
+            "type": "image_picker",
+            "id": "content_iamge2",
+            "label": "Image2"
+        },
+        {
+            "type": "image_picker",
+            "id": "content_iamge3",
+            "label": "Image3"
+        },
+        {
+            "type": "text",
+            "id": "content_title",
+            "label": "Content Title",
+            "default": "The complete plan"
+        },
+        {
+            "type": "textarea",
+            "id": "content_description",
+            "label": "Content Description",
+            "default": "Complete nutrition for before, during, and after pregnancy"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "Product",
+            "name": "product",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "product_name",
+                    "label": "Product Name"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

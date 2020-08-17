@@ -1,0 +1,66 @@
+<section class="download-guide text-center">
+    <div class="container">
+      <div class="row js-animate animate-fade-in">
+        {% if section.settings.section_title != blank %}
+        <h1>{{ section.settings.section_title }}</h1>
+        {% endif %}
+        {% if section.settings.section_subtitle != blank %}
+        <p class="sub-title">{{ section.settings.section_subtitle }}</p>
+        {% endif %}
+      </div>
+
+      {% if section.settings.download_link != blank %}
+      <div class="download-btn js-animate animate-fade-in animated" data-btn="{{ section.settings.download_link }}"><a href="{{ 'Collagen.pdf' | asset_url }}" target="_blank" download><span><img src="{{ 'icon-download.svg' | asset_url }}">{{ section.settings.download_link_txt }}</span></a></div>
+      {% endif %}
+    </div>
+</section>
+
+<style>
+    .download-guide h1 {
+        color: #1f3337;
+        font-size: 35px;
+        line-height: 1.4;
+        width: 100%;
+        letter-spacing: 0;
+    }
+
+    .banner__title-shape:after{
+        display: none !important;
+    }
+    @media (max-width: 768px) {
+        .download-guide h1 {
+            font-size: 26px;
+        }
+    }
+</style>
+
+{% schema %}
+    {
+        "name": "Download Guide | Collagen",
+        "settings": [
+            {
+                "type": "text",
+                "id": "section_title",
+                "label": "Heading",
+                "default": "Ready to talk to your health practitioner about Omega-3 and Needed?"
+            },
+            {
+                "type": "textarea",
+                "id": "section_subtitle",
+                "label": "Subheading"
+            },
+            {
+                "type": "text",
+                "id": "download_link_txt",
+                "label": "Download link text",
+                "default": "Download our Guide"
+            },
+            {
+                "type": "text",
+                "id": "download_link",
+                "label": "Add guide link here"
+            }
+        ]
+    }
+
+{% endschema %}

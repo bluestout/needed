@@ -1,0 +1,85 @@
+<section class="founders">
+
+    <div class="founders__container">
+        <h2 class="founders__title">{{ section.settings.title }}</h2>
+        {% if section.settings.description != blank %}
+            <p class="founders__subtitle">{{section.settings.description  }}</p>
+        {% endif %}
+
+
+        {% if section.blocks.size > 0 %}
+            <div class="founders__row">
+                {% for block in section.blocks %}
+                    <div class="founders__card">
+                        <img class="founders__photo" src="{{ block.settings.image | img_url: "800x" }}" alt="{{ section.settings.image.alt }}">
+
+                        <h3 class="founders__name">{{ block.settings.name }}</h3>
+                        <p class="founders__position">{{ block.settings.position }}</p>
+                        <div class="founders__biography">{{ block.settings.text }}</div>
+                        {% if block.settings.signature != blank %}
+                            <img class="founders__signature" src="{{ block.settings.signature | img_url: "400x" }}" alt="{{ block.settings.signature.alt }}">
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+
+{% schema %}
+    {
+        "name": "Our founders",
+        "max_blocks": 2,
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Main heading",
+                "default": "meet our founders."
+            },
+            {
+                "type": "textarea",
+                "id": "description",
+                "label": "Description",
+                "default": "short copy that speaks to the unique qualities of what makes the founders the best to direct the company’s initiatives. copy that speaks to the unique qualities of what makes the founders the best to direct the company’s initiatives."
+            }
+        ],
+        "blocks": [
+            {
+                "type": "founder",
+                "name": "Founder",
+                "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Founder photo"
+                },
+                {
+                    "type": "text",
+                    "id": "name",
+                    "label": "Founder  name"
+                },
+                {
+                    "type": "text",
+                    "id": "position",
+                    "label": "Founder  position"
+                },
+                {
+                    "type": "richtext",
+                    "id": "text",
+                    "label": "Biography"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "signature",
+                    "label": "Founder signature"
+                }
+                ]
+            }
+        ]
+    }
+{% endschema %}

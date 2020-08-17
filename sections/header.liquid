@@ -1,0 +1,309 @@
+<div data-section-id="{{ section.id }}" data-section-type="header-section">
+  <header id="header-main" class="header">
+      <div class="header__container header__container--desktop">
+          <a href="/" class="header__logo">
+              {% if section.settings.logo != blank %}
+                  <img src="{{ section.settings.logo | img_url: '300x' }}"
+                       alt="{{ section.settings.logo.alt | default: shop.name }}"
+                       >
+                  {% else %}
+                      <img src="{{ 'logo.png' | asset_img_url: "300x" }}" alt="{{ shop.name }}">
+              {% endif %}
+          </a>
+
+          <nav class="header__nav" role="navigation">
+              <ul class="site-nav head-hav">
+                {% include 'mega-menu-item-plan' %}
+                {% include 'mega-menu-shop-product' %}
+
+                  {% for link in linklists[section.settings.main_linklist].links %}
+                      {% if link.links != blank %}
+                          <li class="site-nav__item" data-menu="dropdown">
+                              <a href="{{ link.url }}"
+                                class="site-nav__link {% if link.active %}site-nav__link--active{% endif %}"
+                                data-keyword
+                              >
+                                <span data-keyword-context>{{ link.title | escape }}</span>
+                                <span data-icon></span>
+                              </a>
+                              <ul class="site-nav__dropdown">
+                                  {% for childlink in link.links %}
+                                      {% if childlink.links != blank %}
+                                          <li class="site-nav__item">
+                                              <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
+                                              <ul class="site-nav__dropdown">
+                                                {% for grandchildlink in childlink.links %}
+                                                  <li class="site-nav__item">
+                                                    <a href="{{ grandchildlink.url }}" class="site-nav__link">{{ grandchildlink.title | escape }}</a>
+                                                  </li>
+                                                {% endfor %}
+                                              </ul>
+                                          </li>
+                                      {% else %}
+                                          <li class="site-nav__item">
+                                              <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
+                                          </li>
+                                      {% endif %}
+                                  {% endfor %}
+                              </ul>
+                          </li>
+                      {% else %}
+                          <li class="site-nav__item">
+                            <a href="{{ link.url }}"
+                              class="site-nav__link {% if link.active %}site-nav__link--active{% endif %} {% if link.handle == 'products' %}site-nav__link--rounded{% endif %}"
+                              data-keyword
+                            >
+                              <span data-keyword-context>{{ link.title | escape }}</span>
+                              <span data-icon></span>
+                            </a>
+                          </li>
+                      {% endif %}
+                  {% endfor %}
+                  {% comment %}
+				            <li class="site-nav__item">
+                      <a href="/cart" class="site-nav__link">
+                          <span class="site-nav__icon site-nav__icon--cart">
+                              {% include 'icon-cart' %}
+                              {% if cart.item_count > 0 %}
+                                  {%- if cart.item_count > 99 -%}
+                                      <span class="site-nav__cart-count">99+</span>
+                                  {%- else -%}
+                                      <span class="site-nav__cart-count">{{ cart.item_count }}</span>
+                                  {%- endif -%}
+                              {% endif %}
+                          </span>
+                      </a>
+                  </li>
+                  {% endcomment %}
+              </ul>
+          </nav>
+
+          <div class="other-items">
+          {% if shop.customer_accounts_enabled %}
+              <div class="header__user">
+                  {% if customer %}
+                      <a href="/account" class="user js-user">
+                          <div class="user__hi">
+                            <p class="user__small-text">welcome back</p>
+                            {% if customer.first_name != blank %}
+                                <p class="user__name">{{ customer.first_name }}</p>
+                            {% else %}
+                                <p>{{ 'layout.customer.account' | t }}</p>
+                            {% endif %}
+                          </div>
+
+                          <div class="user__avatar">
+                            <img class="user__icon" src="{{ 'user-icon@2x.png' | asset_img_url: "120x" }}" alt="">
+                            <img class="user__chevron" src="{{ 'icon-chevron-down@2x.png' | asset_img_url: "32x" }}" alt="">
+                          </div>
+                      </a>
+
+                      <ul id="user-menu" class="user-menu">
+                      {% if customer.metafields.subscriptions.customer_string %}
+                        <!--BeginRechargeCode-->
+                        <li class="user-menu__item">
+                          <a href="/tools/recurring/customer/{{ customer.metafields.subscriptions.customer_string }}/subscriptions/" class="user-menu__link">my subscriptions</a>
+                        </li>
+                        <!--EndRechargeCode-->
+                      {% endif %}
+
+                      {% for link in linklists[section.settings.account_linklist].links  %}
+                        <li class="user-menu__item"><a href="{{ link.url }}" class="user-menu__link">{{ link.title }}</a></li>
+                      {% endfor %}
+                      </ul>
+
+                  {% else %}
+                      <ul class="site-nav">
+                        <li class="site-nav__item">
+                          <a href="/account/login" class="site-nav__link">{{ 'layout.customer.log_in' | t }}</a>
+                        </li>
+                      </ul>
+                  {% endif %}
+              </div>
+          {% endif %}
+
+          {% comment %} cart {% endcomment %}
+          <div class="site-nav cart-item">
+            <a href="/cart" class="site-nav__link">
+                <span class="site-nav__icon site-nav__icon--cart">
+                    {% include 'icon-cart' %}
+                    {%- if cart.item_count > 99 -%}
+                        <span class="site-nav__cart-count">99+</span>
+                    {%- else -%}
+                        {% if cart.item_count > 0 %}
+                        <span class="site-nav__cart-count">{{ cart.item_count }}</span>
+                        {% endif %}
+                    {%- endif -%}
+                </span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="header__container header__container--mobile {% if cart.items.size > 0 %} has-cart-count {% endif %}">
+          {% comment %} <button id="menu-button" class="menu-button" aria-label="Toggle menu button">
+              <span></span><span></span><span></span>
+          </button> {% endcomment %}
+
+          <a href="/" class="header__logo">
+              {% if section.settings.logo != blank %}
+                  <img src="{{ section.settings.logo | img_url: '300x' }}"
+                       alt="{{ section.settings.logo.alt | default: shop.name }}"
+                  >
+              {% else %}
+                  <img src="{{ 'logo.png' | asset_img_url: "400x" }}" alt="{{ shop.name }}">
+              {% endif %}
+          </a>
+          
+            <ul class="site-nav">
+                <li class="site-nav__item">
+                    <a href="javascript:;" class="site-nav__link mobile-nav-menu-shop">Shop</a>
+                </li>
+                <li class="site-nav__item">
+                    <a href="javascript:;" class="site-nav__link mobile-nav-menu-learn">Learn</a>
+                </li>
+            </ul>
+
+          {% if shop.customer_accounts_enabled %}
+                <a href="/account" id="account-link" class="account-link"><img src="{{ 'user-icon@2x.png' | asset_img_url: "120x" }}" alt="account"></a>
+          {% endif %}
+
+            <a href="/cart" class="mobile-header-cart{% unless cart.item_count > 0 %} empty-cart{% endunless %}">
+                <span class="mob-nav__icon mob-nav__icon--cart">
+                    <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-cart" viewBox="0 0 26 26"><path d="M22.684 7.136a.75.75 0 0 0-.75-.703h-3.97V5.26C17.965 2.91 15.738 1 13 1S8.035 2.911 8.035 5.26v1.173h-3.97a.75.75 0 0 0-.749.703L2.251 24.203A.752.752 0 0 0 3 25h20a.752.752 0 0 0 .749-.797L22.684 7.136zM9.535 5.26C9.535 3.738 11.09 2.5 13 2.5s3.465 1.238 3.465 2.76v1.173h-6.93V5.26zm-1.5 2.673v1.629a.75.75 0 0 0 1.5 0v-1.63h6.93v1.63a.75.75 0 0 0 1.5 0v-1.63h3.264l.65 10.401H4.121l.65-10.4h3.264zM3.798 23.5l.26-4.167h17.884l.26 4.167H3.798z" fill="#1D1D1B"></path></svg>
+                    {% if cart.item_count > 0 %}
+                    <span class="site-nav__cart-count">{{ cart.item_count }}</span>
+                    {% endif %}
+                </span>
+            </a>
+
+          <div id="mobile-menu" class="mobile-menu">
+              <div class="mobile-menu__container">
+                  <ul class="mobile-menu__list">
+                      {% for link in linklists[section.settings.main_linklist].links %}
+                          <li class="mobile-menu__item" data-keyword="{{ link.title }}">
+                            {% if link.links.size > 0 %}
+                            <a href="javascript:;" class="mobile-menu__link {% if link.active %}mobile-menu__link--active{% endif %} mob-dropdown"><span class="mobile-menu__icon" data-icon></span> {{ link.title }}</a>
+                            {% else %}
+                            <a href="{{ link.url }}" class="mobile-menu__link {% if link.active %}mobile-menu__link--active{% endif %}"><span class="mobile-menu__icon" data-icon></span> {{ link.title }}</a>
+                            {% endif %}
+                                {% if link.links != blank %}
+                                <ul class="mob-sub__dropdown">
+                                    {% for childlink in link.links %}
+                                        <li class="mob-sub__dropdown-item">
+                                            <a href="{{ childlink.url }}" class="mob-nav__link">{{ childlink.title | escape }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </li>
+                      {% endfor %}
+                      {% unless customer %}
+                      <li class="m-login"><a href="/account/login" class="mobile-login__link">{{ 'layout.customer.log_in' | t }}</a></li>
+                      {% else %}
+                      <li class="m-login"><a href="/account/logout" class="mobile-login__link">{{ 'layout.customer.log_out' | t }}</a></li>
+                      {% endunless %}
+                  </ul>
+              </div>
+          </div>
+
+          {% if shop.customer_accounts_enabled %}
+              <div id="mobile-account" class="mobile-menu mobile-menu--slide-right">
+                  <div class="mobile-menu__container">
+                      {% if customer %}
+                          <div class="mobile-menu__hello">
+                              <strong>welcome back</strong>
+                              {% if customer.first_name != blank %}
+                                  {{ customer.first_name }}
+                              {% else %}
+                                {{ 'layout.customer.account' | t }}
+                              {% endif %}
+                          </div>
+                      {% endif %}
+
+                      <ul class="mobile-menu__list">
+                          {% if customer %}
+                              {% for link in linklists[section.settings.account_linklist].links  %}
+                                  <li class="mobile-menu__item"><a href="{{ link.url }}" class="mobile-menu__link">{{ link.title }}</a></li>
+                              {% endfor %}
+                          {% else %}
+                              <li class="mobile-menu__item"><a href="/account/login" class="mobile-menu__link">{{ 'layout.customer.log_in' | t }}</a></li>
+                          {% endif %}
+                      </ul>
+                  </div>
+              </div>
+          {% endif %}
+      </div>
+
+  </header>
+
+    <div class="mobile-top-menu-header">
+        <a href="/" class="mobile-header-logo">              
+            <img src="//cdn.shopify.com/s/files/1/0195/3293/9328/files/needed_logo_slate-blue_trademark_V2_1_300x.png?v=1577300433" alt="needed.">
+        </a>
+        <a href="javascript:;" class="close-mobile-menu">x</a>
+    </div>
+    
+  {% include 'mobile-shop-menu' %}
+
+  {% include 'mobile-learn-menu' %}
+  
+</div>
+
+<style>
+    .mobile-top-menu-header{
+        background-color: #FFF;
+        width: 100%;
+        height: 55px;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        padding: 12px 15px;
+        z-index: 9999;
+
+        display: none;
+    }
+
+    .mobile-top-menu-header .mobile-header-logo{
+        text-decoration: none;
+    }
+
+    .mobile-top-menu-header .close-mobile-menu{
+        font-size: 30px;
+        text-decoration: none;
+        font-weight: normal;
+        float: right;
+        color: #1F3337;
+        opacity: 0.5;
+    }
+
+    .mobile-top-menu-header .mobile-header-logo img{
+        max-width: 105px;
+        height: 26px;
+    }
+</style>
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "link_list",
+        "id": "main_linklist",
+        "label": "Menu",
+        "default": "main-menu"
+      },
+    {
+        "type": "link_list",
+        "id": "account_linklist",
+        "label": "Account menu"
+    }
+    ]
+  }
+{% endschema %}

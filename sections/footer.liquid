@@ -1,0 +1,212 @@
+<footer class="footer">
+    <div class="container">
+
+        {% if section.settings.logo != blank %}
+            <div class="footer__logo-row">
+                <a href="/" class="footer__logo">
+                    <img src="{{ section.settings.logo | img_url: "400x" }}" alt="{{ section.settings.logo.alt | default: shop.name }}">
+                </a>
+            </div>
+        {% endif %}
+
+
+        <div class="row  footer__menu_items">
+            {%- assign footer_linklist = section.settings.footer_linklist -%}
+            <div class="footer__menu-col {% if linklists[footer_linklist].links.size > 0 %}drop-menu{% endif %}">
+                {% if linklists[footer_linklist].links.size > 0 %}
+                    <h5 class="footer__title">{{ linklists[footer_linklist].title }}</h5>
+
+                    <ul class="footer-menu">
+                        {% for link in linklists[footer_linklist].links %}
+                            <li class="footer-menu__item"><a href="{{ link.url }}" class="footer-menu__link">{{ link.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            {%- assign footer_linklist_2 = section.settings.footer_linklist_2 -%}
+            <div class="footer__menu-col {% if linklists[footer_linklist_2].links.size > 0 %}drop-menu{% endif %}">
+                {% if linklists[footer_linklist_2].links.size > 0 %}
+                    <h5 class="footer__title">{{ linklists[footer_linklist_2].title }}</h5>
+
+                    <ul class="footer-menu">
+                        {% for link in linklists[footer_linklist_2].links %}
+                            <li class="footer-menu__item"><a href="{{ link.url }}" class="footer-menu__link">{{ link.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            {%- assign footer_linklist_3 = section.settings.footer_linklist_3 -%}
+            <div class="footer__menu-col {% if linklists[footer_linklist_3].links.size > 0 %}drop-menu{% endif %}">
+                {% if linklists[footer_linklist_3].links.size > 0 %}
+                    <h5 class="footer__title">{{ linklists[footer_linklist_3].title }}</h5>
+
+                    <ul class="footer-menu">
+                        {% for link in linklists[footer_linklist_3].links %}
+                            <li class="footer-menu__item"><a href="{{ link.url }}" class="footer-menu__link">{{ link.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="order-first order-lg-last">
+                <div class="footer__subscribe">
+                  <form action="/"
+                      data-subscribe-form
+                      data-klaviyo-list-id="{{ settings.klaviyo_list_id }}"
+                      data-klaviyo-form-id="{{ settings.klaviyo_form_id }}"
+                  >
+                    <div class="subscribe-form">
+                      <input class="subscribe-form__input" type="email" required placeholder="{{ section.settings.form_placeholder }}" />
+                      <input type="submit" class="subscribe-form__button" value="{{ section.settings.form_btn_text }}" />
+                    </div>
+                    
+                    <p class="footer__subscribe-error hidden" data-error>
+                      {{ settings.newsletter_error_message }}
+                    </p>
+
+                    <p class="footer__subscribe-success hidden" data-success>
+                      {{ settings.newsletter_success_message }}
+                    </p>
+                  </form>
+
+                  <div class="subscribe-bottom-contents">
+                    {% if section.settings.form_bottom_content != blank %}
+                    <p>{{ section.settings.form_bottom_content }}</p>
+                    {% endif %}
+                  </div>
+                </div>
+
+
+                <div class="footer__socials">
+                    {%- assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
+                    <ul class="social-icons">
+                        {% for social in social_accounts %}
+                            {%- assign social_handle = social | handleize -%}
+                            {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+                            {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+
+                            {% if settings[social_link] != blank %}
+                                <li class="social-icons__item">
+                                    <a href="{{ settings[social_link] }}"
+                                       class="social-icons__link"
+                                       target="_blank"
+                                       title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+                                        {% include social_icon %}
+                                        {% comment %}<span class="icon-fallback-text">{{ social }}</span>{% endcomment %}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% if section.settings.footer_bottom_descripton != blank %}
+        <div class="footer-bottom-desc">
+          <p>{{ section.settings.footer_bottom_descripton }}</p>
+        </div>
+        {% endif %}
+        
+        <div class="footer-bottom-icons">
+          <a href="javascript:;" class="footer-bottom-icon">
+            <img src="{{ '1-percent-for-the-planet.png' | asset_url }}">
+          </a>
+          <a href="javascript:;" class="footer-bottom-icon">
+            <img src="{{ 'certified-b-corp.png' | asset_url }}">
+          </a>
+        </div>
+
+        <div class="footer__copyright desktop-copyright">
+            {% if section.settings.copyright != blank %}
+                <p>{{ section.settings.copyright }} {{ 'now' | date: "%Y" }}</p>
+            {% endif %}
+
+            {% if section.settings.footer_terms_text != blank %}
+                <div class="footer__terms">{{ section.settings.footer_terms_text }}</div>
+            {% endif %}
+        </div>
+
+        <div class="footer__copyright mobile-copyright">
+        
+            {% if section.settings.footer_terms_text != blank %}
+                {% assign terms_text = section.settings.footer_terms_text %}
+                {% assign terms_text = terms_text | replace :'All Rights Reserved.', '' %}
+                <div class="footer__terms">{{ terms_text }}</div>
+            {% endif %}
+
+            {% if section.settings.copyright != blank %}
+                <p>All Rights Reserved.</p>
+                <p>{{ section.settings.copyright }} {{ 'now' | date: "%Y" }}</p>
+            {% endif %}
+
+        </div>
+    </div>
+</footer>
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+        {
+            "type": "link_list",
+            "id": "footer_linklist",
+            "label": "First menu"
+        },
+        {
+            "type": "link_list",
+            "id": "footer_linklist_2",
+            "label": "Second menu"
+        },
+        {
+            "type": "link_list",
+            "id": "footer_linklist_3",
+            "label": "Third menu"
+        },
+        {
+            "type": "image_picker",
+            "id": "logo",
+            "label": "Logo image"
+        },
+        {
+            "type": "textarea",
+            "id": "copyright",
+            "label": "Copyright text",
+            "default": "Needed. Copyright"
+        },
+        {
+            "type": "richtext",
+            "id": "footer_terms_text",
+            "label": "Terms and conditions text",
+            "default": "<p>Terms & Conditions. Privacy Policy. All Rights Reserved.</p>"
+        },
+        {
+            "type": "header",
+            "content": "Subscribe form"
+        },
+        {
+            "type": "text",
+            "id": "form_placeholder",
+            "label": "Input placeholder",
+            "default": "join our mailing list"
+        },
+        {
+            "type": "text",
+            "id": "form_btn_text",
+            "label": "Input placeholder",
+            "default": "sign up"
+        },
+        {
+            "type": "textarea",
+            "id": "form_bottom_content",
+            "label": "Form Bottom Content"
+        },
+        {
+            "type": "textarea",
+            "id": "footer_bottom_descripton",
+            "label": "Footer Bottom Descriptoin"
+        }
+    ]
+  }
+
+{% endschema %}
+

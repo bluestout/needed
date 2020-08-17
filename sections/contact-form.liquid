@@ -1,0 +1,150 @@
+<section class="contact" data-section-type="contact-form" data-section-id="{{ section.id }}">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="contact__header">
+                    <h2>{{ page.title }}</h2>
+
+					{% if section.settings.additional_info != blank %}
+						<div class="contact__additional-info">{{ section.settings.additional_info }}</div>
+					{% endif %}
+
+					{% if section.settings.section_required_text != blank %}
+						<p class="contact__required-mark">*field required</p>
+					{% endif %}
+                </div>
+            </div>
+
+            <div class="col-12 contact__form form">
+                <div class="row">
+                    <div class="col-12">
+                        {{ form.errors | default_errors }}
+                    </div>
+
+                    <div class="col-12 col-lg-4 form__input">
+                        <input type="text"
+                            class="input"
+                            required
+                            name="contact[first_name]"
+                            id="ContactFormFirstName"
+                            placeholder="{{ 'contact.form.first_name' | t }}..."
+                            value="{% if customer %}{{ customer.first_name }}{% endif %}"
+                        >
+                        <label for="ContactFormName" class="">{{ 'contact.form.first_name' | t }}*</label>
+                    </div>
+                    
+                    <div class="col-12 col-lg-4 form__input">
+                        <input type="text"
+                            required
+                            class="input"
+                            name="contact[last_name]"
+                            id="ContactFormLastName"
+                            placeholder="{{ 'contact.form.last_name' | t }}..."
+                            value="{% if customer %}{{ customer.last_name }}{% endif %}"
+                        >
+                        <label for="ContactFormLastName">{{ 'contact.form.last_name' | t }}*</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-lg-4 form__input">
+                        <input type="email"
+                            required
+                            class="input"
+                            name="contact[email]"
+                            id="ContactFormEmail"
+                            placeholder="{{ 'contact.form.email' | t }}..."
+                            value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                            spellcheck="false"
+                            autocomplete="off"
+                            autocapitalize="off"
+                        >
+                        <label for="ContactFormEmail">{{ 'contact.form.email' | t }}*</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-lg-4 form__input">
+                        <select type="text"
+                            class="select"
+                            name="contact[name]"
+                            id="ContactFormName"
+                            placeholder="{{ 'contact.form.customer_type' | t }}"
+                            value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                        >
+                            <option value="" disabled selected>select one...</option>
+                            {% for block in section.blocks %}
+                                {% if block.type == 'customer_type' %}
+                                    <option value="{{ block.settings.title | handle }}">
+                                        {{- block.settings.title -}}
+                                    </option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <label for="ContactFormName">{{ 'contact.form.customer_type' | t }}</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 form__input" data-message-input>
+                        <textarea rows="10"
+                            name="contact[body]"
+                            id="ContactFormMessage"
+                            placeholder="{{ 'contact.form.message_placeholder' | t }}..."
+                            maxlength="{{ section.settings.max_characters }}"
+                        >
+                            {%- if form.body -%}
+                                {{- form.body -}}
+                            {%- endif -%}
+                        </textarea>
+                        <label for="ContactFormMessage">{{ 'contact.form.message' | t }}</label>
+                        <div class="form__addition">
+                            <span data-remaining-chars>{{ section.settings.max_characters }}</span>
+                            {{ 'contact.form.characters_left' | t }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-12 contact__submit">
+                    <button type="submit" class="button button--primary">
+                        {{ 'contact.form.send' | t }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Contact form",
+    "settings": [
+	{
+        "type": "richtext",
+        "id": "additional_info",
+        "label": "Additional information",
+        "default": "<p>Got questions or feedback? Send us a message or check out the FAQs section!</p>"
+    },
+	{
+		"type": "text",
+		"id": "section_required_text",
+		"label": "Required text",
+		"default": "*field required"
+	},
+	{
+        "type": "number",
+        "id": "max_characters",
+        "label": "Message max characters",
+        "default": 500
+    }],
+    "blocks": [{
+        "name": "Customer type",
+        "type": "customer_type",
+        "settings": [{
+            "type": "text",
+            "id": "title",
+            "label": "Customer type title"
+        }]
+    }]
+}
+{% endschema %}

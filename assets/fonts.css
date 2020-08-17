@@ -1,0 +1,41 @@
+@font-face {
+	font-family: 'BrownPro Bold';
+	src: url('BrownPro-Bold.eot');
+	src: url('BrownPro-Bold.eot?#iefix') format('embedded-opentype'),
+	url('BrownPro-Bold.svg#BrownPro-Bold') format('svg'),
+	url('BrownPro-Bold.ttf') format('truetype'),
+	url('BrownPro-Bold.woff') format('woff'),
+	url('BrownPro-Bold.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+    font-family: 'Copernicus-Bold';
+    src: url('Copernicus-Bold.eot');
+    src: url('Copernicus-Bold.eot?#iefix') format('embedded-opentype'), url('Copernicus-Bold.svg#Copernicus-Bold') format('svg'), url('Copernicus-Bold.ttf') format('truetype'), url('Copernicus-Bold.woff') format('woff'), url('Copernicus-Bold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+	font-family: 'BrownPro Regular';
+	src: url('BrownPro-Regular.eot');
+	src: url('BrownPro-Regular.eot?#iefix') format('embedded-opentype'),
+	url('BrownPro-Regular.svg#BrownPro-Regular') format('svg'),
+	url('BrownPro-Regular.ttf') format('truetype'),
+	url('BrownPro-Regular.woff') format('woff'),
+	url('BrownPro-Regular.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {font-family: "Copernicus-MediumItalic";
+	src: url("Copernicus-MediumItalic.eot"); /* IE9*/
+	src: url("Copernicus-MediumItalic.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+	url("Copernicus-MediumItalic.woff2") format("woff2"), /* chrome、firefox */
+	url("Copernicus-MediumItalic.woff") format("woff"), /* chrome、firefox */
+	url("Copernicus-MediumItalic.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+	url("Copernicus-MediumItalic.svg#Copernicus-MediumItalic") format("svg"); /* iOS 4.1- */
+}
+

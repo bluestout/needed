@@ -1,0 +1,26 @@
+{% include 'pages-featured-blog' %}
+
+
+<style>
+.featured-blog .article-card .article-card__content {
+    background-color: {{ section.settings.color | color_modify: 'alpha', 0.8 }};
+}
+</style>
+
+{% schema %}
+{
+    "name": "Featured blog",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Section heading"
+        },
+        {
+            "type": "color",
+            "id": "color",
+            "label": "Background color for featured articles"
+        }
+    ]
+}
+{% endschema %}

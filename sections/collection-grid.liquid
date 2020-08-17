@@ -1,0 +1,153 @@
+{% assign products_count = section.settings.products_count %}
+
+{% paginate collection.products by products_count %}
+	<div class="collection">
+
+		<div class="container">
+			{% if collection.all_tags.size > 0 %}
+				{% assign current_tags_size = current_tags | size %}
+				<div class="filters">
+					<div class="filters__label">filter by</div>
+					<ul class="filters__list">
+						<li class="tag {% if current_tags_size == 0  %}tag--active{% endif %}"><a href="/collections/all">all</a></li>
+						{% for tag in collection.all_tags %}
+							{% if current_tags contains tag %}
+								<li class="tag tag--active">
+									{{ tag | link_to_remove_tag: tag }}
+								</li>
+							{% else %}
+								<li class="tag">
+									{{ tag | link_to_tag: tag }}
+								</li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+				</div>
+			{% endif %}
+
+			{% assign products_count = collection.products_count %}
+
+			<div class="collection__count"><span class="collection__count-number">{{ products_count }}</span> {% if products_count == 1 %}product{% else %}products{% endif %}</div>
+
+			{% if collection.products.size > 0 %}
+				<div class="collection__list">
+					<div class="row">
+						{% for product in collection.products %}
+							<div class="col-sm-12 col-md-12">
+								<div class="product-card">
+
+									<div class="row">
+										<div class="col-sm-12 col-md-7">
+										
+											<h3 class="product-card__title">
+												<a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+											</h3>
+											<p class="product-card__subtitle">
+												{{ product.description }}
+											</p>
+
+											<p class="product-card__price">
+												{%- if product.compare_at_price > product.price -%}
+
+													{%- if product.price_varies -%}
+														{%- assign sale_price = product.price | money -%}
+														{{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+													{%- else -%}
+														{{ 'products.product.on_sale' | t }}
+														{{ product.price | money }}
+													{%- endif -%}
+
+												{%- else -%}
+
+													{%- if product.price_varies -%}
+														{%- assign price = product.price | money -%}
+														{{ 'products.product.from_text_html' | t: price: price }}
+													{%- else -%}
+														{{ product.price | money }}
+													{%- endif -%}
+
+												{% endif %}
+
+												{% assign subscription_product = product.metafields.subscriptions %}
+
+												{%- if subscription_product != nil -%}
+													{% assign shipping_interval_unit_type = subscription_product.shipping_interval_unit_type %}
+													{% assign shipping_interval_frequency = subscription_product.shipping_interval_frequency | split: ',' %}
+
+													{%- if shipping_interval_frequency and shipping_interval_frequency.size > 0 -%}
+														{%- if shipping_interval_frequency contains "1" and shipping_interval_unit_type == "Months" -%}
+															/ mo
+														{%- else -%}
+															{%- if shipping_interval_unit_type == "Months" -%}
+																/ {{ shipping_interval_frequency }} mo
+															{%- else -%}
+																/ {{ shipping_interval_frequency }} {{ shipping_interval_unit_type }}
+															{%- endif -%}
+														{%- endif -%}
+													{%- endif -%}
+
+												{%- endif -%}
+
+												{%- if product.compare_at_price > product.price -%}
+													<span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+													<s>{{ product.compare_at_price | money }}</s>
+												{%- endif -%}
+
+												{%- unless product.available -%}
+													{{ 'products.product.sold_out' | t }}
+												{%- endunless -%}
+											</p>
+										</div>
+
+										<div class="col-sm-12 col-md-5">
+
+											{% if product.featured_image != blank %}
+												<a href="{{ product.url | within: collection }}" class="product-card__image-wrapper">
+													{{ product.featured_image.src | img_url: '460x320' | img_tag: product.featured_image.alt }}
+												</a>
+											{% endif %}
+
+											<div class="product-card__hover">
+												<p class="product-card__hover-title">
+													<strong>Omega —3<br> that isn’t fish and isnt a pill is</strong> needed.
+												</p>
+												<a href="{{ product.url | within: collection }}" class="product-card__hover-link">learn more</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+
+				</div>
+
+			{% else %}
+				<p>{{ 'collections.general.no_matches' | t }}</p>
+			{% endif %}
+		</div>
+
+		{% if paginate.pages > 1 %}
+			{% include 'pagination' %}
+		{% endif %}
+	</div>
+{% endpaginate %}
+
+
+{% schema %}
+  {
+    "name": "Collection grid",
+    "settings": [
+		{
+			"type":   "range",
+			"id":     "products_count",
+			"label": "Number of products per page",
+			"min":       2,
+			"max":       20,
+			"step":      1,
+			"default":   9
+		}
+    ]
+  }
+
+{% endschema %}

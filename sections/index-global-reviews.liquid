@@ -1,0 +1,366 @@
+{% if section.settings.show_section %}
+    <section class="index-review">
+      <div class="container">
+        <h1 class="reviews__title js-animate animate-fade-in">{{ section.settings.section_title }}</h1> 
+        <div id="reviews-slider-wrapper" class="reviews__slider">
+          <div id="reviews-slider">
+            {% for block in section.blocks %}
+
+              <div class="reviews__slide">
+                <div class="review-frame">
+                  <div class="review-card js-animate animate-fade-in">
+                    <div class="review-card__photo">
+                      <img src="{{ block.settings.image_1 | img_url: '1200x' }}" alt="{{ block.settings.image_1.alt }}">
+                      {% if block.settings.video_1 != blank %}
+                      {% assign videoUrl = block.settings.video_1 %}
+                      {% assign videoLink = '' %}
+                      {% assign videoID = '' %}
+                      {% if videoUrl contains 'vimeo' %}
+                        {% assign videoLinkTmp = videoUrl | split: '/' | last %}
+                        {% if videoLinkTmp contains '?' %}
+                          {% assign videoID = videoLinkTmp | split: '?' | first %}
+                        {% else %}
+                          {% assign videoID = videoLinkTmp %}
+                        {% endif %}
+                        {% assign videoLink = 'https://player.vimeo.com/video/' | append: videoID %}
+                      {% elsif videoUrl contains 'youtube' %}
+                        {% assign videoLinkTmp = videoUrl | split: '&' %}
+                        {% if videoLinkTmp.size > 0 %}
+                          {% assign videoLinkTmp = videoLinkTmp | first %}
+                          {% assign videoID = videoLinkTmp | split: '?v' | last %}
+                        {% else %}
+                          {% assign videoID = videoLinkTmp | split: '?v' | last %}
+                        {% endif %}
+                        {% assign videoLink = 'https://www.youtube.com/embed/' | append: videoID %}
+                      {% endif %}
+                      <div class="video-play"><a class="video-play-btn" data-video-id="{{ videoID }}" href="{{ videoLink }}"><img src="{{ 'play-icon.png' | asset_url }}">{{ block.settings.video_btn_txt_1 }}</a></div>
+                      {% endif %}
+                    </div>
+
+                    <div class="review-card__content">
+                      {% if block.settings.title_1 != blank %}
+                      <h3 class="review-card__title">{{ block.settings.title_1 }}</h3>
+                      {% endif %}
+                      {% if block.settings.text_1 != blank %}
+                      <blockquote class="review-card__quote">{{ block.settings.text_1 }}</blockquote>
+                      {% endif %}
+                      {% if block.settings.author_1 != blank %}
+                      <p class="review-card__author">{{ block.settings.author_1 }}</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="review-card js-animate animate-fade-in">
+                    <div class="review-card__photo">
+                      <img src="{{ block.settings.image_2 | img_url: '1200x' }}" alt="{{ block.settings.image_2.alt }}">
+                      {% if block.settings.video_2 != blank %}
+                      {% assign videoUrl = block.settings.video_2 %}
+                      {% assign videoLink = '' %}
+                      {% assign videoID = '' %}
+                      {% if videoUrl contains 'vimeo' %}
+                        {% assign videoLinkTmp = videoUrl | split: '/' | last %}
+                        {% if videoLinkTmp contains '?' %}
+                          {% assign videoID = videoLinkTmp | split: '?' | first %}
+                        {% else %}
+                          {% assign videoID = videoLinkTmp %}
+                        {% endif %}
+                        {% assign videoLink = 'https://player.vimeo.com/video/' | append: videoID %}
+                      {% elsif videoUrl contains 'youtube' %}
+                        {% assign videoLinkTmp = videoUrl | split: '&' %}
+                        {% if videoLinkTmp.size > 0 %}
+                          {% assign videoLinkTmp = videoLinkTmp | first %}
+                          {% assign videoID = videoLinkTmp | split: '?v' | last %}
+                        {% else %}
+                          {% assign videoID = videoLinkTmp | split: '?v' | last %}
+                        {% endif %}
+                        {% assign videoLink = 'https://www.youtube.com/embed/' | append: videoID %}
+                      {% endif %}
+                      <div class="video-play"><a class="video-play-btn" data-video-id="{{ videoID }}" href="{{ videoLink }}"><img src="{{ 'play-icon.png' | asset_url }}">{{ block.settings.video_btn_txt_2 }}</a></div>
+                      {% endif %}
+                    </div>
+
+                    <div class="review-card__content">
+                      {% if block.settings.title_2 != blank %}
+                      <h3 class="review-card__title">{{ block.settings.title_2 }}</h3>
+                      {% endif %}
+                      {% if block.settings.text_2 != blank %}
+                      <blockquote class="review-card__quote">{{ block.settings.text_2 }}</blockquote>
+                      {% endif %}
+                      {% if block.settings.author_2 != blank %}
+                      <p class="review-card__author">{{ block.settings.author_2 }}</p>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              
+            {% endfor %}
+          </div>
+
+          <div id="reviews-mob-slider">
+            {% for block in section.blocks  %}
+              <div class="reviews__slide">
+
+                {% if block.settings.image_1 != nil or block.settings.video_1 != blank or block.settings.video_btn_txt_1 != blank or block.settings.title_1 != blank or block.settings.text_1 != blank or block.settings.author_1 != blank %}
+                <div class="review-card">
+                  <div class="review-card__photo">
+                    <img src="{{ block.settings.image_1 | img_url: '1200x' }}" alt="{{ block.settings.image_1.alt }}">
+                    {% if block.settings.video_1 != blank %}
+                      {% assign videoUrl = block.settings.video_1 %}
+                      {% assign videoLink = '' %}
+                      {% assign videoID = '' %}
+                      {% if videoUrl contains 'vimeo' %}
+                        {% assign videoLinkTmp = videoUrl | split: '/' | last %}
+                        {% if videoLinkTmp contains '?' %}
+                          {% assign videoID = videoLinkTmp | split: '?' | first %}
+                        {% else %}
+                          {% assign videoID = videoLinkTmp %}
+                        {% endif %}
+                        {% assign videoLink = 'https://player.vimeo.com/video/' | append: videoID %}
+                      {% elsif videoUrl contains 'youtube' %}
+                        {% assign videoLinkTmp = videoUrl | split: '&' %}
+                        {% if videoLinkTmp.size > 0 %}
+                          {% assign videoLinkTmp = videoLinkTmp | first %}
+                          {% assign videoID = videoLinkTmp | split: '?v' | last %}
+                        {% else %}
+                          {% assign videoID = videoLinkTmp | split: '?v' | last %}
+                        {% endif %}
+                        {% assign videoLink = 'https://www.youtube.com/embed/' | append: videoID %}
+                      {% endif %}
+                    <div class="video-play"><a class="video-play-btn" data-video-id="{{ videoID }}" href="{{ videoLink }}"><img src="{{ 'play-icon.png' | asset_url }}">{{ block.settings.video_btn_txt_1 }}</a></div>
+                    {% endif %}
+                  </div>
+                  <div class="review-card__content">
+                    {% if block.settings.title_1 != blank %}
+                    <h3 class="review-card__title">{{ block.settings.title_1 }}</h3>
+                    {% endif %}
+                    {% if block.settings.text_1 != blank %}
+                    <blockquote class="review-card__quote">{{ block.settings.text_1 }}</blockquote>
+                    {% endif %}
+                    {% if block.settings.author_1 != blank %}
+                    <p class="review-card__author">{{ block.settings.author_1 }}</p>
+                    {% endif %}
+                  </div>
+
+                </div>
+                {% endif %}
+              
+              </div>
+
+              
+              <div class="reviews__slide">
+                {% if block.settings.image_2 != nil or block.settings.video_2 != blank or block.settings.video_btn_txt_2 != blank or block.settings.title_2 != blank or block.settings.text_2 != blank or block.settings.author_2 != blank %}
+                <div class="review-card">
+                  <div class="review-card__photo">
+                    <img src="{{ block.settings.image_2 | img_url: '1200x' }}" alt="{{ block.settings.image_2.alt }}">
+                    {% if block.settings.video_2 != blank %}
+                    {% assign videoUrl = block.settings.video_2 %}
+                      {% assign videoLink = '' %}
+                      {% assign videoID = '' %}
+                      {% if videoUrl contains 'vimeo' %}
+                        {% assign videoLinkTmp = videoUrl | split: '/' | last %}
+                        {% if videoLinkTmp contains '?' %}
+                          {% assign videoID = videoLinkTmp | split: '?' | first %}
+                        {% else %}
+                          {% assign videoID = videoLinkTmp %}
+                        {% endif %}
+                        {% assign videoLink = 'https://player.vimeo.com/video/' | append: videoID %}
+                      {% elsif videoUrl contains 'youtube' %}
+                        {% assign videoLinkTmp = videoUrl | split: '&' %}
+                        {% if videoLinkTmp.size > 0 %}
+                          {% assign videoLinkTmp = videoLinkTmp | first %}
+                          {% assign videoID = videoLinkTmp | split: '?v' | last %}
+                        {% else %}
+                          {% assign videoID = videoLinkTmp | split: '?v' | last %}
+                        {% endif %}
+                        {% assign videoLink = 'https://www.youtube.com/embed/' | append: videoID %}
+                      {% endif %}
+                    <div class="video-play"><a class="video-play-btn" data-video-id="{{ videoID }}" href="{{ videoLink }}"><img src="{{ 'play-icon.png' | asset_url }}">{{ block.settings.video_btn_txt_2 }}</a></div>
+                    {% endif %}
+                  </div>
+                  
+                  <div class="review-card__content">
+                    {% if block.settings.title_2 != blank %}
+                    <h3 class="review-card__title">{{ block.settings.title_2 }}</h3>
+                    {% endif %}
+                    {% if block.settings.text_2 != blank %}
+                    <blockquote class="review-card__quote">{{ block.settings.text_2 }}</blockquote>
+                    {% endif %}
+                    {% if block.settings.author_2 != blank %}
+                    <p class="review-card__author">{{ block.settings.author_2 }}</p>
+                    {% endif %}
+                  </div>
+
+                </div>
+                {% endif %}
+
+              </div>
+            {% endfor %}
+          </div>
+
+
+        </div>
+      </div>
+    </section>
+    
+    <script>
+    $(document).ready(function ($) {
+      $('.index-review .video-play-btn').fancybox({
+        openEffect: 'fade',
+        closeEffect: 'fade',
+        helpers: {
+          media: {}
+        }
+      });
+    });
+    </script>
+{% endif %}
+
+
+<style>
+  @media (max-width: 1350px){
+    #shopify-section-{{section.id}} #reviews-slider button.reviews__arrow svg{
+      display: none;
+    }
+
+    #shopify-section-{{section.id}} #reviews-slider button.reviews__arrow{
+      padding: 0px;
+    }
+
+    #shopify-section-{{section.id}} #reviews-slider button.reviews__arrow:before{
+      content: '';
+      display: block;
+      height: 35px;
+      width: 35px;
+      border: 2px solid #000;
+      border-radius: 2px;
+      opacity: 0.3;
+      transform: rotate(45deg);
+    }
+
+    #shopify-section-{{section.id}} #reviews-slider button.reviews__arrow.reviews__arrow--right:before{
+      border-color: #000 #000 transparent transparent;
+    }
+    #shopify-section-{{section.id}} #reviews-slider button.reviews__arrow.reviews__arrow--right{
+      right: 23px;
+    }
+
+    #shopify-section-{{section.id}} #reviews-slider button.reviews__arrow.reviews__arrow--left:before{
+      border-color: transparent transparent #000 #000;
+    }
+    #shopify-section-{{section.id}} #reviews-slider button.reviews__arrow.reviews__arrow--left{
+      left: 32px;
+    }
+  }
+
+</style>
+
+
+{% schema %}
+  {
+    "name": "Reviews",
+    "max_blocks": 10,
+    "settings": [
+      {
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+      },
+      {
+          "type": "textarea",
+          "id": "section_title",
+          "label": "Main heading"
+      }
+    ],
+    "blocks": [
+        {
+            "type": "slide",
+            "name": "Review",
+            "settings": [
+                {
+                    "type": "header", 
+                    "content": "Review frame 1"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_1",
+                    "label": "Photo"
+                },
+                {
+                    "type": "text",
+                    "id": "title_1",
+                    "label": "Title"
+                },
+                {
+                    "type": "richtext",
+                    "id": "text_1",
+                    "label": "Description"
+                },
+                {
+                    "type": "text",
+                    "id": "author_1",
+                    "label": "Author"
+                },
+                {
+                    "type": "text",
+                    "id": "video_btn_txt_1",
+                    "label": "Video Button Text",
+                    "default": "Play Video"
+                },
+                {
+                    "type": "text",
+                    "id": "video_1",
+                    "label": "Video URL"
+                },
+                {
+                    "type": "header", 
+                    "content": "Review frame 2"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_2",
+                    "label": "Photo"
+                },
+                {
+                    "type": "text",
+                    "id": "title_2",
+                    "label": "Title"
+                },
+                {
+                    "type": "richtext",
+                    "id": "text_2",
+                    "label": "Description"
+                },
+                {
+                    "type": "text",
+                    "id": "author_2",
+                    "label": "Author"
+                },
+                {
+                    "type": "text",
+                    "id": "video_btn_txt_2",
+                    "label": "Video Button Text",
+                    "default": "Play Video"
+                },
+                {
+                    "type": "text",
+                    "id": "video_2",
+                    "label": "Video URL"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+        "name": "Reviews",
+        "category": "Review",
+        "blocks": [
+            {
+            "type": "slide"
+            }
+        ]
+        }
+    ]
+  }
+{% endschema %}

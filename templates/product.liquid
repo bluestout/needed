@@ -1,0 +1,155 @@
+{% case product.handle %}
+    {% when 'omega-3' %}
+      {%comment%}Omega-3{%endcomment%}
+        {% section 'product' %}
+
+        {% section 'why-omega3-needed' %}
+
+        {% section 'product-icons-omega-3' %}
+
+        {% section 'intro-nutrients-scroll-o3' %}
+
+        {% section 'text-with-images-o3' %}
+
+        {% section 'pro-banner-middle-o3' %}
+
+        {% section 'plan-cards-o3' %}
+
+        {% section 'reviews-o3' %}
+
+        {% section 'learn-more-o3' %}
+
+        {% section 'pro-download-guide-o3' %}
+
+        {% section 'pro-questions-o3' %}
+      
+     {% when 'prenatal-pre-probiotic' %}
+      {%comment%}Pre/Probiotic{%endcomment%}
+        {% section 'product' %}
+
+        {% section 'why-pp-is-needed' %}
+
+        {% section 'product-icons-pre-probiotic' %}
+
+        {% section 'intro-card-scroll-pp' %}
+
+        {% section 'text-with-images-pp' %}
+
+        {% section 'nutrient-table' %}
+
+        {% section 'plan-cards-pp' %}
+{%comment%}
+        {% section 'reviews-o3' %}
+{%endcomment%}
+        {% section 'pro-download-guide-pp' %}
+
+        {% section 'pro-questions-probiotic' %}
+
+      
+    {% when 'collagen-protein' %}
+    {%comment%}Collagen Protein{%endcomment%}
+        {% section 'product' %}
+
+        {% section 'why-col-is-needed' %}
+
+        {% section 'product-icons-col-protein' %}
+
+        {% section 'intro-card-scroll-col' %}
+
+        {% section 'text-with-images-col' %}
+
+        {% section 'plan-cards-col' %}
+{%comment%}
+        {% section 'reviews-o3' %}
+{%endcomment%}
+        {% section 'pro-download-guide-col' %}
+
+        {% section 'pro-questions-collagen' %}
+
+    {% when 'prenatal-multi' %}
+    {%comment%}Prenatal Multi{%endcomment%}
+        {% section 'product' %}
+
+        {% section 'why-prenatal-multi-is-needed' %}
+
+        {% section 'product-icons-prenatal-multi' %}
+
+        {% section 'intro-card-scroll-prenatal-multi' %}
+
+        {% section 'prenatal-stack-table' %}
+
+        {% section 'text-with-images-prenatal-multi' %}
+
+        {% section 'nutrient-table-prenatal-multi' %}
+
+        {% section 'plan-cards-prenatal-multi' %}
+{%comment%}
+        {% section 'reviews-o3' %}
+{%endcomment%}
+        {% section 'pro-download-guide-prenatal-multi' %}
+
+        {% section 'pro-questions-prenatal' %}
+
+    {%comment%}
+        {%section 'prenatal-multi-stacks'%}
+    {%endcomment%}
+    {% comment %} 4379957198912 {% endcomment %}
+        {%comment%}
+        {% section 'product-o3-testing' %}
+
+        {% section 'pro-video-o3-testing' %}
+
+        {% section 'pro-o3-testing-banner' %}
+
+        {% section 'pro-o3-kit-how-it-works' %}
+
+        {% section 'pro-o3-testing-science' %}
+
+        {% section 'pro-o3-testing-quant' %}
+
+        {% section 'pro-questions-o3-testing' %}
+        {%endcomment%}
+
+    {% else %}
+        {% section 'product' %}
+
+        {% section 'global-ticker' %}
+
+        {% section 'product-level-based-content' %}
+
+        {% section 'product-references' %}
+{%comment%}
+        {% section 'product-reviews' %}
+{%endcomment%}
+        {% include 'product-featured-blog' %}
+        
+{% endcase %}
+
+<script text="text/javascript">
+  var _learnq = _learnq || [];
+
+  var item = {
+    Name: {{ product.title|json }},
+    ProductID: {{ product.id|json }},
+    Categories: {{ product.collections|map:'title'|json }},
+    ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+    URL: "{{ shop.secure_url }}{{ product.url }}",
+    Brand: {{ product.vendor|json }},
+    Price: {{ product.price|money|json }},
+    CompareAtPrice: {{ product.compare_at_price_max|money|json }}
+  };
+
+  _learnq.push(['track', 'Viewed Product', item]);
+  _learnq.push(['trackViewedItem', {
+    Title: item.Name,
+    ItemId: item.ProductID,
+    Categories: item.Categories,
+    ImageUrl: item.ImageURL,
+    Url: item.URL,
+    Metadata: {
+      Brand: item.Brand,
+      Price: item.Price,
+      CompareAtPrice: item.CompareAtPrice
+    }
+  }]);
+</script>

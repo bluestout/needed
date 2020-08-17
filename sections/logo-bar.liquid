@@ -1,0 +1,292 @@
+{%- capture logobar -%}
+<div class="content-indent {{ section.settings.top-offeset}}">
+  <div class="logo-bar page-width wow fadeIn js-animate animate-fade-in" id="carousel-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="carousel">
+
+    {%- if section.settings.title != blank  or section.settings.subtitle != blank -%}
+    <div class="sec-ttl {{ settings.title_align}}">
+      {%- if section.settings.title != blank -%}<h3 class="h3">{{ section.settings.title }}</h3>{%- endif -%}
+      {%- if section.settings.subtitle != blank -%}<span>{{section.settings.subtitle}}</span>{%- endif -%}
+    </div>
+    {%- endif -%}
+
+    {% case section.settings.grid %}
+      {% when 2 %}{%- assign grid_ds = 'large-up--one-half' -%}
+      {% when 3 %}{%- assign grid_ds = 'large-up--one-third' -%}
+      {% when 4 %}{%- assign grid_ds = 'large-up--one-quarter' -%}
+      {% when 5 %}{%- assign grid_ds = 'large--one-quarter widescreen--one-fifth' -%}
+      {% when 6 %}{%- assign grid_ds = 'large--one-fifth widescreen--one-sixth' -%}
+      {% when 7 %}{%- assign grid_ds = 'large--one-fifth widescreen--one-seventh' -%}
+      {% when 8 %}{%- assign grid_ds = 'large--one-sixth widescreen--one-eighth' -%}
+    {% endcase %}
+    
+    {% case section.settings.tablet-grid %}
+      {% when 2 %}{%- assign grid_tb = 'medium--one-half' -%}
+      {% when 3 %}{%- assign grid_tb = 'medium--one-third' -%}
+      {% when 4 %}{%- assign grid_tb = 'medium--one-quarter' -%}
+      {% when 5 %}{%- assign grid_tb = 'medium--one-fifth' -%}
+      {% when 6 %}{%- assign grid_ds = 'medium--one-sixth' -%}
+    {% endcase %}
+    
+    {% case section.settings.mobile-grid %}
+      {% when 1 %}{%- assign grid_mb = 'small--one-whole' -%}
+      {% when 2 %}{%- assign grid_mb = 'small--one-half' -%}
+      {% when 3 %}{%- assign grid_mb = 'small--one-third' -%}
+      {% when 4 %}{%- assign grid_mb = 'small--one-quarter' -%}
+    {% endcase %}
+
+    {% if section.blocks.size > 0 %}
+    <div class="grid carousel" data-slick='{"slidesToShow": {{ section.settings.grid }},"slidesToScroll": 1, {%- if settings.rtl -%}"rtl": true,{%- endif -%} "infinite": true, "responsive":[{"breakpoint": 1025,"settings":{"slidesToShow": {{ section.settings.tablet-grid }} }},{"breakpoint": 768,"settings":{"slidesToShow":{{ section.settings.mobile-grid }} }} ]}'>
+      {% for block in section.blocks %}
+      <div class="grid__item {{grid_mb}} {{grid_tb}} {{grid_ds}}" {{ block.shopify_attributes }}>
+        <a{% if block.settings.link != blank %} href="{{ block.settings.link }}"{% endif %} class="logo-bar__link">
+          {% if block.settings.image != blank %}
+          	{%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          	<img class="logo-bar__image lazyload" data-src="{{ block.settings.image | img_url: '200x150' }}" src="{{ block.settings.image | img_url: '200x150' }}" alt="{{section.settings.image.alt}}" />
+          {% else %}
+          	{{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% if section.blocks.size == 0 %}{% include 'no-blocks' %}{% endif %}
+  </div>
+</div>  
+{%- endcapture -%}
+{{logobar | strip_newlines | remove: "  " | remove: "	" }}
+
+<script>
+
+    $(function(){
+        $("[data-section-id='{{ section.id }}'] .carousel").slick();
+    });
+</script>
+
+<style>
+    [id="shopify-section-1589833831497"]{
+        background-color: #f6f4f2;
+    }
+
+    [data-section-id="{{ section.id }}"]{
+        padding-top: 58px;
+        max-width: 1200px;
+        margin: 0px auto;
+    }
+
+    [data-section-id="{{ section.id }}"] .grid.carousel .grid__item{
+        padding: 0px 15px;
+        height: 55px;
+        position: relative;
+    }
+
+    [data-section-id="{{ section.id }}"] .sec-ttl{
+        font-size: 13px;
+        font-family: "BrownPro-Regular";
+        text-align: center;
+        padding-bottom: 20px;
+        opacity: 0.8;
+        color: #808080;
+    }
+
+    [data-section-id="{{ section.id }}"] .logo-bar__image{
+        max-width: 130px;
+        margin: 0px auto;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    [data-section-id="{{ section.id }}"] .grid.carousel .slick-prev{
+        left: 0px;
+    }
+
+    [data-section-id="{{ section.id }}"] .grid.carousel .slick-next{
+        right: 0px;
+    }
+
+    [data-section-id="{{ section.id }}"] .grid.carousel .slick-prev:before,
+    [data-section-id="{{ section.id }}"] .grid.carousel .slick-next:before{
+        content: '';
+        display: block;
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        border: 2px solid;
+        border-radius: 3px;
+        transform: translateY(-50%) rotate(45deg);  
+        top: 50%;
+    }
+
+
+    [data-section-id="{{ section.id }}"] .grid.carousel .slick-prev:before{
+        border-color: transparent transparent #000 #000;
+        left: 17px;
+    }
+    [data-section-id="{{ section.id }}"] .grid.carousel .slick-next:before{
+        border-color: #000 #000 transparent transparent;
+        right: 13px;
+    }
+    
+    [data-section-id="{{ section.id }}"] .grid.carousel .slick-prev,
+    [data-section-id="{{ section.id }}"] .grid.carousel .slick-next{
+        height: 30px;
+        width: 30px;
+        line-height: 29px;
+        border-radius: 50%;
+        opacity: 1 !important;
+        position: absolute;
+        top: 50%;
+        z-index: 9;
+        text-align: center;
+        font-size: 0px;
+        padding: 0;
+        background: transparent;
+        border: none;
+        outline: 0 none;
+        cursor: pointer;
+        -ms-transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -ms-transition: all 0.3s ease-out;
+        -webkit-transition: all 0.3s ease-out;
+        transition: all 0.3s ease-out;
+    }
+
+    @media only screen and (max-width: 1024px) and (min-width: 767px){
+        .medium--one-quarter {
+            width: 25%;
+        }
+    }
+    @media only screen and (min-width: 1025px){
+        .large-up--one-quarter {
+            width: 25%;
+        }
+    }
+    @media only screen and (max-width: 766px){
+        .small--one-third {
+            width: 33.33333%;
+        }
+    }
+    @media only screen and (max-width: 766px){
+        .small--one-half {
+            width: 50%;
+        }
+    }
+</style>
+
+
+{% schema %}
+  {
+    "name": "Logo list",
+    "class": "index-section",
+    "max_blocks": 20,
+    "settings": [
+	  {
+            "type": "select",
+            "id": "top-offeset",
+            "label": "Top OffSet",
+            "default": "default",
+            "options": [
+              {
+                "value": "default",
+                "label": "Default"
+              },
+              {
+                "value": "small",
+                "label": "Small"
+              },
+			  {
+                "value": "none",
+                "label": "None"
+              }
+			]
+       },  		 	   
+      {
+        "type": "textarea",
+        "id": "title",
+        "label": "Heading",
+        "default": "Logo list",
+		"info":"Use <strong>text here</strong> to make headings bold"
+      },
+ 	  {
+        "type": "textarea",
+        "id": "subtitle",
+        "label": "Sub Heading",
+        "default": "Describe your products, collection, content etc..."
+      },
+      {
+        "type": "paragraph",
+        "content": "Logos per row ==="
+      },
+      {
+        "type": "range",
+        "id": "grid",
+        "label": "Desktop",
+        "default": 6,
+        "min": 1,
+        "max": 8,
+        "step": 1
+      },
+      {
+        "type": "range",
+        "id": "tablet-grid",
+        "label": "Tablet",
+        "default": 5,
+        "min": 1,
+        "max": 6,
+        "step": 1
+      },
+      {
+        "type": "range",
+        "id": "mobile-grid",
+        "label": "Mobile",
+        "default": 3,
+        "min": 1,
+        "max": 4,
+        "step": 1
+      },
+ 	  {
+        "type": "paragraph",
+        "content": "Upload all logo of same size"        
+      }
+    ],
+    "blocks": [
+      {
+        "type": "logo_image",
+        "name": "Logo",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link",
+            "info": "Optional"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Logo List",
+        "category": "6. Other", 
+        "blocks": [
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,71 @@
+<section class="collection-banner" style="background-color: {{section.settings.background_color}};">
+	<div class="container">
+		<div class="row align-items-center">
+            <h1 class="collection-banner__title">
+                <span class="collection-banner__title-shape">{{ section.settings.title }}</span>
+            </h1>
+
+            <p class="collection-banner__subtitle">{{ section.settings.description }}</p>
+
+			<div class="col-lg-6 banner-img-wrapper">
+				{% if section.settings.image != blank %}
+					<img class="collection-banner__image" src="{{ section.settings.image | img_url: "900x" }}" alt="{{ section.settings.image.alt }}">
+				{% endif %}
+			</div>
+
+			<div class="col-lg-6">
+                <ul class="detail_list">
+                    {{ section.settings.detail_list }}
+                    <li class="banner-button">
+                        <a href="{{section.settings.banner_button_link}}" class="collection-button-link">{{section.settings.banner_button}}</a>
+                    </li>
+                </ul>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% schema %}
+    {
+        "name": "Collection banner",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Product image"
+            },
+            {
+                "type": "color",
+                "id": "background_color",
+                "label": "Background color"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Banner heading",
+                "default": "Featured product"
+            },
+            {
+                "type": "textarea",
+                "id": "description",
+                "label": "Banner subheading"
+            },
+            {
+                "type": "textarea",
+                "id": "detail_list",
+                "label": "Banner detail list"
+            },
+            {
+                "type": "text",
+                "id": "banner_button",
+                "label": "Button title",
+                "default": "Shop Prenatal Multi"
+            },
+            {
+                "type": "url",
+                "id": "banner_button_link",
+                "label": "Button link"
+            }
+        ]
+    }
+{% endschema %}

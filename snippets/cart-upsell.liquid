@@ -1,0 +1,1035 @@
+
+<style>
+
+    .cart-upsell-routine{
+        margin-top: 30px;
+        display: flex;
+    }
+
+    .cart-upsell-routine.complete-plan{
+        background-color: #e2ce85;
+    }
+
+    .cart-upsell-routine.base-plan{
+        background-color: #fdcbbc;
+    }
+
+    .cart-upsell-routine .upsell-image{
+        width: 32%;
+        max-width: 260px;
+        padding: 0px;
+        position: relative;
+    }
+
+    .cart-upsell-routine .routine-content{
+        width: 69%;
+        padding: 35px 45px 35px 0px;
+    }
+
+    .cart-upsell-routine .routine-content .routine-title{
+        font-family: "Copernicus-Bold";
+        font-size: 20px;
+        letter-spacing: 0px;
+        color: #1F3337;
+    }
+
+    .cart-upsell-routine .routine-content .bundle-lists{
+        margin-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 350px;
+    }
+
+    .cart-upsell-routine .routine-content .bundle-lists li{
+        width: 40%;
+        margin-left: 26px;
+        line-height: 1.5;
+        position: relative;
+    }
+
+    .cart-upsell-routine .routine-content .bundle-lists li a{
+        text-decoration: none;
+        font-family: "BrownPro-Regular";
+        font-size: 16px;
+        color: #1F3337;
+    }
+
+    .cart-upsell-routine .routine-content .bundle-lists li:before{
+        position: absolute;
+        content: url(https://cdn.shopify.com/s/files/1/0195/3293/9328/t/34/assets/icon-check.svg);
+        width: 13px;
+        height: 13px;
+        top: 1px;
+        left: -24px;
+    }
+
+    .cart-upsell-routine .routine-content .routine-description{
+        margin-top: 22px;
+        font-family: "BrownPro-Regular";
+        font-size: 16px;
+        color: #1F3337;
+    }
+
+    .cart-upsell-routine .routine-content .subscribe-wrapper{
+        margin-top: 25px;
+    }
+
+    .cart-upsell-routine .routine-content .price-subscription{
+        width: 58%;
+        display: flex;
+        float: left;
+        margin-top: 4px;
+    }
+
+    .cart-upsell-routine .routine-content .price-subscription .retail-price .label-retail,
+    .cart-upsell-routine .routine-content .price-subscription .bundled-subscription .label-subscription{
+        font-family: "BrownPro-Regular";
+        font-size: 15px;
+        opacity: 0.6;
+        margin-bottom: 6px;
+        color: #1F3337;
+    }
+
+    .cart-upsell-routine .routine-content .price-subscription .retail-price .content-retail{
+        font-family: "BrownPro-Regular";
+        font-size: 18px;
+        color: #1F3337;
+        opacity: 0.65;
+    }
+
+    .cart-upsell-routine .routine-content .price-subscription .bundled-subscription .content-subscription{
+        font-family: "BrownPro-Bold";
+        font-size: 18px;
+        color: #1F3337;
+    }
+
+    .cart-upsell-routine .routine-content .price-subscription .bundled-subscription{
+        margin-left: 28px;
+    }
+
+    .cart-upsell-routine .routine-content .price-subscription .bundled-subscription .content-subscription .saving-label{
+        background-color: #ffffff5e;
+        font-size: 15px;
+        padding: 3px 6px 2px;
+        margin-left: 5px;
+    }
+
+    .cart-upsell-routine .routine-content .btn-subscribe-plan,
+    .cart-upsell-routine .routine-content .btn-subscribe-upsell{
+        width: 42%;
+        background-color: #85853F;
+        border-radius: 30px;
+        font-family: "BrownPro-Bold";
+        font-size: 16px;
+        color: #FFF;
+        text-align: center;
+        padding: 20px 0px 19px;
+    }
+
+    .cart-upsell-routine .routine-content .routine-content-splitter{
+        border-color: #FFF;
+        opacity: 0.3;
+        border-style: solid;
+        border-top: 0px;
+        margin: 18px 0px;
+    }
+
+    .cart-upsell-routine .routine-content .routine-comments{
+        display: flex;
+        float: right;
+    }
+
+    .cart-upsell-routine .routine-content .routine-comments li{
+        font-family: "BrownPro-Regular";
+        font-size: 14px;
+        opacity: 0.4;
+        color: #1F3337;
+        position: relative;
+    }
+
+    .cart-upsell-routine .routine-content .routine-comments li+li{
+        margin-left: 15px;
+        padding-left: 20px;
+    }
+
+    .cart-upsell-routine .routine-content .routine-comments li+li:before{
+        position: absolute;
+        content: '\2022';
+        left: 0;
+        top: 3px;
+        width: 5px;
+        height: 5px;
+        font-size: 8px;
+    }
+
+    @media (max-width: 768px){
+        .cart-upsell{
+            width: 100%;
+        }
+
+        .cart-upsell .cart-upsell-routine .routine-content{
+            z-index: 0;
+            padding: 0px 23px 20px !important;
+        }
+
+        .cart-upsell .cart-upsell-routine.complete-plan{
+            background-color: #dbc87c;
+        }
+
+        .cart-upsell .cart-upsell-routine img.plan-img{
+            position: absolute;
+            max-height: 170px;
+            right: 0px;
+            top: 0px;
+        }
+
+        .cart-upsell .cart-upsell-routine .routine-content .routine-title{
+            max-width: 290px;
+        }
+
+        .cart-upsell-routine .routine-content .bundle-lists li{
+            width: 100%;
+        }
+
+        .cart-upsell .cart-upsell-routine .routine-content .routine-description{
+            display: none;
+        }
+
+        .cart-upsell .cart-upsell-routine .routine-content .subscribe-wrapper{
+            display: flex;
+            margin-top: 10px !important;
+            justify-content: space-between;
+        }
+
+        .cart-upsell .cart-upsell-routine .routine-content .subscribe-wrapper .price-subscription{
+            max-width: 100px;
+        }
+
+        .cart-upsell .cart-upsell-routine .routine-content .subscribe-wrapper .price-subscription .retail-price{
+            display: none;
+        }
+
+        .cart-upsell .cart-upsell-routine .routine-content .subscribe-wrapper .price-subscription .bundled-subscription{
+            margin-left: 0px;
+        }
+
+        .cart-upsell .cart-upsell-routine .routine-content .subscribe-wrapper .price-subscription .bundled-subscription .label-subscription{
+            display: none;
+        }
+
+        .cart-upsell .cart-upsell-routine .routine-content .subscribe-wrapper .price-subscription .bundled-subscription .saving-label{
+            display: block;
+            font-size: 15px !important;
+            margin-left: 0px !important;
+        }
+
+        .cart-upsell .cart-upsell-routine .routine-content .subscribe-wrapper .btn-subscribe-plan{
+            max-width: 180px;
+            margin-top: 0px !important;
+            padding: 15px 0px 14px;
+        }
+
+        .cart-upsell .cart-upsell-routine:not(.complete-plan):not(.base-plan) .routine-content .subscribe-wrapper .price-subscription{
+            display: none;
+        }
+
+        .cart-upsell .cart-upsell-routine:not(.complete-plan):not(.base-plan) .routine-content .subscribe-wrapper .btn-subscribe-upsell{
+            width: 100%;
+            padding: 15px 0px 14px;
+        }
+    }
+
+    @media (max-width: 480px){
+        .cart-upsell .cart-upsell-routine .routine-content .routine-title{
+            max-width: 250px;
+        }
+    }
+
+    @media (max-width: 360px){
+        .cart-upsell .cart-upsell-routine .routine-content .subscribe-wrapper .price-subscription .bundled-subscription .saving-label{
+            font-size: 13px !important;
+        }
+    }
+
+
+</style>
+
+{% assign productHandles = "" %}
+
+{% for item in cart.items %}
+    {% assign productHandles = productHandles | append: ":" | append: item.product.handle | append: ":" %}
+    {% assign productHandles = productHandles | remove: "subscribed-" | remove: '-1' %}
+{% endfor %}
+
+<div class="cart-upsell">
+    <div class="cart-upsell-routines">
+        {% assign basePlanProduct1 = ':' %}
+        {% assign basePlanProduct2 = ':' %}
+        {% assign completePlanProduct1 = ':' %}
+        {% assign completePlanProduct2 = ':' %}
+        {% assign completePlanProduct3 = ':' %}
+        {% assign completePlanProduct4 = ':' %}
+        {% assign basePlanBundle = ':' %}
+        {% assign completePlanBundle = ':' %}
+        {% assign combineBaseProduct1 = ':' %}
+        {% assign combineBaseProduct2 = ':' %}
+        {% assign combineProduct = ':' %}
+        {% assign basePlanProduct1 = basePlanProduct1 | append : section.settings.base_plan_product1 | remove : 'subscribed-' | append : ':' %}
+        {% assign basePlanProduct2 = basePlanProduct2 | append : section.settings.base_plan_product2 | remove : 'subscribed-' | append : ':' %}
+        {% assign completePlanProduct1 = completePlanProduct1 | append : section.settings.complete_plan_product1 | remove : 'subscribed-' | append : ':' %}
+        {% assign completePlanProduct2 = completePlanProduct2 | append : section.settings.complete_plan_product2 | remove : 'subscribed-' | append : ':' %}
+        {% assign completePlanProduct3 = completePlanProduct3 | append : section.settings.complete_plan_product3 | remove : 'subscribed-' | append : ':' %}
+        {% assign completePlanProduct4 = completePlanProduct4 | append : section.settings.complete_plan_product4 | remove : 'subscribed-' | append : ':' %}
+        {% assign basePlanBundle = basePlanBundle | append : section.settings.base_plan_bundle | append : ':' %}
+        {% assign completePlanBundle = completePlanBundle | append : section.settings.complete_plan_bundle | append : ':' %}
+        {% assign combineBaseProduct1 = combineBaseProduct1 | append : section.settings.combine_base_product1 | remove : 'subscribed-' | append : ':' %}
+        {% assign combineBaseProduct2 = combineBaseProduct2 | append : section.settings.combine_base_product2 | remove : 'subscribed-' | append : ':' %}
+        {% assign combineProduct = combineProduct | append : section.settings.combine_product | remove : 'subscribed-' | append : ':' %}
+
+        {% if productHandles contains completePlanProduct1 and productHandles contains completePlanProduct2 %}
+            <div class="cart-upsell-routine complete-plan">
+                <div class="upsell-image">
+                    <img src="{{'complete-plan-upsell-mobile.png' | asset_url}}" class="plan-img img-complete-plan">
+                </div>
+
+                <div class="routine-content">
+                    <h2 class="routine-title">Complete your routine with The Complete Plan</h2>
+                    <ul class="bundle-lists">
+                        <li><a href="{{all_products['prenatal-multi'].url}}">Prenatal Multi</a></li>
+                        <li><a href="{{all_products['collagen-protein'].url}}">Collagen Protein</a></li>
+                        <li><a href="{{all_products['omega-3'].url}}">Omega-3</a></li>
+                        <li><a href="{{all_products['prenatal-pre-probiotic'].url}}">Pre/Probiotic</a></li>
+                    </ul>
+
+                    <p class="routine-description">{{all_products[section.settings.complete_plan_bundle].metafields.airf.usell_info}}</p>
+
+                    {% assign retail_price = 0.00 %}
+                    {% assign retail_price = retail_price | plus : all_products['prenatal-multi'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['omega-3'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['collagen-protein'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['prenatal-pre-probiotic'].variants[0].price | plus: 0.00 %}
+                    {% comment %} {% assign retail_price = 23996 | plus: 0.00 %} {% endcomment %}
+
+                    {% assign bundle_price = all_products[section.settings.complete_plan_bundle].variants[0].price | plus: 0.00 %}
+                    {% comment %} {% assign bundle_price = 15500 | plus: 0.00 %} {% endcomment %}
+
+                    {% assign saving_rate = retail_price | minus : bundle_price | divided_by : 1000 | round | times: 10 %}
+
+                    <div class="subscribe-wrapper">
+                        <div class="price-subscription">
+                            <div class="retail-price">
+                                <div class="label-retail">Retail Price</div>
+                                <div class="content-retail">{{ retail_price | money }}</div>
+                            </div>
+                            <div class="bundled-subscription">
+                                <div class="label-subscription">Bundled Subscription</div>
+                                <div class="content-subscription">{{ bundle_price | money }}<span class="saving-label">${{saving_rate}} savings</span></div>
+                            </div>
+                        </div>
+
+                        {% assign cartReplaceIds = "" %}
+                        {% assign tmpHandle1 = completePlanProduct1 | remove : ":" %}
+                        {% assign tmpHandle2 = completePlanProduct2 | remove : ":" %}
+                        {% for item in cart.items %}
+                            {% if item.product.handle contains tmpHandle1 or item.product.handle contains tmpHandle2 %}
+                                {% assign cartReplaceIds = cartReplaceIds | append : item.key | append : "," %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% assign len = cartReplaceIds | size | minus: 1 %}
+                        {% assign cartReplaceIds = cartReplaceIds | slice : 0, len %}
+                        
+                        <input type="hidden" id="upsell_product_id" value="{{ all_products[section.settings.complete_plan_bundle].variants[0].id }}">
+                        <input type="hidden" id="cart_replace_ids" value="{{ cartReplaceIds }}">
+                        <button type="button" name="add" class="btn-subscribe-plan">Subscribe Now</button>
+                    </div>
+
+                    <hr class="routine-content-splitter" />
+
+                    <ul class="routine-comments">
+                        <li>Free shipping</li>
+                        <li>Easy cancellation</li>
+                        <li>100% Satisfaction Guarantee</li>
+                    </ul>
+                </div>
+            </div>
+        {% elsif productHandles contains completePlanProduct1 and productHandles contains completePlanProduct4 %}
+            <div class="cart-upsell-routine complete-plan">
+                <div class="upsell-image">
+                    <img src="{{'complete-plan-upsell-mobile.png' | asset_url}}" class="plan-img img-complete-plan">
+                </div>
+
+                <div class="routine-content">
+                    <h2 class="routine-title">Complete your routine with The Complete Plan</h2>
+                    <ul class="bundle-lists">
+                        <li><a href="{{all_products['prenatal-multi'].url}}">Prenatal Multi</a></li>
+                        <li><a href="{{all_products['collagen-protein'].url}}">Collagen Protein</a></li>
+                        <li><a href="{{all_products['omega-3'].url}}">Omega-3</a></li>
+                        <li><a href="{{all_products['prenatal-pre-probiotic'].url}}">Pre/Probiotic</a></li>
+                    </ul>
+
+                    <p class="routine-description">{{all_products[section.settings.complete_plan_bundle].metafields.airf.usell_info}}</p>
+
+                    {% assign retail_price = 0.00 %}
+                    {% assign retail_price = retail_price | plus : all_products['prenatal-multi'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['omega-3'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['collagen-protein'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['prenatal-pre-probiotic'].variants[0].price | plus: 0.00 %}
+                    {% comment %} {% assign retail_price = 23996 | plus: 0.00 %} {% endcomment %}
+
+                    {% assign bundle_price = all_products[section.settings.complete_plan_bundle].variants[0].price | plus: 0.00 %}
+                    {% comment %} {% assign bundle_price = 15500 | plus: 0.00 %} {% endcomment %}
+
+                    {% assign saving_rate = retail_price | minus : bundle_price | divided_by : 1000 | round | times: 10 %}
+
+                    <div class="subscribe-wrapper">
+                        <div class="price-subscription">
+                            <div class="retail-price">
+                                <div class="label-retail">Retail Price</div>
+                                <div class="content-retail">{{ retail_price | money }}</div>
+                            </div>
+                            <div class="bundled-subscription">
+                                <div class="label-subscription">Bundled Subscription</div>
+                                <div class="content-subscription">{{ bundle_price | money }}<span class="saving-label">${{saving_rate}} savings</span></div>
+                            </div>
+                        </div>
+
+                        {% assign cartReplaceIds = "" %}
+                        {% assign tmpHandle1 = completePlanProduct1 | remove : ":" %}
+                        {% assign tmpHandle2 = completePlanProduct4 | remove : ":" %}
+                        {% for item in cart.items %}
+                            {% if item.product.handle contains tmpHandle1 or item.product.handle contains tmpHandle2 %}
+                                {% assign cartReplaceIds = cartReplaceIds | append : item.key | append : "," %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% assign len = cartReplaceIds | size | minus: 1 %}
+                        {% assign cartReplaceIds = cartReplaceIds | slice : 0, len %}
+                        
+                        <input type="hidden" id="upsell_product_id" value="{{ all_products[section.settings.complete_plan_bundle].variants[0].id }}">
+                        <input type="hidden" id="cart_replace_ids" value="{{ cartReplaceIds }}">
+                        <button type="button" name="add" class="btn-subscribe-plan">Subscribe Now</button>
+                    </div>
+
+                    <hr class="routine-content-splitter" />
+
+                    <ul class="routine-comments">
+                        <li>Free shipping</li>
+                        <li>Easy cancellation</li>
+                        <li>100% Satisfaction Guarantee</li>
+                    </ul>
+                </div>
+            </div>
+        {% elsif productHandles contains completePlanProduct3 and productHandles contains completePlanProduct2 %}
+            <div class="cart-upsell-routine complete-plan">
+                <div class="upsell-image">
+                    <img src="{{'complete-plan-upsell-mobile.png' | asset_url}}" class="plan-img img-complete-plan">
+                </div>
+
+                <div class="routine-content">
+                    <h2 class="routine-title">Complete your routine with The Complete Plan</h2>
+                    <ul class="bundle-lists">
+                        <li><a href="{{all_products['prenatal-multi'].url}}">Prenatal Multi</a></li>
+                        <li><a href="{{all_products['collagen-protein'].url}}">Collagen Protein</a></li>
+                        <li><a href="{{all_products['omega-3'].url}}">Omega-3</a></li>
+                        <li><a href="{{all_products['prenatal-pre-probiotic'].url}}">Pre/Probiotic</a></li>
+                    </ul>
+
+                    <p class="routine-description">{{all_products[section.settings.complete_plan_bundle].metafields.airf.usell_info}}</p>
+
+                    {% assign retail_price = 0.00 %}
+                    {% assign retail_price = retail_price | plus : all_products['prenatal-multi'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['omega-3'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['collagen-protein'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['prenatal-pre-probiotic'].variants[0].price | plus: 0.00 %}
+                    {% comment %} {% assign retail_price = 23996 | plus: 0.00 %} {% endcomment %}
+
+                    {% assign bundle_price = all_products[section.settings.complete_plan_bundle].variants[0].price | plus: 0.00 %}
+                    {% comment %} {% assign bundle_price = 15500 | plus: 0.00 %} {% endcomment %}
+
+                    {% assign saving_rate = retail_price | minus : bundle_price | divided_by : 1000 | round | times: 10 %}
+
+                    <div class="subscribe-wrapper">
+                        <div class="price-subscription">
+                            <div class="retail-price">
+                                <div class="label-retail">Retail Price</div>
+                                <div class="content-retail">{{ retail_price | money }}</div>
+                            </div>
+                            <div class="bundled-subscription">
+                                <div class="label-subscription">Bundled Subscription</div>
+                                <div class="content-subscription">{{ bundle_price | money }}<span class="saving-label">${{saving_rate}} savings</span></div>
+                            </div>
+                        </div>
+
+                        {% assign cartReplaceIds = "" %}
+                        {% assign tmpHandle1 = completePlanProduct3 | remove : ":" %}
+                        {% assign tmpHandle2 = completePlanProduct2 | remove : ":" %}
+                        {% for item in cart.items %}
+                            {% if item.product.handle contains tmpHandle1 or item.product.handle contains tmpHandle2 %}
+                                {% assign cartReplaceIds = cartReplaceIds | append : item.key | append : "," %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% assign len = cartReplaceIds | size | minus: 1 %}
+                        {% assign cartReplaceIds = cartReplaceIds | slice : 0, len %}
+                        
+                        <input type="hidden" id="upsell_product_id" value="{{ all_products[section.settings.complete_plan_bundle].variants[0].id }}">
+                        <input type="hidden" id="cart_replace_ids" value="{{ cartReplaceIds }}">
+                        <button type="button" name="add" class="btn-subscribe-plan">Subscribe Now</button>
+                    </div>
+
+                    <hr class="routine-content-splitter" />
+
+                    <ul class="routine-comments">
+                        <li>Free shipping</li>
+                        <li>Easy cancellation</li>
+                        <li>100% Satisfaction Guarantee</li>
+                    </ul>
+                </div>
+            </div>
+        {% elsif productHandles contains completePlanProduct3 and productHandles contains completePlanProduct4 %}
+            <div class="cart-upsell-routine complete-plan">
+                <div class="upsell-image">
+                    <img src="{{'complete-plan-upsell-mobile.png' | asset_url}}" class="plan-img img-complete-plan">
+                </div>
+
+                <div class="routine-content">
+                    <h2 class="routine-title">Complete your routine with The Complete Plan</h2>
+                    <ul class="bundle-lists">
+                        <li><a href="{{all_products['prenatal-multi'].url}}">Prenatal Multi</a></li>
+                        <li><a href="{{all_products['collagen-protein'].url}}">Collagen Protein</a></li>
+                        <li><a href="{{all_products['omega-3'].url}}">Omega-3</a></li>
+                        <li><a href="{{all_products['prenatal-pre-probiotic'].url}}">Pre/Probiotic</a></li>
+                    </ul>
+
+                    <p class="routine-description">{{all_products[section.settings.complete_plan_bundle].metafields.airf.usell_info}}</p>
+
+                    {% assign retail_price = 0.00 %}
+                    {% assign retail_price = retail_price | plus : all_products['prenatal-multi'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['omega-3'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['collagen-protein'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['prenatal-pre-probiotic'].variants[0].price | plus: 0.00 %}
+                    {% comment %} {% assign retail_price = 23996 | plus: 0.00 %} {% endcomment %}
+
+                    {% assign bundle_price = all_products[section.settings.complete_plan_bundle].variants[0].price | plus: 0.00 %}
+                    {% comment %} {% assign bundle_price = 15500 | plus: 0.00 %} {% endcomment %}
+
+                    {% assign saving_rate = retail_price | minus : bundle_price | divided_by : 1000 | round | times: 10 %}
+
+                    <div class="subscribe-wrapper">
+                        <div class="price-subscription">
+                            <div class="retail-price">
+                                <div class="label-retail">Retail Price</div>
+                                <div class="content-retail">{{ retail_price | money }}</div>
+                            </div>
+                            <div class="bundled-subscription">
+                                <div class="label-subscription">Bundled Subscription</div>
+                                <div class="content-subscription">{{ bundle_price | money }}<span class="saving-label">${{saving_rate}} savings</span></div>
+                            </div>
+                        </div>
+
+                        {% assign cartReplaceIds = "" %}
+                        {% assign tmpHandle1 = completePlanProduct3 | remove : ":" %}
+                        {% assign tmpHandle2 = completePlanProduct4 | remove : ":" %}
+                        {% for item in cart.items %}
+                            {% if item.product.handle contains tmpHandle1 or item.product.handle contains tmpHandle2 %}
+                                {% assign cartReplaceIds = cartReplaceIds | append : item.key | append : "," %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% assign len = cartReplaceIds | size | minus: 1 %}
+                        {% assign cartReplaceIds = cartReplaceIds | slice : 0, len %}
+                        
+                        <input type="hidden" id="upsell_product_id" value="{{ all_products[section.settings.complete_plan_bundle].variants[0].id }}">
+                        <input type="hidden" id="cart_replace_ids" value="{{ cartReplaceIds }}">
+                        <button type="button" name="add" class="btn-subscribe-plan">Subscribe Now</button>
+                    </div>
+
+                    <hr class="routine-content-splitter" />
+
+                    <ul class="routine-comments">
+                        <li>Free shipping</li>
+                        <li>Easy cancellation</li>
+                        <li>100% Satisfaction Guarantee</li>
+                    </ul>
+                </div>
+            </div>
+        {% elsif productHandles contains completePlanProduct2 and productHandles contains completePlanProduct4 %}
+            <div class="cart-upsell-routine complete-plan">
+                <div class="upsell-image">
+                    <img src="{{'complete-plan-upsell-mobile.png' | asset_url}}" class="plan-img img-complete-plan">
+                </div>
+
+                <div class="routine-content">
+                    <h2 class="routine-title">Complete your routine with The Complete Plan</h2>
+                    <ul class="bundle-lists">
+                        <li><a href="{{all_products['prenatal-multi'].url}}">Prenatal Multi</a></li>
+                        <li><a href="{{all_products['collagen-protein'].url}}">Collagen Protein</a></li>
+                        <li><a href="{{all_products['omega-3'].url}}">Omega-3</a></li>
+                        <li><a href="{{all_products['prenatal-pre-probiotic'].url}}">Pre/Probiotic</a></li>
+                    </ul>
+
+                    <p class="routine-description">{{all_products[section.settings.complete_plan_bundle].metafields.airf.usell_info}}</p>
+
+                    {% assign retail_price = 0.00 %}
+                    {% assign retail_price = retail_price | plus : all_products['prenatal-multi'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['omega-3'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['collagen-protein'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['prenatal-pre-probiotic'].variants[0].price | plus: 0.00 %}
+                    {% comment %} {% assign retail_price = 23996 | plus: 0.00 %} {% endcomment %}
+
+                    {% assign bundle_price = all_products[section.settings.complete_plan_bundle].variants[0].price | plus: 0.00 %}
+                    {% comment %} {% assign bundle_price = 15500 | plus: 0.00 %} {% endcomment %}
+
+                    {% assign saving_rate = retail_price | minus : bundle_price | divided_by : 1000 | round | times: 10 %}
+
+                    <div class="subscribe-wrapper">
+                        <div class="price-subscription">
+                            <div class="retail-price">
+                                <div class="label-retail">Retail Price</div>
+                                <div class="content-retail">{{ retail_price | money }}</div>
+                            </div>
+                            <div class="bundled-subscription">
+                                <div class="label-subscription">Bundled Subscription</div>
+                                <div class="content-subscription">{{ bundle_price | money }}<span class="saving-label">${{saving_rate}} savings</span></div>
+                            </div>
+                        </div>
+
+                        {% assign cartReplaceIds = "" %}
+                        {% assign tmpHandle1 = completePlanProduct2 | remove : ":" %}
+                        {% assign tmpHandle2 = completePlanProduct4 | remove : ":" %}
+                        {% for item in cart.items %}
+                            {% if item.product.handle contains tmpHandle1 or item.product.handle contains tmpHandle2 %}
+                                {% assign cartReplaceIds = cartReplaceIds | append : item.key | append : "," %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% assign len = cartReplaceIds | size | minus: 1 %}
+                        {% assign cartReplaceIds = cartReplaceIds | slice : 0, len %}
+                        
+                        <input type="hidden" id="upsell_product_id" value="{{ all_products[section.settings.complete_plan_bundle].variants[0].id }}">
+                        <input type="hidden" id="cart_replace_ids" value="{{ cartReplaceIds }}">
+                        <button type="button" name="add" class="btn-subscribe-plan">Subscribe Now</button>
+                    </div>
+
+                    <hr class="routine-content-splitter" />
+
+                    <ul class="routine-comments">
+                        <li>Free shipping</li>
+                        <li>Easy cancellation</li>
+                        <li>100% Satisfaction Guarantee</li>
+                    </ul>
+                </div>
+            </div>
+        {% elsif productHandles contains basePlanProduct1 and productHandles contains basePlanProduct2 %}
+            <div class="cart-upsell-routine base-plan">
+                <div class="upsell-image">
+                    <img src="{{'base-plan-upsell-mobile.png' | asset_url}}" class="plan-img img-base-plan">
+                </div>
+                <div class="routine-content">
+                    <h2 class="routine-title">Complete your routine with The Base Plan</h2>
+                    <ul class="bundle-lists">
+                        <li><a href="{{all_products['prenatal-multi'].url}}">Prenatal Multi</a></li>
+                        <li><a href="{{all_products['omega-3'].url}}">Omega-3</a></li>
+                    </ul>
+
+                    <p class="routine-description">{{all_products[section.settings.base_plan_bundle].metafields.airf.usell_info}}</p>
+                    
+                    {% assign retail_price = 0.00 %}
+                    {% assign retail_price = retail_price | plus : all_products['prenatal-multi'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['omega-3'].variants[0].price | plus: 0.00 %}
+                    {% comment %} {% assign retail_price = 12998 | plus: 0.00 %} {% endcomment %}
+
+                    {% assign bundle_price = all_products[section.settings.base_plan_bundle].variants[0].price | plus: 0.00 %}
+                    {% comment %} {% assign bundle_price = 9500 | plus: 0.00 %} {% endcomment %}
+
+                    {% assign saving_rate = retail_price | minus : bundle_price | divided_by : 1000 | round | times: 10 %}
+
+                    <div class="subscribe-wrapper">
+                        <div class="price-subscription">
+                            <div class="retail-price">
+                                <div class="label-retail">Retail Price</div>
+                                <div class="content-retail">{{ retail_price | money }}</div>
+                            </div>
+                            <div class="bundled-subscription">
+                                <div class="label-subscription">Bundled Subscription</div>
+                                <div class="content-subscription">{{ bundle_price | money }}<span class="saving-label">${{saving_rate}} savings</span></div>
+                            </div>
+                        </div>
+
+                        {% assign cartReplaceIds = "" %}
+                        {% assign tmpHandle1 = basePlanProduct1 | remove : ":" %}
+                        {% assign tmpHandle2 = basePlanProduct2 | remove : ":" %}
+                        {% for item in cart.items %}
+                            {% if item.product.handle contains tmpHandle1 or item.product.handle contains tmpHandle2 %}
+                                {% assign cartReplaceIds = cartReplaceIds | append : item.key | append : "," %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% assign len = cartReplaceIds | size | minus: 1 %}
+                        {% assign cartReplaceIds = cartReplaceIds | slice : 0, len %}
+                        
+                        <input type="hidden" id="upsell_product_id" value="{{ all_products[section.settings.base_plan_bundle].variants[0].id }}">
+                        <input type="hidden" id="cart_replace_ids" value="{{ cartReplaceIds }}">
+                        <button type="button" name="add" class="btn-subscribe-plan">Subscribe Now</button>
+                    </div>
+
+                    <hr class="routine-content-splitter" />
+
+                    <ul class="routine-comments">
+                        <li>Free shipping</li>
+                        <li>Easy cancellation</li>
+                        <li>100% Satisfaction Guarantee</li>
+                    </ul>
+                </div>
+            </div>
+        {% elsif productHandles contains basePlanProduct1 or productHandles contains basePlanProduct2 or productHandles contains 'omega-' %}
+            {% unless productHandles contains basePlanBundle or productHandles contains completePlanBundle %}
+            <div class="cart-upsell-routine base-plan">
+                <div class="upsell-image">
+                    <img src="{{'base-plan-upsell-mobile.png' | asset_url}}" class="plan-img img-base-plan">
+                </div>
+                <div class="routine-content">
+                    <h2 class="routine-title">Complete your routine with The Base Plan</h2>
+                    <ul class="bundle-lists">
+                        <li><a href="{{all_products['prenatal-multi'].url}}">Prenatal Multi</a></li>
+                        <li><a href="{{all_products['omega-3'].url}}">Omega-3</a></li>
+                    </ul>
+
+                    <p class="routine-description">{{all_products[section.settings.base_plan_bundle].metafields.airf.usell_info}}</p>
+                    
+                    {% assign retail_price = 0.00 %}
+                    {% assign retail_price = retail_price | plus : all_products['prenatal-multi'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['omega-3'].variants[0].price | plus: 0.00 %}
+                    {% comment %} {% assign retail_price = 12998 | plus: 0.00 %} {% endcomment %}
+
+                    {% assign bundle_price = all_products[section.settings.base_plan_bundle].variants[0].price | plus: 0.00 %}
+                    {% comment %} {% assign bundle_price = 9500 | plus: 0.00 %} {% endcomment %}
+
+                    {% assign saving_rate = retail_price | minus : bundle_price | divided_by : 1000 | round | times: 10 %}
+
+                    <div class="subscribe-wrapper">
+                        <div class="price-subscription">
+                            <div class="retail-price">
+                                <div class="label-retail">Retail Price</div>
+                                <div class="content-retail">{{ retail_price | money }}</div>
+                            </div>
+                            <div class="bundled-subscription">
+                                <div class="label-subscription">Bundled Subscription</div>
+                                <div class="content-subscription">{{ bundle_price | money }}<span class="saving-label">${{saving_rate}} savings</span></div>
+                            </div>
+                        </div>
+
+                        {% assign cartReplaceIds = "" %}
+                        {% assign tmpHandle1 = basePlanProduct1 | remove : ":" %}
+                        {% assign tmpHandle2 = basePlanProduct2 | remove : ":" %}
+                        {% for item in cart.items %}
+                            {% if item.product.handle contains tmpHandle1 or item.product.handle contains tmpHandle2 or item.product.handle contains 'omega-' %}
+                                {% assign cartReplaceIds = cartReplaceIds | append : item.key | append : "," %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% assign len = cartReplaceIds | size | minus: 1 %}
+                        {% assign cartReplaceIds = cartReplaceIds | slice : 0, len %}
+
+                        <input type="hidden" id="upsell_product_id" value="{{ all_products[section.settings.base_plan_bundle].variants[0].id }}">
+                        <input type="hidden" id="cart_replace_ids" value="{{ cartReplaceIds }}">
+                        <button type="button" name="add" class="btn-subscribe-plan">Subscribe Now</button>
+                    </div>
+
+                    <hr class="routine-content-splitter" />
+
+                    <ul class="routine-comments">
+                        <li>Free shipping</li>
+                        <li>Easy cancellation</li>
+                        <li>100% Satisfaction Guarantee</li>
+                    </ul>
+                </div>
+            </div>
+            {% endunless %}
+        {% elsif productHandles contains basePlanBundle %}
+            {% unless productHandles contains completePlanProduct1 or productHandles contains completePlanProduct2 or productHandles contains completePlanProduct3 or productHandles contains completePlanProduct4 %}
+            <div class="cart-upsell-routine complete-plan">
+                <div class="upsell-image">
+                    <img src="{{'complete-plan-upsell-mobile.png' | asset_url}}" class="plan-img img-complete-plan">
+                </div>
+
+                <div class="routine-content">
+                    <h2 class="routine-title">Complete your routine with The Complete Plan</h2>
+                    <ul class="bundle-lists">
+                        <li><a href="{{all_products['prenatal-multi'].url}}">Prenatal Multi</a></li>
+                        <li><a href="{{all_products['collagen-protein'].url}}">Collagen Protein</a></li>
+                        <li><a href="{{all_products['omega-3'].url}}">Omega-3</a></li>
+                        <li><a href="{{all_products['prenatal-pre-probiotic'].url}}">Pre/Probiotic</a></li>
+                    </ul>
+
+                    <p class="routine-description">{{all_products[section.settings.complete_plan_bundle].metafields.airf.usell_info}}</p>
+
+                    {% assign retail_price = 0.00 %}
+                    {% assign retail_price = retail_price | plus : all_products['prenatal-multi'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['omega-3'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['collagen-protein'].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products['prenatal-pre-probiotic'].variants[0].price | plus: 0.00 %}
+                    {% comment %} {% assign retail_price = 23996 | plus: 0.00 %} {% endcomment %}
+
+                    {% assign bundle_price = all_products[section.settings.complete_plan_bundle].variants[0].price | plus: 0.00 %}
+                    {% comment %} {% assign bundle_price = 15500 | plus: 0.00 %} {% endcomment %}
+
+                    {% assign saving_rate = retail_price | minus : bundle_price | divided_by : 1000 | round | times: 10 %}
+
+                    <div class="subscribe-wrapper">
+                        <div class="price-subscription">
+                            <div class="retail-price">
+                                <div class="label-retail">Retail Price</div>
+                                <div class="content-retail">{{ retail_price | money }}</div>
+                            </div>
+                            <div class="bundled-subscription">
+                                <div class="label-subscription">Bundled Subscription</div>
+                                <div class="content-subscription">{{ bundle_price | money }}<span class="saving-label">${{saving_rate}} savings</span></div>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" id="upsell_product_id" value="{{ all_products[section.settings.complete_plan_bundle].variants[0].id }}">
+                        <input type="hidden" id="cart_replace_ids" value="{{ all_products[section.settings.base_plan_bundle].variants[0].id }}">
+                        <button type="button" name="add" class="btn-subscribe-plan">Subscribe Now</button>
+                    </div>
+
+                    <hr class="routine-content-splitter" />
+
+                    <ul class="routine-comments">
+                        <li>Free shipping</li>
+                        <li>Easy cancellation</li>
+                        <li>100% Satisfaction Guarantee</li>
+                    </ul>
+                </div>
+            </div>
+            {% endunless %}
+        {% elsif productHandles contains combineBaseProduct1 %}
+            {% unless productHandles contains basePlanBundle or productHandles contains completePlanBundle %}
+            <div class="cart-upsell-routine">
+                <div class="upsell-image">
+                    <img src="{{all_products[section.settings.combine_base_product1].images[0] | img_url: '350x250'}}" class="plan-img">
+                </div>
+
+                <div class="routine-content">
+                    <h2 class="routine-title">Complete your routine with The Probiotic and The Prenatal</h2>
+                    <ul class="bundle-lists">
+                        <li><a href="{{all_products[section.settings.combine_base_product1].url}}">Pre/Probiotic</a></li>
+                        <li><a href="{{all_products[section.settings.combine_product].url}}">Prenatal Multi</a></li>
+                    </ul>
+
+                    <p class="routine-description">{{all_products[section.settings.combine_base_product1].metafields.airf.usell_info}}</p>
+
+                    {% assign retail_price = 0.00 %}
+                    {% assign retail_price = retail_price | plus : all_products[section.settings.combine_base_product1].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products[section.settings.combine_product].variants[0].price %}
+                    {% comment %} {% assign retail_price = 13000 | plus: 0.00 %} {% endcomment %}
+
+                    {% comment %} {% assign bundle_price = all_products['complete-plan'].variants[0].price | plus: 0.00 %} {% endcomment %}
+                    {% assign bundle_price = 0 | plus: 0.00 %}
+                    {% assign bundle_price = retail_price %}
+
+                    {% assign saving_rate = retail_price | minus : bundle_price | round %}
+                    {% comment %} {% assign saving_rate = bundle_price | divided_by : retail_price | times : 100 | round %}
+                    {% assign saving_rate = 100 | minus: saving_rate %} {% endcomment %}
+
+                    <div class="subscribe-wrapper">
+                        <div class="price-subscription">
+                            <div class="retail-price">
+                                <div class="label-retail">Retail Price</div>
+                                <div class="content-retail">{{ retail_price | money }}</div>
+                            </div>
+                            <div class="bundled-subscription" style="visibility: hidden;">
+                                <div class="label-subscription">Bundled Subscription</div>
+                                <div class="content-subscription">{{ bundle_price | money }}<span class="saving-label">${{saving_rate}} savings</span></div>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" id="upsell_product_id" value="{{ all_products[section.settings.combine_product].variants[0].id }}">
+                        {% assign upsellProduct2Handle = section.settings.combine_base_product1 | remove : 'subscribed-' %}
+                        {% assign replaceKey = "" %}
+                        
+                        {% for item in cart.items %}
+                            {% if item.product.handle contains section.settings.combine_base_product1 or item.product.handle contains upsellProduct2Handle %}
+                                {% assign replaceKey = item.key %}
+                                {% break %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <input type="hidden" id="cart_replace_key" value="{{ replaceKey }}">
+                        {% assign upsellProduct2Handle = 'subscribed-' | append: upsellProduct2Handle %}
+                        <input type="hidden" id="upsell_product_id2" value="{{ all_products[upsellProduct2Handle].variants[0].id }}">
+                        <button type="button" name="add" class="btn-subscribe-upsell">Subscribe Now</button>
+                    </div>
+
+                    <hr class="routine-content-splitter" />
+
+                    <ul class="routine-comments">
+                        <li>Free shipping</li>
+                        <li>Easy cancellation</li>
+                        <li>100% Satisfaction Guarantee</li>
+                    </ul>
+                </div>
+            </div>
+            {% endunless %}
+        {% elsif productHandles contains combineBaseProduct2 %}
+            {% unless productHandles contains basePlanBundle or productHandles contains completePlanBundle %}
+            <div class="cart-upsell-routine">
+                <div class="upsell-image">
+                    <img src="{{all_products[section.settings.combine_base_product2].images[0] | img_url: '350x250'}}" class="plan-img">
+                </div>
+
+                <div class="routine-content">
+                    <h2 class="routine-title">Complete your routine with The Collagen Protein and The Prenatal</h2>
+                    <ul class="bundle-lists">
+                        <li><a href="{{all_products[section.settings.combine_base_product2].url}}">Collagen Protein</a></li>
+                        <li><a href="{{all_products[section.settings.combine_product].url}}">Prenatal Multi</a></li>
+                    </ul> 
+
+                    <p class="routine-description">{{all_products[section.settings.combine_base_product2].metafields.airf.usell_info}}</p>
+
+                    {% assign retail_price = 0.00 %}
+                    {% assign retail_price = retail_price | plus : all_products[section.settings.combine_base_product2].variants[0].price %}
+                    {% assign retail_price = retail_price | plus : all_products[section.settings.combine_product].variants[0].price %}
+                    {% comment %} {% assign retail_price = 12000 | plus: 0.00 %} {% endcomment %}
+
+                    {% comment %} {% assign bundle_price = all_products['complete-plan'].variants[0].price | plus: 0.00 %} {% endcomment %}
+                    {% assign bundle_price = 0 | plus: 0.00 %}
+                    {% assign bundle_price = retail_price %}
+
+                    {% assign saving_rate = retail_price | minus : bundle_price | round %}
+                    {% comment %} {% assign saving_rate = bundle_price | divided_by : retail_price | times : 100 | round %}
+                    {% assign saving_rate = 100 | minus: saving_rate %} {% endcomment %}
+
+                    <div class="subscribe-wrapper">
+                        <div class="price-subscription">
+                            <div class="retail-price">
+                                <div class="label-retail">Retail Price</div>
+                                <div class="content-retail">{{ retail_price | money }}</div>
+                            </div>
+                            <div class="bundled-subscription" style="visibility: hidden;">
+                                <div class="label-subscription">Bundled Subscription</div>
+                                <div class="content-subscription">{{ bundle_price | money }}<span class="saving-label">${{saving_rate}} savings</span></div>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" id="upsell_product_id" value="{{ all_products[section.settings.combine_product].variants[0].id }}">
+                        {% assign upsellProduct2Handle = section.settings.combine_base_product2 | remove : 'subscribed-' %}
+                        {% assign replaceKey = "" %}
+                        
+                        {% for item in cart.items %}
+                            {% if item.product.handle contains section.settings.combine_base_product2 or item.product.handle contains upsellProduct2Handle %}
+                                {% assign replaceKey = item.key %}
+                                {% break %}
+                            {% endif %}
+                        {% endfor %}
+ 
+                        <input type="hidden" id="cart_replace_key" value="{{ replaceKey }}">
+                        {% assign upsellProduct2Handle = 'subscribed-' | append: upsellProduct2Handle %}
+                        <input type="hidden" id="upsell_product_id2" value="{{ all_products[upsellProduct2Handle].variants[0].id }}">
+                        <button type="button" name="add" class="btn-subscribe-upsell">Subscribe Now</button>
+                    </div>
+
+                    <hr class="routine-content-splitter" />
+
+                    <ul class="routine-comments">
+                        <li>Free shipping</li>
+                        <li>Easy cancellation</li>
+                        <li>100% Satisfaction Guarantee</li>
+                    </ul>
+                </div>
+            </div>
+            {% endunless %}
+        {% endif %}
+    </div>
+</div>
+
+<script>
+
+    function addItemToCart(variant_id, qty) {
+
+        data = {
+            id: variant_id,
+            quantity: qty
+        }
+
+        jQuery.ajax({
+            type: 'POST',
+            url: '/cart/add.js',
+            data: data,
+            dataType: 'json',
+            success: function() { 
+                window.location.href = '/cart'; 
+            }
+        });
+    }
+
+    function changeItems(replaceIds, index, productId){
+        if(replaceIds.length == index){
+            addItemToCart(productId, 1);
+            return;
+        }
+        
+        data = {
+            id: replaceIds[index],
+            quantity: 0
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/cart/change.js',
+            data: data,
+            dataType: 'json',
+            success: function() { 
+                changeItems(replaceIds, ++index, productId);
+            }
+        });
+    }
+
+    $(function(){
+        $(".btn-subscribe-plan").on("click", function(){
+            var productId = $("#upsell_product_id").val();
+            var replaceIds = $("#cart_replace_ids").val().split(",");
+
+            changeItems(replaceIds, 0, productId);
+        })
+
+        $(".btn-subscribe-upsell").on("click", function(){
+            var productId = $("#upsell_product_id").val();
+            var productId2 = $("#upsell_product_id2").val();
+            var replaceKey = $("#cart_replace_key").val();
+
+            data = {
+                id: replaceKey,
+                quantity: 0
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/cart/change.js',
+                data: data,
+                dataType: 'json',
+                success: function() { 
+
+                    var data2 = {
+                        id: productId,
+                        quantity: 1
+                    }
+
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: '/cart/add.js',
+                        data: data2,
+                        dataType: 'json',
+                        success: function() { 
+
+                            addItemToCart(productId2, 1);
+                        }
+                    });
+                }
+            });
+            
+        })
+    })
+    
+</script>

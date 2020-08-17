@@ -1,0 +1,677 @@
+{% capture page_ingredients %}
+    <style>
+        .ingredient_name{
+            font-size: 32px;
+            color: orange;
+        }
+
+        .support-link{
+            color: blue;
+        }
+
+        .rda-cards{
+            display: flex;
+        }
+        .rda-card-item{
+            max-width: 300px;
+        }
+        .rda-description{
+            max-width: 600px;
+        }
+        .rda-card-item, .rda-description{
+            border: 1px solid;
+            padding: 10px;
+        }
+
+        .rda-value{
+            color: red;
+        }
+    </style>
+
+
+
+    <br>
+    <!-- category_block -->
+        <!-- ingredient_name -->
+            <h2 class="ingredient_name">Vitamin A</h2>
+        <!-- ingredient_name -->
+
+        <!-- main_title -->
+            <h2>Organic Fruit & Vegetable Antioxidant Blend</h2>
+            <p>apple, broccoli, kale, spinach, beet, carrot, green cabbage, parsley, blueberry, raspberry, strawberry, tomato</p>
+            <p>100mg</p>
+        <!-- main_title -->
+        <br>
+
+        <!-- support_mama -->
+            <h3>How it supports mama:</h3>
+            <ul>
+                <li>immune function</li>
+                <li>fetal facial feature development including eyes and ears</li>
+                <li>thyroid function</li>
+                <li>adequate birth weight</li>
+                <li>full-term gestation</li>
+                <li>healthy skin</li>
+            </ul>
+        <!-- support_mama -->
+        <br>
+
+        <!-- support_baby -->
+            <h3>How it supports baby:</h3>
+            <ul>
+                <li>immune function</li>
+                <li>fetal facial feature development including eyes and ears</li>
+                <li>thyroid function</li>
+                <li>adequate birth weight</li>
+                <li>full-term gestation</li>
+                <li>healthy skin</li>
+            </ul>
+        <!-- support_baby -->
+        <br>
+
+        <!-- baseline_needs -->
+            <h2>Most pregnant and nursing women aren’t meeting their baseline needs</h2>
+            <div class="rda-cards">
+                <div class="rda-card-item card-left">
+                    <p>Recommended Daily Allowance (RDA) Pregnant & Nursing:</p>
+                    <div class="allowance-content">
+                        <span class="allowance">1,300mcg</span>
+                        <span>RAE</span>
+                    </div>
+                </div>
+                <div class="rda-card-item card-right">
+                    <p>51% of adults fall short of meeting their requirements based on the RDA1</p>
+                </div>
+            </div>
+            <p class="rda-description">1 RDAs often provide far less nutrition than what you need. They are set by a government body with levels anchored by the minimum nutritional amounts necessary to avoid disease conditions, not to support you optimally before, during, and after pregnancy. Learn more here.</p>
+        <!-- baseline_needs -->
+        <br>
+
+        <!-- why_this_form -->
+            <h2>Why this form?</h2>
+            <p>Beta carotene is the form of Vitamin A found in plants. It is often poorly absorbed and inefficiently converted into the active, or ready-to-be used, form after absorption. And, many women contain a genetic variation that prevents the conversion completely.</p>
+            <p>Retinyl palmitate is an active form that is more readily usable by the body. It is otherwise found in animal foods, especially liver and dairy products.</p>
+        <!-- why_this_form -->
+        <br>
+        
+        <!-- why_this_dose -->
+            <h2>Why this dose?</h2>
+            <p>The combination provides enough retinyl palmitate to be effective, especially for those that don’t eat enough meat or dairy, or have beta carotene conversion difficulty, while still being safe for all mamas and mamas-to-be.</p>
+        <!-- why_this_dose -->
+        <br>
+
+        <!-- rda_chart -->
+            <h2>How do we stack against 6 leading prenatals</h2>
+            <label>Leading DTC Brand:</label>
+            <div class="rda-value">500mg</div>
+            <label>Leading Whole Food Supplement:</label>
+            <div class="rda-value">750mg</div>
+            <label>Leading Whole Food Supplement:</label>
+            <div class="rda-value">500mg</div>
+            <label>Leading Organic Gummy:</label>
+            <div class="rda-value">750mg</div>
+            <label>Leading Practitioner Brand:</label>
+            <div class="rda-value">1,000mg</div>
+            <label>Leading Practitioner Brand:</label>
+            <div class="rda-value">800mg</div>
+        <!-- rda_chart -->
+        <br>
+
+        <!-- additional_information -->
+            <h2>Additional information to note</h2>
+            <p>There is a lot of internet chatter around avoiding active forms of Vitamin A like retinyl palmitate in supplements during pregnancy. This caution exists because Vitamin A is a fat soluble nutrient and therefore can be hard for your body to eliminate. Toxicity can occur at very high levels of Vitamin A. The WHO says 10,000IU / 3,000mcg a day of the active form of vitamin A is the upper limit. However, other research suggests that no risk has been observed at 30,000IU / 9.000mcg a day.2 Beta carotene does not apply towards the upper limit.</p>
+            <p>We think instructions to avoid retinyl palmitate completely are misguided. Avoidance has led to a high rate of vitamin A deficiency in pregnancy and babies, which can be damaging as well.</p>
+        <!-- additional_information -->
+        <br>
+
+        <!-- research_support -->
+            <h2>Research Support</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <div class="support-links">
+                <a class="support-link" href="https://www.ncbi.nlm.nih.gov/pubmed/21865568">Foods, Fortificants, and Supplements: Where Do Americans Get Their Nutrients? - 2011 <small>National Center for Biotechnology Information</small> </a><br /> 
+                <a class="support-link" href="https://pubmed.ncbi.nlm.nih.gov/22254103/"> Vitamin A in Reproduction and Development - 2011 <small>National Center for Biotechnology Information</small> </a><br />
+            </div>
+        <!-- research_support -->
+        <br><br><br>
+
+
+        
+{% endcapture %}
+
+
+
+{% capture ingredient_names %}
+
+    {% assign item_names = page_ingredients | split: '<!-- ingredient_name -->' %}
+    {% assign forindex = 0 %}
+
+    <ul class="ingredient-items">
+    {% for item in item_names %}
+        {% unless item contains '<h2 class="ingredient_name">' %}
+            {% continue %}
+        {% endunless %}
+
+        {% assign forindex = forindex| plus: 1 %}
+
+        {% assign ingredient_item = item | split: '<h2 class="ingredient_name">' | last %}
+        {% assign ingredient_item = ingredient_item | split: '</h2>' | first %}
+        <li class="ingredient-item {% if forindex == 1 %} active {% endif %}">
+            <a href="javascript:;" data-id="ingredient{{ forindex }}">{{ingredient_item}}</a>
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endcapture %}
+
+
+{% capture ingredient_contents %}
+    
+    <div class="ingredients-container">
+
+        {% assign item_contents = page_ingredients | split: '<!-- category_block -->' %}
+        {% assign forindex = 0 %}
+        {% for content in item_contents %}
+        
+            {% if forloop.first == true %}
+                {% continue %}
+            {% endif %}
+
+            {% assign forindex = forindex | plus: 1 %}
+
+            <div class="ingredient-content id-ingredient{{forindex}}" style="display: {% if forindex == 1 %} block {% else %} none {% endif %}">
+                <div class="main-title">
+                    {% assign main_title = content | split: '<!-- main_title -->' %}
+                    {{ main_title[1] }}
+                </div>
+                
+                <div class="supports-section">
+                    <div class="support-mama">
+                        <img class="icon-support-mama" src="https://cdn.shopify.com/s/files/1/0195/3293/9328/files/DHA-level_134x134_crop_center@2x.png?v=1577305562">
+                        {% assign support_mama = content | split: '<!-- support_mama -->' %}
+                        {{ support_mama[1] }}
+                    </div>
+                    <div class="support-baby">
+                        <img class="icon-support-baby" src="https://cdn.shopify.com/s/files/1/0195/3293/9328/files/baby_s-brain_134x134_crop_center@2x.png?v=1577305548">
+                        {% assign support_baby = content | split: '<!-- support_baby -->' %}
+                        {{ support_baby[1] }}
+                    </div>
+                </div>
+                
+                <div class="baseline-needs">
+                    {% assign baseline_needs = content | split: '<!-- baseline_needs -->' %}
+                    {{ baseline_needs[1] }}
+                </div>
+                
+                <div class="why-this">
+                    <div class="why-this-form">
+                        {% assign why_this_form = content | split: '<!-- why_this_form -->' %}
+                        {{ why_this_form[1] }}
+                    </div>
+                    <div class="why-this-dose">
+                        {% assign why_this_dose = content | split: '<!-- why_this_dose -->' %}
+                        {{ why_this_dose[1] }}
+                    </div>
+                </div>
+                
+                <div class="rda-chart">
+                    <img class="rda-chart-board" src="https://cdn.shopify.com/s/files/1/0195/3293/9328/files/Capture_1_888x524_crop_center@2x.png?v=1590770874">
+                    {% assign rda_chart = content | split: '<!-- rda_chart -->' %}
+                    {% assign chart_labels = rda_chart[1] | split: '<div class="rda-value">' %}
+                    <ul class="chart-columns">
+                        {% for chart_label in chart_labels %}
+                            {% unless chart_label contains '</div>' %} {% continue %} {% endunless %}
+                            {% assign device_height = 192 %}
+                            {% assign column_label = chart_label | split: '</div>' | first %}
+                            {% assign column_value = column_label | replace: ',', '' | times: 1 %}
+                            {% assign column_height = column_value | divided_by: 1500.00 %}
+                            {% assign column_height = device_height | times: column_height | times: 1 %}
+                            <li class="chart-column">
+                                <span class="column-label">{{ column_label }}</span>
+                                <div class="column-value" data-value="{{ column_value }}" style="height: {{column_height}}px;"></div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="additional-information">
+                    {% assign additional_information = content | split: '<!-- additional_information -->' %}
+                    {% if additional_information[1] %}
+                        {% assign additional_information = additional_information[1] | strip %}
+                        {% unless additional_information.size == 0 %}
+                            {{ additional_information }}
+                        {% endunless %}
+                    {% endif %}
+                </div>
+
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% endcapture %}
+
+{% capture research_support_section %}
+
+    <div class="research-support-container">
+
+        {% assign item_contents = page_ingredients | split: '<!-- category_block -->' %}
+        {% assign forindex = 0 %}
+        {% for content in item_contents %}
+            {% if forloop.first == true %}
+                {% continue %}
+            {% endif %}
+
+            {% assign forindex = forindex | plus: 1 %}
+
+            <div class="research-support id-ingredient{{forindex}}" style="display: {% if forindex == 1 %} block {% else %} none {% endif %}">
+                {% assign research_support = content | split: '<!-- research_support -->' %}
+                {{ research_support[1] | split: '<div class="support-links">' | first }}
+                {% assign support_links = research_support[1] | split: '<div class="support-links">' | last %}
+                {% assign support_links = support_links | split: '<p class="support-link">' %}
+
+                <ul class="support-links">
+                    {% for support_link in support_links %}
+                        {% if forloop.first == true %} {% continue %} {% endif %}
+
+                        {% assign href = support_link | split: '</p>' | first %}
+                        <li class="support-link">
+                            <a href="{{href}}">{{ href }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        {% endfor %}
+
+    </div>
+{% endcapture %}
+
+<div class="ingredient-sidebar">
+    <a href="/" class="btn-back">Back to The Needed Prenatal</a>
+    {{ ingredient_names }}
+</div>
+
+<div class="ingredient-main-body">
+    {{ ingredient_contents }}
+</div>
+
+{{ research_support_section }}
+
+<style>
+
+    #shopify-section-ingredients-page{
+        margin-top: 70px;
+    }
+
+
+
+
+    
+    .ingredient-sidebar{
+        width: 300px;
+        float: left;
+        padding: 0px 28px;
+    }
+
+    .ingredient-main-body{
+        float: left;
+        border-left: 1px solid #F6F4F2;
+        width: calc(100% - 300px);
+    }
+    
+    /******************************* sidebar ******************************************/
+    .ingredient-sidebar ul.ingredient-items{
+        
+    }
+
+    .ingredient-sidebar .btn-back{
+        font-family: "BrownPro-Regular";
+        font-size: 14px;
+        color: #1F3337;
+        text-decoration: none;
+        margin-bottom: 33px;
+        display: inline-block;
+    }
+
+    .ingredient-sidebar .btn-back:before{
+        content: '';
+        display: block;
+        width: 6px;
+        height: 6px;
+        float: left;
+        margin: 1px 5px 1px 0px;
+        border-radius: 3px;
+        border: 2px solid #1F3337;
+        border-color: transparent transparent #1F3337 #1F3337;
+        transform: rotate(45deg);
+    }
+
+    .ingredient-sidebar ul.ingredient-items li.ingredient-item a{
+        text-decoration: none;
+        font-family: "BrownPro-Bold";
+        font-size: 15px;
+        color: #1F3337;
+        display: inline-block;
+        width: 100%;
+        padding: 11px 17px 8px;
+    }
+    .ingredient-sidebar ul.ingredient-items li.ingredient-item a:hover,
+    .ingredient-sidebar ul.ingredient-items li.ingredient-item.active a{
+        background-color: #F6F4F2;
+    }
+    .ingredient-main-body .ingredients-container .ingredient-content{
+        max-width: 890px;
+        margin: 0px auto;
+    }
+    /**********************************************************************************/
+
+
+    /*************************************** main-content ********************************************/
+
+    .ingredient-content .main-title h2{
+        font-family: "Copernicus-Bold";
+        font-size: 30px;
+        color: #1F3437;
+    }
+
+    .ingredient-content .main-title p{
+        font-family: "BrownPro-Regular";
+        font-size: 16px;
+        color: #1F3437;
+        line-height: 3;
+    }
+
+    .ingredient-content .supports-section{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 46px;
+    }
+
+    .ingredient-content .supports-section .support-mama,
+    .ingredient-content .supports-section .support-baby{
+        width: calc(50% - 7px);
+        background-color: #F6F4F2;
+        padding: 46px 62px 50px 89px;
+    }
+
+    .ingredient-content .supports-section .support-mama .icon-support-mama,
+    .ingredient-content .supports-section .support-baby .icon-support-baby{
+        width: 60px;
+    }
+
+    .ingredient-content .supports-section h3{
+        font-family: "BrownPro-Bold";
+        font-size: 20px;
+        color: #1F3337;
+        margin-top: 35px;
+        margin-bottom: 18px;
+    }
+
+    .ingredient-content .supports-section ul li{
+        font-family: "BrownPro-Regular";
+        font-size: 16px;
+        color: #1F3337;
+        line-height: 1.3;
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+    .ingredient-content .supports-section ul li:before{
+        position: absolute;
+        content: url(https://cdn.shopify.com/s/files/1/0195/3293/9328/t/34/assets/icon-check.svg);
+        width: 14px;
+        height: 14px;
+        top: 2px;
+        left: -27px;
+    }
+
+
+    .baseline-needs{
+        margin-top: 78px;
+    }
+
+    .baseline-needs h2{
+        font-family: "Copernicus-Bold";
+        font-size: 28px;
+        text-align: center;
+        color: #1F3437;
+        max-width: 660px;
+        margin: 0px auto;
+        line-height: 1.4;
+    }
+
+    .baseline-needs .rda-cards{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 42px;
+    }
+
+    .baseline-needs .rda-cards .rda-card-item{
+        width: calc(50% - 1px);
+        height: 160px;
+        background-color: #85853E;
+        display: flex;
+        padding: 0px 70px 0px 60px;
+        flex-direction: column;
+        justify-content: center;
+        color: #FFF;
+    }
+
+    .baseline-needs .rda-cards .card-left p{
+        font-family: "BrownPro-Regular";
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .baseline-needs .rda-cards .card-left .allowance-content{
+        margin-top: 27px;
+    }
+
+    .baseline-needs .rda-cards .card-left .allowance-content span{
+        font-family: "BrownPro-Regular";
+        font-size: 16px;
+    }
+
+    .baseline-needs .rda-cards .card-left .allowance-content span.allowance{
+        font-family: "BrownPro-Bold";
+        font-size: 24px;
+    }
+
+    .baseline-needs .rda-cards .card-right p{
+        font-family: "BrownPro-Regular";
+        font-size: 22px;
+        line-height: 1.6;
+    }
+
+    .baseline-needs .rda-description{
+        font-family: "BrownPro-Regular";
+        font-size: 14px;
+        line-height: 1.3;
+        margin-top: 18px;
+    }
+
+    .why-this{
+        margin-top: 70px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .why-this .why-this-form{
+        padding-right: 42px;
+    }
+
+    .why-this .why-this-form,
+    .why-this .why-this-dose{
+        width: calc(50% - 35px);
+    }
+
+    .why-this .why-this-form h2,
+    .why-this .why-this-dose h2{
+        font-family: "Copernicus-Bold";
+        font-size: 28px;
+        color: #1F3437;
+        margin-bottom: 30px;
+    }
+
+    .why-this .why-this-form p,
+    .why-this .why-this-dose p{
+        font-family: "BrownPro-Regular";
+        font-size: 16px;
+        color: #1F3337;
+        margin-bottom: 14px;
+        line-height: 1.4;
+    }
+
+    .additional-information{
+        margin-top: 72px;
+        margin-bottom: 96px;
+    }
+
+    .additional-information h2{
+        font-family: "Copernicus-Bold";
+        font-size: 28px;
+        color: #1F3437;
+        margin-bottom: 36px;
+    }
+
+    .additional-information p{
+        font-family: "BrownPro-Regular";
+        font-size: 16px;
+        color: #1F3337;
+        line-height: 1.4;
+        margin-bottom: 14px;
+    }
+
+    /******************************* RDA Chart section ********************************/
+    .rda-chart{
+        position: relative;
+        margin-top: 76px;
+    }
+    
+    .rda-chart ul.chart-columns{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        position: absolute;
+        bottom: 169px;
+        left: 210px;
+        width: 600px;
+    }
+
+    .rda-chart ul.chart-columns li.chart-column{
+        text-align: center;
+    }
+
+    .rda-chart ul.chart-columns li.chart-column .column-label{
+        font-family: "BrownPro-Bold";
+        font-size: 16px;
+        color: #FFF;
+    }
+
+    .rda-chart ul.chart-columns li.chart-column .column-value{
+        width: 69.5px;
+        background-color: #FFF;
+        opacity: 0.4;
+        margin-top: 8px;
+    }
+
+    /**********************************************************************************/
+
+    /*************************************************************************************************/
+
+    /***************************************** research support container ****************************************/
+
+    .research-support-container{
+        float: left;
+        width: 100%;
+        background-color: #F6F4F2;
+    }
+
+    .research-support-container .research-support{
+        max-width: 880px;
+        margin: 0px auto;
+    }
+
+    .research-support-container .research-support h2{
+        font-family: "Copernicus-Bold";
+        font-size: 35px;
+        color: #1F3437;
+        text-align: center;
+        margin-top: 110px;
+        margin-bottom: 23px;
+    }
+
+    .research-support-container .research-support p{
+        font-family: "BrownPro-Regular";
+        font-size: 18px;
+        color: #1F3337;
+        text-align: center;
+    }
+
+    .research-support-container .research-support ul.support-links{
+        margin-top: 80px;
+        margin-bottom: 168px;
+    }
+
+    .research-support-container .research-support ul.support-links li.support-link{
+        min-height: 84px;
+        margin-bottom: 4px;
+        padding-left: 35px;
+        background-color: #FFF;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+    }
+
+    .research-support-container .research-support ul.support-links li.support-link:before{
+        background-image: url({{ 'icon-paper.png' | asset_url }});
+        content: '';
+        display: block;
+        width: 18px;
+        height: 24px;
+        position: absolute;
+    }
+
+    .research-support-container .research-support ul.support-links li.support-link a{
+        font-family: "BrownPro-Regular";
+        font-size: 16px;
+        color: #1F3337;
+        margin-left: 40px;
+        text-decoration: none;
+        position: relative;
+    }
+
+    .research-support-container .research-support ul.support-links li.support-link a:after{
+        content: '';
+        display: block;
+        width: 12px;
+        height: 12px;
+        border: 2px solid;
+        border-color: #1F3437 #1F3437 transparent transparent;
+        border-radius: 2px;
+        position: absolute;
+        right: 40px;
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+    }
+
+    /*************************************************************************************************************/
+</style>
+
+<script>
+
+    $(function(){
+        $(".ingredient-sidebar ul.ingredient-items li.ingredient-item a").on('click', function(){
+            $(".ingredient-main-body .ingredients-container .ingredient-content").hide();
+            $(".research-support-container .research-support").hide();
+            $(".id-"+$(this).data("id")).show();
+
+            $(".ingredient-sidebar ul.ingredient-items li.ingredient-item.active").removeClass('active');
+            $(this).parent().addClass('active');
+        });
+    })
+    
+</script>

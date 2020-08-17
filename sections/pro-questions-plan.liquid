@@ -1,0 +1,126 @@
+<style>
+    section.quiz-pro-o3 .product__accordion .mobile-show-more{
+        display: none;
+    }
+
+    .quiz-pro-o3 .header-wrapper h1 .banner__title-shape:after {
+        width: 0;
+    }
+
+    @media (min-width: 769px){
+        section.quiz-pro-o3 .product__accordion .accordion__pane:nth-last-child(2){
+            border-bottom: 0px;
+        }
+    }
+
+    @media (max-width: 768px){
+        section.quiz-pro-o3 .product__accordion .mobile-show-more{
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        section.quiz-pro-o3 .product__accordion .mobile-show-more a{
+            font-family: "BrownPro-Regular";
+            font-size: 16px;
+            color: #202F30;
+        }
+
+        section.quiz-pro-o3 .product__accordion .accordion__pane.mobile-hide{
+            display: none;
+        }
+    }
+</style>
+
+
+<script type="text/javascript">
+
+    $(function(){
+        $(document).on("click", "section.quiz-pro-o3 .product__accordion .mobile-show-more .btn-show-more", function(){
+            $("section.quiz-pro-o3 .product__accordion .accordion__pane.mobile-hide").slideDown("fast");
+            $(this).removeClass("btn-show-more").addClass("btn-show-less").text("Show Less");
+        });
+
+        $(document).on("click", "section.quiz-pro-o3 .product__accordion .mobile-show-more .btn-show-less", function(){
+            $("section.quiz-pro-o3 .product__accordion .accordion__pane.mobile-hide").slideUp("fast");
+            $(this).removeClass("btn-show-less").addClass("btn-show-more").text("Show All");
+        });
+    });
+    
+</script>
+
+
+<section class="quiz-pro-o3" data-section-id="{{ section.id }}">
+    <div class="container">
+        <div class="section-wrapper">
+            <div class="header-wrapper js-animate animate-fade-in">
+                {% if section.settings.title != blank %}
+                <h1><span class="banner__title-shape">{{ section.settings.title }}</span></h1>
+                {% endif %}
+                {% if section.settings.sub_title != blank %}
+                <p>{{ section.settings.sub_title }}</p>
+                {% endif %}
+            </div>
+            <div class="product__accordion accordion" data-accordion>
+            {% if section.blocks.size > 0 %}        
+                {% for block in section.blocks %}
+                <div class="accordion__pane js-animate animate-fade-in {% if forloop.index0 > 3 %} mobile-hide {% endif %}" data-pane>
+                    {% if block.settings.title != blank %}
+                    <div class="accordion__title" data-toggler>
+                        <span>{{ block.settings.title }}</span>
+                        <span class="accordion__state" data-state></span>
+                    </div>
+                    {% endif %}
+                    {% if block.settings.answer != blank %}
+                    <div class="accordion__content" data-content>{{ block.settings.answer }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <div class="mobile-show-more">
+                    <a href="javascript:;" class="btn-show-more">Show All</a>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% schema %}
+{
+    "name": "Questions | Plan",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Main heading",
+            "default": "Questions? We have answers."
+        },
+        {
+            "type": "textarea",
+            "id": "sub_title",
+            "label": "Sub heading",
+            "default": "Thoughtful inquiry is needed."
+        }
+    ],
+    "blocks": [
+        {
+        "type": "Quiz",
+        "name": "Quiz",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Question title"
+            },
+            {
+                "type": "textarea",
+                "id": "answer",
+                "label": "Answer"
+            }
+        ]
+    }
+    ]
+}
+{% endschema %}

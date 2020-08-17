@@ -1,0 +1,144 @@
+{{ 'prenatal-multi-stacks.scss.css' | asset_url | stylesheet_tag }}
+<div data-section-id="{{ section.id }}" class="prenatal-multi-stacks">
+    {{ pages.prenatal-multi-stacks.content }}
+    <div class="actions text-center">
+        <a href="/pages/prenatal-multi-stacks" class="link-btn page-link js-animate animate-fade-in">
+            <span>See how our Prenatal stacks up</span>
+        </a>
+    </div>
+</div>
+<style>
+    .prenatal-multi-stacks .page-content {
+        margin: 0 !important;
+    }
+
+    @media (max-width: 450px) {
+        .actions .page-link span {
+            padding: 0 20px;
+        }
+    }
+
+    @media (min-width: 382px) and (max-width: 418px) {
+        [data-section-id="{{ section.id }}"] .page-title span {
+            font-size: 29px !important;
+        }
+    }
+
+    [data-section-id="{{section.id}}"] {
+        padding: 100px 0;
+        margin-top: 0 !important;
+        {% if section.settings.background_color != nil %}
+            background-color: {{section.settings.background_color}};
+        {% endif %}
+    }
+
+    [data-section-id="{{section.id}}"] .page-title .color-2 {
+        display: none !important;
+    }
+
+    [data-section-id="{{section.id}}"] .page-content .content-header {
+        display: none !important;
+    }
+
+    [data-section-id="{{section.id}}"] .page-content .content-inner {
+        background-color: white !important;
+        max-height: 450px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    [data-section-id="{{section.id}}"] .page-content .content-inner:after {
+        content: '';
+        transition-property: top;
+        transition-duration: 300ms;
+        transition-timing-function: ease-in-out;
+        background-image: linear-gradient(180deg, rgba(239,224,227,0) 0%, #EFE0E3 100%);
+        position: absolute;
+        top: calc(100% - 170px);
+        left: 0;
+        height: 170px;
+        width: 100%;
+        z-index: 1;
+    }
+
+    [data-section-id="{{section.id}}"] .page-content .content-footer {
+        display: none;
+    }
+
+    [data-section-id="{{section.id}}"] .link-btn {
+        border-radius: 30px;
+        background-color: #1f3437;
+        display: inline-block;
+        transition: .2s all;
+    }
+
+    [data-section-id="{{section.id}}"] .link-btn:hover {
+        background-color: #4d5e5f;
+    }
+
+    [data-section-id="{{section.id}}"] .page-content .content-inner .product-table .table-next::after {
+        right: 0 !important;
+    }
+
+    .prenatal-multi-stacks .page-header .page-title {
+        max-width: none !important;
+        width: 100% !important;
+    }
+
+    .intro-nutrients .intro-nutrients__wrapper.bottom-position {
+        bottom: 0 !important;
+    }
+
+    .link-btn span {
+        color: #fff;
+        font-size: 16px;
+        font-weight: 100;
+        line-height: 57px;
+        padding: 0 70px;
+        display: inline-block;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        $(".standard-table table tr").each(function(i, el) {
+            var height1 = $(this).height();
+            var height2 = $('#carousel-1 table tr').eq(i).height();
+
+            if(height1 > height2) {
+                $('#carousel-1 table tr').eq(i).height(height1);
+            } else {
+                $(this).height(height2);
+            }
+        });
+    });
+</script>
+{% schema %}
+    {
+        "name": "Prenatal Stack Table | PM",
+        "settings": [
+            {
+                "type": "text",
+                "id": "section_title",
+                "label": "Section Title",
+                "default": "Your prenatal isn't cutting it."
+            },
+            {
+                "type": "textarea",
+                "id": "sub_title",
+                "label": "Sub Title",
+                "default": "Most prenatals dose way too low for optimal nourishment, or include forms that are taxing on the body."
+            },
+            {
+                "type": "color",
+                "id": "background_color",
+                "label": "Background color"
+            },
+            {
+                "type": "text",
+                "id": "button_label",
+                "label": "Button Label",
+                "default": "See how our Prenatal stacks up"
+            }
+        ]
+    }
+{% endschema %}

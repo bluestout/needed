@@ -1,0 +1,28 @@
+<div class="accordian product-description" itemprop="description">
+    <div class="accordHeaderLinks">
+        {% if section.settings.tab_1 != blank and section.settings.tab_1_desc != blank %}
+        <a href="#accordian-1" class="active">{{ section.settings.tab_1 }}</a>
+        {% endif %}
+        {% if section.settings.tab_2 != blank and section.settings.tab_2_desc != blank %}
+        <a href="#accordian-2">{{ section.settings.tab_2 }}</a>
+        {% endif %}
+        {% if section.settings.tab_3 != blank and section.settings.tab_3_desc != blank %}
+        <a href="#accordian-3">{{ section.settings.tab_3 }}</a>
+        {% endif %}
+    </div>
+    {% if section.settings.tab_1 != blank and section.settings.tab_1_desc != blank %}
+    <div id="accordian-1" class="active tab-item">
+        <p>{{ section.settings.tab_1_desc }}</p>
+    </div>
+    {% endif %}
+    {% if section.settings.tab_2 != blank and section.settings.tab_2_desc != blank %}
+    <div id="accordian-2" class="tab-item">
+        <p>{{ section.settings.tab_2_desc }}</p>
+    </div>
+    {% endif %}
+    {% if section.settings.tab_3 != blank and section.settings.tab_3_desc != blank %}
+    <div id="accordian-3" class="tab-item">
+        <p>{{ section.settings.tab_3_desc }}</p>
+    </div>
+    {% endif %}
+</div>

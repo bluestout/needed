@@ -1,0 +1,305 @@
+
+<style>
+
+.site-nav .site-nav__item[data-menu="dropdown"]:hover .mega-menu-plan{
+    background-color: #FFF;
+    padding: 16px;
+    width: 1160px;
+    height: 400px;
+    display: flex;
+    box-shadow: 0px 0px 3px #00000020;
+    position: absolute;
+    left: -250%;
+}
+
+.site-nav .site-nav__item[data-menu="dropdown"]:hover .mega-menu-plan .mega-menu__item:nth-child(1){
+    flex-basis: 33%;
+    padding: 0px 70px 0px 40px;
+    margin-top: 20px;
+    margin-bottom: 26px;
+    border-right: 1px solid #F6F4F2;
+}
+
+.site-nav .site-nav__item[data-menu="dropdown"]:hover .mega-menu-plan .mega-menu__item:nth-child(2){
+    flex-basis: 30%;
+    padding: 0px 50px 0px 50px;
+    margin-top: 20px;
+    margin-bottom: 26px;
+}
+
+.site-nav .site-nav__item[data-menu="dropdown"]:hover .mega-menu-plan .mega-menu__item:nth-child(3){
+    flex-basis: 37%;
+}
+
+.site-nav .site-nav__item[data-menu="dropdown"]:hover .mega-menu-plan .mega-menu__item .mega-img{
+    width: auto;
+    height: 100%;
+    max-width: max-content;
+}
+
+.site-nav .site-nav__item[data-menu="dropdown"]:hover .mega-menu-plan .mega-menu__item .mega-plan-container{
+    position: relative;
+    height: 100%;
+}
+
+.mega-menu-plan .mega-plan-title{
+    font-family: "Copernicus-Bold";
+    font-size: 22px;
+    margin-bottom: 14px;
+    color: #1F3437;
+    letter-spacing: 0px;
+}
+
+.mega-menu-plan .mega-plan-items li{
+    font-family: "BrownPro-Regular";
+    font-size: 16px;
+    margin-left: 28px;
+    color: #1F3337;
+    opacity: 0.65;
+    position: relative;
+    line-height: 1.4;
+}
+
+.mega-menu-plan .mega-plan-items li:before{
+    position: absolute;
+    content: url(https://cdn.shopify.com/s/files/1/0195/3293/9328/t/34/assets/icon-check.svg);
+    width: 14px;
+    height: 14px;
+    top: 2px;
+    left: -27px;
+}
+
+.mega-menu-plan .mega-menu__item .plan-shop-link{
+    font-family: "BrownPro-Bold";
+    font-size: 16px;
+    color: #000;
+    text-decoration: underline;
+    position: absolute;
+    bottom: 0;
+    opacity: 0.7;
+}
+
+.mobile-shop-menu-container{
+    position: absolute;
+    background: #FFF;
+    width: 100%;
+    padding: 20px;
+    z-index: 9998;
+    margin-top: 55px;
+
+    display: none;
+}
+
+
+.mobile-shop-menu-container .mobile-plan-menu-label{
+    font-family: "BrownPro-Regular";
+    font-size: 14px;
+    color: #1F3337;
+    opacity: 0.5;
+}
+
+.mobile-shop-menu-container .mega-menu.mega-menu-plan .mega-plan-container{
+    padding: 20px;
+    max-width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.mobile-shop-menu-container .mega-menu.mega-menu-plan .mega-plan-container .plan-items-wrapper{
+    min-height: 90px;
+}
+
+.mobile-shop-menu-container .mega-menu.mega-menu-plan li.mega-menu__item{
+    margin-top: 10px;
+}
+
+.mobile-shop-menu-container .mega-plan-container .mega-plan-title{
+    font-size: 18px;
+    max-width: 180px;
+    line-height: 1.5;
+}
+
+.mobile-shop-menu-container .mega-plan-container ul.mega-plan-items{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mobile-shop-menu-container .mega-plan-container ul.mega-plan-items li{
+    width: 100%;
+    line-height: 1.5;
+    opacity: 1;
+}
+
+@media (min-width: 769px){
+    .mobile-top-menu-header,
+    .mobile-shop-menu-container{
+        display: none;
+    }
+}
+
+@media (max-width: 480px){
+    .mobile-shop-menu-container .mega-plan-container ul.mega-plan-items li{
+        font-size: 12px;
+    }
+}
+
+.mobile-shop-menu-container .mega-plan-container .plan-shop-link{
+    position: relative;
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 13px;
+}
+
+.mobile-shop-menu-container ul.mega-menu.mega-shop-product{
+    width: 100%;
+    box-shadow: none;
+    margin-top: 40px;
+}
+
+.mobile-shop-menu-container ul.mega-menu.mega-shop-product li.mega-menu__item{
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-bottom: 22px;
+}
+
+.mobile-shop-menu-container ul.mega-menu.mega-shop-product li.mega-menu__item .site-nav__description{
+    font-size: 14px;
+}
+
+.mobile-shop-menu-container ul.mega-menu.mega-shop-product li.mega-menu__item .site-nav__link{
+    padding-left: 20px;
+    text-decoration: none;
+}
+
+.mobile-shop-menu-container ul.mega-menu.mega-shop-product li.site-nav__footer{
+    padding-top: 20px;
+}
+
+.mobile-shop-menu-container ul.mega-menu.mega-shop-product li.site-nav__footer p{
+    font-size: 13px;
+}
+
+.mobile-shop-menu-container ul.mega-menu.mega-shop-product li.site-nav__footer p .spec-text{
+    font-size: 13px;
+    border-bottom: none;
+    font-style: italic;
+}
+
+</style>
+
+
+{% comment %} <div class="mobile-top-menu-header">
+    <a href="/" class="mobile-header-logo">              
+        <img src="//cdn.shopify.com/s/files/1/0195/3293/9328/files/needed_logo_slate-blue_trademark_V2_1_300x.png?v=1577300433" alt="needed.">
+    </a>
+    <a href="javascript:;" class="close-mobile-menu">x</a>
+</div> {% endcomment %}
+
+<div class="mobile-shop-menu-container">
+    <div class="mobile-plan-menu-label">Plans</div>
+
+    <ul class="site-nav__dropdown mega-menu mega-menu-plan">
+        <li class="mega-menu__item">
+            <div class="mega-plan-container" style="background-image: url(https://cdn.shopify.com/s/files/1/0195/3293/9328/t/34/assets/complete-plan-mobile.jpg?v=1594503064);">
+                {% comment %} <img class="mega-plan-block" src="https://cdn.shopify.com/s/files/1/0195/3293/9328/t/34/assets/boxes-group-complete-plan_200x.png?v=1594499114"> {% endcomment %}
+                <h2 class="mega-plan-title">The Complete Nurtrition Plan</h2>
+                <div class="plan-items-wrapper">
+                    <ul class="mega-plan-items">
+                        <li>Prenatal Multi</li>
+                        <li>Omega-3</li>
+                        <li>Collagen Protein</li>
+                        <li>Pre/Probiotic</li>
+                    </ul>
+                </div>
+                <a href="https://thisisneeded.com/pages/bundle-plans#bundle-item-container-2" class="site-nav__link plan-shop-link">Shop Complete Plan</a>
+            </div>
+        </li>
+        <li class="mega-menu__item">
+            <div class="mega-plan-container" style="background-image: url(https://cdn.shopify.com/s/files/1/0195/3293/9328/t/34/assets/base-plan-mobile.jpg?v=1594503066);">
+                {% comment %} <img class="mega-plan-block" src="https://cdn.shopify.com/s/files/1/0195/3293/9328/t/34/assets/boxes-group-base-plan_200x.png?v=1594499116"> {% endcomment %}
+                <h2 class="mega-plan-title">The Base Nurtrition Plan</h2>
+                <div class="plan-items-wrapper">
+                    <ul class="mega-plan-items">
+                        <li>Prenatal Multi</li>
+                        <li>Omega-3</li>
+                    </ul>
+                </div>
+                <a href="https://thisisneeded.com/pages/bundle-plans#bundle-item-container-1" class="site-nav__link plan-shop-link">Shop Base Plan</a>
+            </div>
+        </li>
+    </ul>
+    
+    <ul class="site-nav__dropdown mega-menu mega-shop-product">
+
+        <li class="mega-menu__item">
+            <p class="site-nav__description">Supplements for mamas</p>
+        </li>
+
+        {% comment %} {% for product in collections["all"].products %}
+            {% if product.vendor != "this-is-needed" %}
+                {% continue %}
+            {% endif %}
+            <li class="mega-menu__item">
+                <a href="{{product.url}}" class="site-nav__link" data-hover-img="{{product.images.first | img_url : '1400x770'}}">{{product.title}}</a>
+            </li>
+        {% endfor %} {% endcomment %}
+        {% assign product = all_products['prenatal-multi'] %}
+        <li class="mega-menu__item">
+            <a href="{{product.url}}" class="site-nav__link" data-hover-img="{{product.images.first | img_url : '1400x770'}}">Prenatal Multi</a>
+        </li>
+        {% assign product = all_products['omega-3'] %}
+        <li class="mega-menu__item">
+            <a href="{{product.url}}" class="site-nav__link" data-hover-img="{{product.images.first | img_url : '1400x770'}}">Omega-3</a>
+        </li>
+        {% assign product = all_products['collagen-protein'] %}
+        <li class="mega-menu__item">
+            <a href="{{product.url}}" class="site-nav__link" data-hover-img="{{product.images.first | img_url : '1400x770'}}">Collagen Protein</a>
+        </li>
+        {% assign product = all_products['prenatal-pre-probiotic'] %}
+        <li class="mega-menu__item">
+            <a href="{{product.url}}" class="site-nav__link" data-hover-img="{{product.images.first | img_url : '1400x770'}}">Pre/Probiotic</a>
+        </li>
+
+        <li class="mega-menu__item">
+            <p class="site-nav__description">At-home test</p>
+        </li>
+
+        {% comment %} {% for product in collections["all"].products %}
+            {% if product.vendor != "needed." %}
+                {% continue %}
+            {% endif %}
+            <li class="mega-menu__item">
+                <a href="{{product.url}}" class="site-nav__link" data-hover-img="{{product.images.first | img_url : '1400x770'}}">{{product.title}}</a>
+            </li>
+        {% endfor %} {% endcomment %}
+        
+        {% assign product = all_products['omega-3-nutrient-testing-kit'] %}
+        <li class="mega-menu__item">
+            <a href="{{product.url}}" class="site-nav__link" data-hover-img="{{product.images.first | img_url : '1400x770'}}">Omega-3 Test</a>
+        </li>
+
+        <li class="mega-menu__item site-nav__footer">
+            <p class="site-nav__footer_desc">Need help finding the right products for an <span class="em-b spec-text">optimal you?</span> 
+                <a href="https://thisisneeded.com/pages/quiz" class="site-nav-take-quiz">&nbsp;Take our quiz to explore your needs.</a>
+            </p>
+        </li>
+    </ul>
+
+</div>
+
+
+<script>
+    $(function(){
+        $(".header__container--mobile .mobile-nav-menu-shop").on("click", function(){
+            $(".mobile-shop-menu-container").fadeIn("fast");
+            $(".mobile-top-menu-header").fadeIn("fast");
+            $("html, body").animate({ scrollTop: "0" }); 
+        });
+        
+        $(".mobile-top-menu-header .close-mobile-menu").on("click", function(){
+            $(".mobile-shop-menu-container").fadeOut("fast");
+            $(".mobile-top-menu-header").fadeOut("fast");
+        });
+    })
+</script>

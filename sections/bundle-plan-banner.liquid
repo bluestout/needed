@@ -1,0 +1,263 @@
+
+<style>
+    section.bundle-plan-banner.bundle-plan-banner-desktop{
+        padding-top: 160px;
+        height: 768px;
+        background-image: url({{ section.settings.image | img_url: "2000x" }});
+        background-position: right;
+        background-repeat: no-repeat;
+        background-color: #e8c5ba;
+        position: relative;
+    }
+
+    @media (min-width: 769px) and (max-width: 1599px){
+        section.bundle-plan-banner{
+            background-position-x: center;
+        }
+    }
+
+    @media (min-width: 1598px){
+        section.bundle-plan-banner:after{
+            content: '';
+            position: absolute;
+            display: block;
+            height: 189px;
+            background-color: #f3deac;
+            width: 400px;
+            bottom: 0px;
+            left: 0px;
+        }
+    }
+
+    section.bundle-plan-banner.bundle-plan-banner-desktop .align-items-center{
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        max-width: 640px;
+    }
+
+    section.bundle-plan-banner .bundle-plan-banner__title{
+        font-family: "Copernicus-Bold";
+        font-size: 45px;
+        line-height: 1.3;
+        color: #1F3337;
+    }
+
+    section.bundle-plan-banner .bundle-plan-banner__subtitle{
+        font-family: "BrownPro-Bold";
+        font-size: 21px;
+        color: #1F3337;
+        margin-top: 17px;
+    }
+
+    section.bundle-plan-banner .bundle-banner-buttons{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 40px;
+    }
+
+    section.bundle-plan-banner .bundle-banner-buttons .bundle-banner-button{
+        font-family: "BrownPro-Bold";
+        font-size: 16px;
+        color: #FFF;
+        padding-top: 18px;
+        padding-bottom: 20px;
+        background-color: #1F3337;
+        border-radius: 30px;
+        width: calc(50% - 7px);
+        text-decoration: none;
+    }
+
+    section.bundle-plan-banner .bundle-banner-buttons .bundle-banner-button:hover{
+        background-color: #4d5e5f;
+    }
+
+    section.bundle-plan-banner-mob{
+        display: none;
+    }
+
+    @media (max-width: 768px){
+
+        section.bundle-plan-banner-desktop{
+            display: none;
+        }
+
+        section.bundle-plan-banner-mob{
+            display: block;
+            background-image: none;
+        }
+
+        section.bundle-plan-banner-mob .bundle-plan-background{
+            width: 100%;
+        }
+
+        section.bundle-plan-banner-mob .container{
+            position: relative;
+        }
+
+        #shopify-section-bundle-plan-items{
+            margin-top: 64px !important;
+        }
+
+        section.bundle-plan-banner-mob .bundle-plan-banner__title{
+            font-family: "Copernicus-Bold";
+            font-size: 32px;
+            text-align: center;
+            color: #1F3337;
+            line-height: 1.3;
+            margin-top: 35px;
+        }
+
+        section.bundle-plan-banner-mob .bundle-plan-banner__subtitle{
+            font-family: "BrownPro-Regular";
+            font-size: 18px;
+            text-align: center;
+            color: #1F3337;
+            line-height: 1.3;
+            margin-top: 22px;
+        }
+        
+        #shopify-section-bundle-plan-items > .container{
+            padding: 0 30px;
+        }
+
+        #shopify-section-bundle-plan-items .bundle-item-container{
+            padding-top: 0px !important;
+            padding-bottom: 64px !important;
+        }
+
+        #shopify-section-bundle-plan-items .bundle-item-container .bundle-image-wrapper{
+            margin-left: -10px;
+            margin-right: -10px;
+        }
+
+        #shopify-section-bundle-plan-items .bundle-item-container .bundle-image-wrapper .bundle-image{
+            margin: 0px !important;
+            width: 100%;
+        }
+
+        #shopify-section-bundle-plan-items .bundle-item-container:nth-child(even) > .col-md-6:first-child {
+            order: 0 !important;
+        }
+
+        #shopify-section-bundle-plan-items .bundle-content-wrapper{
+            padding: 0px !important;
+        }
+
+        #shopify-section-bundle-plan-items .bundle-item-container .bundle-content-wrapper .bundle-title{
+            margin-top: 35px;
+            font-size: 24px;
+            line-height: 1.3;
+            text-align: center;
+        }
+
+        #shopify-section-bundle-plan-items .bundle-item-container .bundle-content-wrapper .bundle-comments{
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #shopify-section-bundle-plan-items .bundle-item-container+.bundle-item-container{
+            margin-top: 20px !important;
+        }
+    }
+
+    @media (max-width: 360px){
+        section.bundle-plan-banner-mob .bundle-plan-banner__title{
+            font-size: 26px;
+        }
+
+        section.bundle-plan-banner-mob .bundle-plan-banner__subtitle{
+            font-size: 16px;
+            margin-top: 15px;
+        }
+
+        #shopify-section-bundle-plan-items{
+            margin-top: 40px !important;
+        }
+    }
+
+</style>
+
+
+<section class="bundle-plan-banner bundle-plan-banner-desktop">
+	<div class="container">
+		<div class="align-items-center">
+            <h1 class="bundle-plan-banner__title">
+                <span class="bundle-plan-banner__title-shape">{{ section.settings.title }}</span>
+            </h1>
+
+            <p class="bundle-plan-banner__subtitle">{{ section.settings.description }}</p>
+
+			<div class="bundle-banner-buttons">
+                <a href="bundle-item-container-1" class="bundle-banner-button btn-to-base-plan">{{ section.settings.button1 }}</a>
+                <a href="bundle-item-container-2" class="bundle-banner-button btn-to-complete-plan">{{ section.settings.button2 }}</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="bundle-plan-banner bundle-plan-banner-mob">
+    <img class="bundle-plan-background" src="{{ section.settings.image_mobile | img_url: '780x' }}">
+	<div class="container">
+		<div class="align-items-center">
+            <h1 class="bundle-plan-banner__title">
+                <span class="bundle-plan-banner__title-shape">{{ section.settings.title }}</span>
+            </h1>
+
+            <p class="bundle-plan-banner__subtitle">{{ section.settings.description }}</p>
+
+		</div>
+	</div>
+</section>
+
+{% schema %}
+    {
+        "name": "Bundle plan banner",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Banner image"
+            },
+            {
+                "type": "image_picker",
+                "id": "image_mobile",
+                "label": "Banner mobile image"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Banner heading",
+                "default": "Banner title"
+            },
+            {
+                "type": "textarea",
+                "id": "description",
+                "label": "Banner subheading"
+            },
+            {
+                "type": "text",
+                "id": "button1",
+                "label": "Button1 text"
+            },
+            {
+                "type": "url",
+                "id": "button1_url",
+                "label": "Button1 url"
+            },
+            {
+                "type": "text",
+                "id": "button2",
+                "label": "Button2 text"
+            },
+            {
+                "type": "url",
+                "id": "button2_url",
+                "label": "Button2 url"
+            }
+        ]
+    }
+{% endschema %}

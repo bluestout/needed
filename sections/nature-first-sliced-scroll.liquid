@@ -1,0 +1,95 @@
+<section id="nature-sliced" class="nature-sliced">
+
+    <div id="nature-sliced-container" class="nature-sliced__wrapper">
+        <div  class="nature-sliced__container">
+
+            <div class="nature-sliced__content">
+                {% if section.settings.title != blank %}
+                    <h2 class="nature-sliced__title">{{ section.settings.title }}</h2>
+                {% endif %}
+
+                {% if section.settings.description != blank %}
+                    <p class="nature-sliced__subtitle">{{ section.settings.description }}</p>
+                {% endif %}
+
+                <div class="nature-sliced__steps">
+                    {% if section.blocks.size > 0 %}
+
+                        {% for block in section.blocks %}
+                            <div class="js-nature-sliced-step nature-sliced__step {% if forloop.index == 1 %}nature-sliced__step--active{% endif %}">
+                                {% if block.settings.icon != blank %}
+                                    <img class="nature-sliced__step-icon" src="{{ block.settings.icon | img_url: "100x" }}" alt="">
+                                {% endif %}
+
+                                <h2 class="nature-sliced__step-title">{{ block.settings.title }}</h2>
+                                <div class="nature-sliced__text">
+                                    {{ block.settings.step_text }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="nature-sliced__photo">
+                {% if section.blocks.size > 0%}
+                    {% for block in section.blocks  %}
+                        <img class="js-nature-sliced-image nature-sliced__image {% if forloop.index == 1 %}nature-sliced__image--active{% endif %}" src="{{ block.settings.step_image | img_url: "1200x" }}" alt="{{ block.settings.step_image.alt }}">
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+
+</section>
+
+
+{% schema %}
+{
+    "name": "Sliced scroll",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Section main heading",
+            "default": "supplements that fill in the gaps."
+        },
+        {
+            "type": "textarea",
+            "id": "description",
+            "label": "Section main description",
+            "default": "this area is a short discription of content."
+        }
+    ],
+    "blocks": [
+        {
+            "type": "step",
+            "name": "Step",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "step_image",
+                    "label": "Step image"
+                },
+                {
+                    "type": "richtext",
+                    "id": "title",
+                    "label": "Step heading"
+                },
+                {
+                    "type": "richtext",
+                    "id": "step_text",
+                    "label": "Step description"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "icon",
+                    "label": "Step additional icon"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

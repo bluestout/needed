@@ -1,0 +1,70 @@
+<section class="pro-banner-bottom-o3" data-section-id="{{ section.id }}" data-section-type="banner">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="header-wrapper js-animate animate-fade-in">
+          {%- if section.settings.title != blank -%}
+          <h1 class="banner__title"><span class="banner__title-shape">{{ section.settings.title }}</span></h1>
+          {% endif %}
+          {% if section.settings.description != blank %}
+          <p class="desc">{{ section.settings.description }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% if section.settings.button_url != nil %}
+    <div class="banner-btn js-animate animate-fade-in" data-btn="{{section.settings.button_url}}"><a href="{{ section.settings.button_url }}"><span>{{ section.settings.button_text }}</span></a></div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .pro-banner-bottom-o3[data-section-id="{{ section.id }}"] {
+    {% if section.settings.image != nil %}
+    background-image: url({{ section.settings.image | img_url: '2000x' }});
+    {% endif %}
+    text-align: center;
+  }
+</style>
+{% schema %}
+    {
+        "name": "Banner O3 | bottom",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Banner background"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Title",
+                "info": "Use html tag <strong>text</strong> for highlight text with primary color"
+            },
+            {
+                "type": "textarea",
+                "id": "description",
+                "label": "Description",
+                "info": "Use html tag <strong>text</strong> for highlight text with primary color"
+            },
+            {
+                "type": "text",
+                "id": "button_text",
+                "label": "Button text",
+                "default": "See All Recipes"
+            },
+            {
+                "type": "url",
+                "id": "button_url",
+                "label": "Button url"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Home banner | bottom",
+                "category": "Banner"
+            }
+        ]
+    }
+
+{% endschema %}

@@ -1,0 +1,105 @@
+<section class="proven-absorption">
+    <div class="container">
+        <div class="row">
+            <div class="section_heading js-animate animate-fade-in">
+                {% if section.settings.heading != blank %}
+                <h1>{{ section.settings.heading }}</h2>
+                {% endif %}
+                {% if section.settings.sub_heading != blank %}
+                <p>{{ section.settings.sub_heading }}</p>
+                {% endif %}
+            </div>
+            <div class="text-with-image js-animate animate-fade-in">
+                <div class="col-12 col-lg-6 item__image_wrapper">
+                    <div class="item__image">
+                        {% if section.settings.image != nil %}
+                        <img src="{{ section.settings.image | img_url: '800x' }}" alt="{{ section.settings.image.alt }}">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 item__content">
+                    {% if section.settings.description != blank %}
+                    <p class="item__description">{{ section.settings.description }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.proven-absorption {
+    background-color: {{ section.settings.background_color }};
+}
+
+#science section.proven-absorption .text-with-image .item__content .item__description{
+    font-size: 16px;
+}
+
+@media (max-width: 768px){
+    #science section.proven-absorption{
+        padding: 40px 0px 55px;
+    }
+
+    #science section.proven-absorption .section_heading h1{
+        font-size: 26px;
+        margin-bottom: 20px;
+    }
+
+    #science section.proven-absorption > .container > .row{
+        margin: 0px;
+    }
+
+    #science section.proven-absorption .text-with-image .item__image_wrapper{
+        padding: 0px;
+    }
+
+    #science section.proven-absorption .text-with-image .item__content{
+        padding: 0px;
+    }
+
+    #science section.proven-absorption .text-with-image .item__image_wrapper .item__image{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    #science section.proven-absorption .text-with-image .item__content .item__description{
+        margin-top: 25px;
+    }
+}
+</style>
+
+{% schema %}
+ {
+    "name": "Proven absorption",
+    "settings": [    
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Proven absorption that rivals nature"
+        },      
+        {
+            "type": "textarea",
+            "id": "sub_heading",
+            "label": "Sub Heading",
+            "default": "Our liposomal Omega-3 is clinically-proven to be 5x better absorbed than standard fish oil pills."
+        },
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+        },
+        {
+            "type": "textarea",
+            "id": "description",
+            "label": "Description"
+        },
+        {
+            "type": "color",
+            "id": "background_color",
+            "label": "Background color"
+        }
+    ]
+}
+{% endschema %}

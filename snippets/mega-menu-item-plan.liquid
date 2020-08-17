@@ -1,0 +1,131 @@
+
+<style>
+
+.site-nav .site-nav__item[data-menu="dropdown"]:hover .mega-menu-plan{
+    background-color: #FFF;
+    padding: 16px;
+    width: 1160px;
+    height: 400px;
+    display: flex;
+    box-shadow: 0px 0px 3px #00000020;
+    position: absolute;
+    left: -250%;
+}
+
+.site-nav .site-nav__item[data-menu="dropdown"]:hover .mega-menu-plan .mega-menu__item:nth-child(1){
+    flex-basis: 33%;
+    padding: 0px 70px 0px 40px;
+    margin-top: 0px !important;
+    margin-bottom: 10px !important;
+    border-right: 1px solid #F6F4F2;
+}
+
+.site-nav .site-nav__item[data-menu="dropdown"] .mega-menu-plan .mega-menu__item:nth-child(2){
+    flex-basis: 30%;
+    padding: 0px 56px 0px 50px !important;
+    margin-top: 0px !important;
+    margin-bottom: 10px !important;
+}
+
+
+.site-nav .site-nav__item[data-menu="dropdown"]:hover .mega-menu-plan .mega-menu__item:nth-child(2){
+    flex-basis: 30%;
+    padding: 0px 50px 0px 50px;
+    margin-top: 20px;
+    margin-bottom: 10px !important;
+}
+
+.site-nav .site-nav__item[data-menu="dropdown"]:hover .mega-menu-plan .mega-menu__item:nth-child(3){
+    flex-basis: 37%;
+}
+
+.site-nav .site-nav__item[data-menu="dropdown"]:hover .mega-menu-plan .mega-menu__item .mega-img{
+    width: auto;
+    height: 100%;
+    max-width: max-content;
+}
+
+.site-nav .site-nav__item[data-menu="dropdown"]:hover .mega-menu-plan .mega-menu__item .mega-plan-container{
+    position: relative;
+    height: 100%;
+}
+
+
+
+.mega-menu-plan .mega-plan-title{
+    font-family: "Copernicus-Bold";
+    font-size: 22px;
+    margin-bottom: 14px;
+    color: #1F3437;
+    letter-spacing: 0px;
+}
+
+.mega-menu-plan .mega-plan-items li{
+    font-family: "BrownPro-Regular";
+    font-size: 16px;
+    margin-left: 28px;
+    color: #1F3337;
+    opacity: 0.65;
+    position: relative;
+    line-height: 1.4;
+}
+
+.mega-menu-plan .mega-plan-items li:before{
+    position: absolute;
+    content: url(https://cdn.shopify.com/s/files/1/0195/3293/9328/t/34/assets/icon-check.svg);
+    width: 14px;
+    height: 14px;
+    top: 2px;
+    left: -27px;
+}
+
+.mega-menu-plan .mega-menu__item .plan-shop-link{
+    font-family: "BrownPro-Bold";
+    font-size: 16px;
+    color: #85853E;
+    text-decoration: underline;
+    position: absolute;
+    bottom: 0;
+}
+
+
+</style>
+
+<li class="site-nav__item dropdown-mega-plan" data-menu="dropdown">
+    <a href="#"
+    class="site-nav__link "
+    data-keyword
+    >
+    <span data-keyword-context>Start your plan</span>
+    <span data-icon></span>
+    </a>
+    <ul class="site-nav__dropdown mega-menu mega-menu-plan">
+        <li class="mega-menu__item">
+            <div class="mega-plan-container">
+                <img class="mega-plan-block" src="{{'menu-boxes-group-complete-plan.png' | asset_img_url : 'master' }}" style="width: 242px !important; max-width: 242px !important;">
+                <h2 class="mega-plan-title">The Complete Nutrition Plan</h2>
+                <ul class="mega-plan-items">
+                    <li>Prenatal Multi</li>
+                    <li>Omega-3</li>
+                    <li>Collagen Protein</li>
+                    <li>Pre/Probiotic</li>
+                </ul>
+                <a href="https://thisisneeded.com/pages/bundle-plans#bundle-item-container-2" class="site-nav__link plan-shop-link">Shop Complete Plan</a>
+            </div>
+        </li>
+        <li class="mega-menu__item">
+            <div class="mega-plan-container">
+                <img class="mega-plan-block" src="{{'menu-boxes-group-base-plan.png' | asset_img_url : '242x155' }}" style="width: 242px !important; max-width: 242px !important;">
+                <h2 class="mega-plan-title">The Base Nutrition Plan</h2>
+                <ul class="mega-plan-items">
+                    <li>Prenatal Multi</li>
+                    <li>Omega-3</li>
+                </ul>
+                <a href="https://thisisneeded.com/pages/bundle-plans#bundle-item-container-1" class="site-nav__link plan-shop-link">Shop Base Plan</a>
+            </div>
+        </li>
+        <li class="mega-menu__item">
+            <img class="mega-img" src="https://cdn.shopify.com/s/files/1/0195/3293/9328/files/megamenu-img_2000x.PNG?v=1590420748">
+        </li>
+    </ul>
+</li>

@@ -1,0 +1,108 @@
+<section class="our-advisory">
+    <div class="our-advisory__container">
+        <div class="our-advisory__header">
+            <h2 class="our-advisory__title">{{ section.settings.title }}</h2>
+            {% if section.settings.sub_title != blank %}
+                <p class="our-advisory__subtitle">{{ section.settings.sub_title }}</p>
+            {% endif %}
+        </div>
+
+
+        <div class="our-advisory__row">
+			{% for block in section.blocks %}
+                <div class="our-advisory__col">
+                    <div class="user-card js-user-card" data-row="{{ forloop.index0 | divided_by: 4 }}" data-row-mobile="{{ forloop.index0 | divided_by: 2 }}">
+                        {% if block.settings.image != blank %}
+                            <img class="user-card__photo" src="{{ block.settings.image | img_url: "800x" }}" alt="{{ block.settings.image.alt }}">
+                        {% endif %}
+
+                        <h3 class="user-card__name">{{ block.settings.title }}</h3>
+                        {% if block.settings.user_position != blank %}
+                            <p class="user-card__position">{{ block.settings.user_position }}</p>
+                        {% endif %}
+
+                        <div class="user-card__triangle"></div>
+
+                        <div class="user-card__description js-user-card-desc">
+                            <p class="user-card__description-name">{{ block.settings.title }}</p>
+
+                            {% if block.settings.user_position != blank %}
+                                <p class="user-card__description-position">{{ block.settings.user_position }}</p>
+                            {% endif %}
+
+                            {% if block.settings.description != blank %}
+                                <div class="user-card__description-text">{{ block.settings.description }}</div>
+                            {% endif %}
+
+                            {% if block.settings.user_footer_link != blank %}
+                                <div class="user-card__footer-link">
+                                    <span class="user-card__icon" {% if section.settings.icon != blank %}style="background-image: url({{ section.settings.icon | img_url: "100x" }});" {% endif %}></span>{{ block.settings.user_footer_link }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+        	{% endfor %}
+        </div>   
+    </div>
+</section>
+
+{% schema %}
+    {
+        "name": "Our advisory",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Heading",
+                "default": "meet our advisory board."
+            },
+              {
+                "type": "textarea",
+                "id": "sub_title",
+                "label": "Sub heading",
+                "default": "body copy that explains how needed works with it’s referenced experts. body copy that explains how needed works with it’s referenced experts. body copy that explains how needed works with it’s referenced experts."
+            },
+            {
+                "type": "image_picker",
+                "id": "icon",
+                "label": "Icon for link"
+            }
+            ],
+            "blocks": [
+                {
+                "type": "user",
+                "name": "user",
+                "settings": [
+	                {
+	                	"type": "image_picker",
+	                	"id": "image",
+	                	"label": "User photo"
+	                },
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "User name"
+                    },
+                    {
+                        "type": "text",
+                        "id": "user_position",
+                        "label": "User position"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "description",
+                        "label": "About author",
+                        "default": "<p>this is the bio of the seleted users, providing ample space to expand on their background and how they interact with needed. this is the bio of the seleted users, providing ample space to expand on their background and how they interact with needed.</p>"
+                    },
+                    {
+                    	"type": "richtext",
+                    	"id": "user_footer_link",
+                    	"label": "User additionally link"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

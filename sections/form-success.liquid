@@ -1,0 +1,94 @@
+{% assign title = section.settings.title %}
+{% assign text = section.settings.text %}
+{% assign first_sign = section.settings.first_sign %}
+{% assign second_sign = section.settings.second_sign %}
+{% assign bottom_text = section.settings.bottom_text %}
+{% assign button_text = section.settings.button_text %}
+{% assign button_url = section.settings.button_url %}
+
+<div class="form-success">
+    <div class="container">
+        {% if title %}
+            <h2 class="form-success__title js-form-success-name-replaced">{{ title }}</h2>
+        {% endif %}
+
+        {% if text %}
+            <div class="form-success__text">{{ text }}</div>
+        {% endif %}
+
+        {% if first_sign or second_sign %}
+            <div class="form-success__signs">
+                {% if first_sign %}
+                    <div class="form-success__sign">
+                        <img src="{{ first_sign | img_url: 'x63' }}" alt="">
+                    </div>
+                {% endif %}
+
+                {% if second_sign %}
+                    <div class="form-success__sign">
+                        <img src="{{ second_sign | img_url: 'x63' }}" alt="">
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if bottom_text %}
+            <div class="form-success__bottom-text">{{ bottom_text }}</div>
+        {% endif %}
+
+        {% if button_url and button_text %}
+            <div class="form-success__button-wrap">
+                <a href="{{ button_url }}" class="button button--primary">
+                    <span>{{ button_text }}</span>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% schema %}
+    {
+    "name": "Form Success",
+    "settings": [
+            {
+                "type": "richtext",
+                "id": "title",
+                "label": "Title",
+                "default": "<p><strong>%name%, you are</strong> needed.<br>Thank you for applying!</p>"
+            },
+            {
+                "type": "richtext",
+                "id": "text",
+                "label": "Main Text",
+                "default": "<p>this is a special message from the founders saying how excited they are that you applied, and expectations for next steps. this is a special message from the founders saying how excited they are that you applied, and expectations for next steps. this is a special message from the founders saying how excited they are that you applied, and expectations for next steps</p>"
+            },
+            {
+                "type": "image_picker",
+                "id": "first_sign",
+                "label": "First Signature"
+            },
+            {
+                "type": "image_picker",
+                "id": "second_sign",
+                "label": "Second Signature"
+            },
+			{
+				"type": "richtext",
+				"id": "bottom_text",
+				"label": "Bottom Text",
+				"default": "<p><b>While you wait, learn more about our community and how you can join the conversation.</b></p>"
+			},
+            {
+                "type": "text",
+                "id": "button_text",
+                "label": "Button Text",
+                "default": "visit our community"
+            },
+            {
+                "type": "url",
+                "id": "button_url",
+                "label": "Button url"
+            }
+        ]
+    }
+{% endschema %}

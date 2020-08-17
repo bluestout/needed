@@ -1,0 +1,94 @@
+<section class="better-products-icons" style="background-color: {{section.settings.background_color}};">
+    <div class="container">
+        <div class="row js-animate animate-fade-in">
+            <div class="col-12">
+                <h2 class="better-products-icons__title">{{ section.settings.section_title }}</h2>
+
+                {% if section.blocks.size > 0 %}
+                    <div class="better-products-icons__row">
+                        {% for block in section.blocks  %}
+                            <div class="better-products-icons__col">
+                                <a href="{{ block.settings.page_url }}" class="better-products-icons__item" data-keyword>
+                                    <span class="better-products-icons__item-icon better-products-icons__item-icon--{{ block.id }}" data-icon></span>
+                                    <span class="better-products-icons__item-title" data-keyword-context>{{ block.settings.title }}</span>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        {% comment %} <a href="{{ section.settings.button_link }}" class="collection-button-link">{{ section.settings.section_button }}</a> {% endcomment %}
+    </div>
+</section>
+
+<style>
+    {% for block in section.blocks %}
+        {% if block.settings.icon_hover != blank %}
+			.better-products-icons__item .better-products-icons__item-icon--{{ block.id }}::before {
+				background-image: url({{ block.settings.icon_hover | img_url: "x200" }}) !important;
+			}
+        {% endif %}
+    {% endfor %}
+
+</style>
+
+{% schema %}
+    {
+        "name": "Better products icons",
+        "settings": [
+            {
+                "type": "text",
+                "id": "section_title",
+                "label": "Heading",
+                "default": "better products begin with better standards."
+            },
+            {
+                "type": "color",
+                "id": "background_color",
+                "label": "Background color"
+            },
+            {
+                "type": "text",
+                "id": "section_button",
+                "label": "Button title",
+                "default": "Take our 2 minutes quiz"
+            },
+            {
+                "type": "url",
+                "id": "button_link",
+                "label": "Button link"
+            }
+            ],
+            "blocks": [
+                {
+                    "type": "icon_link",
+                    "name": "Icon link",
+                    "settings": [
+                        {
+                            "type": "image_picker",
+                            "id": "icon_hover",
+                            "label": "Icon for hover"
+                        },
+                        {
+                            "type": "text",
+                            "id": "title",
+                            "label": "Heading"
+                        },
+                        {
+                            "type": "url",
+                            "id": "page_url",
+                            "label": "Link url"
+                        }
+                    ]
+                }
+            ],
+            "presets": [
+                {
+                    "name": "Better products icons",
+                    "category": "Information"
+                }
+        ]
+    }
+
+{% endschema %}

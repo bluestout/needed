@@ -1,0 +1,582 @@
+{{ 'stickyFoot-script.js' | asset_url | script_tag }}
+{{ 'cart-custom.scss.css' | asset_url | stylesheet_tag }}
+
+<div class="container">
+
+    {% if cart.item_count > 0 %}
+        <h1 class="text-center cart-title">{{ 'cart.general.title' | t }}</h1>
+
+        <form action="/cart" method="post" class="cart-form" novalidate>
+            <div class="cart-items">
+            {% for item in cart.items %}
+                <div class="cart-item" data-variant-id="{{ item.variant_id }}" data-product-id="{{ item.product_id }}">
+                    <div class="cart-item__image-td">
+                        <div class="cart-item__image-wrapper">
+                            <a href="{{ item.url | within: collections.all }}">
+                                {% if item.image != blank %}
+                                <img src="{{ item | img_url: '600x' }}" alt="{{ item.alt }}">
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="item-detail--info">
+                        <div class="product-info" data-label="{{ 'customer.order.product' | t }}">
+                            <a href="{{ item.url }}" class="cart-item__title">
+                                <h2>
+                                    {% if item.product.handle contains 'base-plan' %}
+                                        The Base Nutrition Plan Subscription
+                                    {% elsif item.product.handle contains 'complete-plan' %}
+                                        The Complete Nutrition Plan Subscription
+                                    {% else %}
+                                        {{ item.product.title }}
+                                    {% endif %}
+                                </h2>
+                            </a>
+                            
+                            {% if item.product.handle contains 'base-plan' %}
+                                <ul class="bundle-lists">
+                                    <li><a href="https://thisisneeded.com/products/prenatal-multi">Prenatal Multi</a></li>
+                                    <li><a href="https://thisisneeded.com/products/omega-3">Omega-3</a></li>
+                                </ul>
+                            {% elsif item.product.handle contains 'complete-plan' %}
+                                <ul class="bundle-lists">
+                                    <li><a href="https://thisisneeded.com/products/prenatal-multi">Prenatal Multi</a></li>
+                                    <li><a href="https://thisisneeded.com/products/collagen-protein">Collagen Protein</a></li>
+                                    <li><a href="https://thisisneeded.com/products/omega-3">Omega-3</a></li>
+                                    <li><a href="https://thisisneeded.com/products/prenatal-pre-probiotic">Pre/Probiotic</a></li>
+                                </ul>
+                            {% endif %}
+                            
+                            <p class="cart-item__option">{{ item.product.metafields.airf.item_info }}
+                            {% if interval_unit_type != '' and interval_frequency != '' %}
+                                {% comment %} Monthly supply. {% endcomment %}
+                            {% endif %}
+                            </p>
+                            {% if item.product.handle == 'base-plan' %}
+                                    {% comment %} <p class="cart-item__option">The base nutrients you need, before, during and after pregnancy. Monthly supply.</p> {% endcomment %}
+                            {% elsif item.product.handle == 'complete-plan' %}
+                                    {% comment %} <p class="cart-item__option">Complete pre and postnatal nutrition. Monthly supply.</p> {% endcomment %}
+                            {% endif %}
+
+                            {% unless item.product.has_only_default_variant %}
+                                {% comment %} {% for option in item.product.options %}
+                                    <p class="cart-item__option">{{ option }}: {{ item.variant.options[forloop.index0] }}</p>
+                                {% endfor %} {% endcomment %}
+                            {% endunless %}
+                            {%- assign property_size = item.properties | size -%}
+
+                            {% if property_size > 0 %}
+                                {% assign interval_unit_type = '' %}
+                                {% assign interval_frequency = '' %}
+
+                                {% for p in item.properties %}
+                                    {% if p.first == "subscription_id" %}
+                                        {% continue %}
+                                    {% endif %}
+
+                                    {% if p.first == "shipping_interval_unit_type" %}
+                                        {% assign interval_unit_type = p.last %}
+                                        {% continue %}
+                                    {% endif %}
+
+                                    {% if p.first == "shipping_interval_frequency" %}
+                                        {% assign interval_frequency = p.last %}
+                                        {% continue %}
+                                    {% endif %}
+
+                                    {% unless p.last == blank %}
+                                        <p class="cart-item__option">
+                                            {{ p.first }}:
+
+                                            {% if p.last contains '/uploads/' %}
+                                                <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                                            {% else %}
+                                                {{ p.last }}
+                                            {% endif %}
+                                        </p>
+                                    {% endunless %}
+                                {% endfor %}
+
+                                {% if interval_unit_type != '' and interval_frequency != '' %}
+                                    {% comment %} <p class="cart-item__option">
+                                        Delivery frequency: {{ interval_frequency }} {{ interval_unit_type | downcase }}
+                                    </p> {% endcomment %}
+                                    {% comment %} <p class="cart-item__option">Recurring Monthly Subscription</p> {% endcomment %}
+                                {% endif %}
+                            {% endif %}
+
+                            <div class="product-qty" data-label="{{ 'cart.label.quantity' | t }}">
+                                <input type="number"
+                                        name="updates[]"
+                                        id="updates_{{ item.key }}"
+                                        class="cart-item__qty js-input-qty"
+                                        value="{{ item.quantity }}"
+                                        min="0"
+                                        aria-label="{{ 'cart.general.item_quantity' | t }}">
+                                <div class="quantity-nav">
+                                    <div class="quantity-button quantity-down">
+                                        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title></title><g id="chevron-bottom"><line class="cls-1" x1="16" x2="7" y1="20.5" y2="11.5"></line><line class="cls-1" x1="25" x2="16" y1="11.5" y2="20.5"></line></g></svg>
+                                    </div>
+                                    <div class="quantity-button quantity-up">
+                                        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title></title><g id="chevron-bottom"><line class="cls-1" x1="16" x2="7" y1="20.5" y2="11.5"></line><line class="cls-1" x1="25" x2="16" y1="11.5" y2="20.5"></line></g></svg>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="product-price mobile-price" data-label="{{ 'cart.label.price' | t }}">
+                                {% if item.original_line_price != item.line_price and false %}
+                                    <span class="visually-hidden">{{ 'cart.label.discounted_price' | t }}</span>
+                                    {{ item.price | money }}
+                                    <span class="visually-hidden">{{ 'cart.label.original_price' | t }}</span>
+                                    <s>{{ item.original_price | money }}</s>
+                                {% else %}
+                                    <span class="price">{{ item.price | money }}</span>
+                                {% endif %}
+
+                                {% if item.original_line_price != item.line_price %}
+                                    <span class="product-saving-rate" data-label="Saving-rate">
+                                        {% assign org_price = item.original_price | divided_by: 100.00 %}
+                                        {{ item.price | divided_by: org_price | round }}% savings
+                                    </span>
+                                {% endif %}
+                            </div>
+
+                        </div>
+
+                        <div class="product-price" data-label="{{ 'cart.label.price' | t }}">
+                        
+                            {% assign retail_base = 0.00 %}
+                            {% assign retail_complete = 0.00 %}
+                            {% assign retail_base = retail_base | plus : all_products['prenatal-multi'].variants[0].price %}
+                            {% assign retail_base = retail_base | plus : all_products['omega-3'].variants[0].price | plus: 0.00 %}
+                            {% assign retail_complete = retail_base | plus : all_products['collagen-protein'].variants[0].price %}
+                            {% assign retail_complete = retail_complete | plus : all_products['prenatal-pre-probiotic'].variants[0].price | plus: 0.00 %}
+                            {% comment %} {% assign retail_base = 12998 | plus: 0.00 %} {% endcomment %}
+                            {% comment %} {% assign retail_complete = 23996 | plus: 0.00 %} {% endcomment %}
+
+                            {% assign bundle_base = all_products['base-plan'].variants[0].price | plus: 0.00 %}
+                            {% assign bundle_complete = all_products['complete-plan'].variants[0].price | plus: 0.00 %}
+
+                            {% assign saving_base_rate = retail_base | minus : bundle_base | divided_by : 1000 | round | times: 10 %}
+                            {% comment %} {% assign saving_base_rate = 100 | minus: saving_base_rate %} {% endcomment %}
+                            {% assign saving_complete_rate = retail_complete | minus : bundle_complete | divided_by : 1000 | round | times: 10 %}
+                            {% comment %} {% assign saving_complete_rate = 100 | minus: saving_complete_rate %} {% endcomment %}
+                            
+                            {% if item.original_line_price != item.line_price and false %}
+                                <span class="visually-hidden">{{ 'cart.label.discounted_price' | t }}</span>
+                                {{ item.price | money }}
+                                <span class="visually-hidden">{{ 'cart.label.original_price' | t }}</span>
+                                <s>{{ item.original_price | money }}</s>
+                            {% else %}
+                                <span class="price">{{ item.price | money }}</span>
+                            {% endif %}
+
+                            {% if item.product.handle contains 'base-plan' %}
+                                <span class="product-saving-rate" data-label="Saving-rate">
+                                    ${{ saving_base_rate }} savings
+                                </span>
+                            {% elsif item.product.handle contains 'complete-plan' %}
+                                <span class="product-saving-rate" data-label="Saving-rate">
+                                    ${{ saving_complete_rate }} savings
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% comment %} <div class="" data-label="Total"></div> {% endcomment %}
+                </div>
+            {% endfor %}
+
+            {% include 'cart-upsell' %}
+
+            </div>
+            
+
+                <div class="cart-form__action form-action-mobile">
+                    <div class="cart-form__total-price">
+                        <span>{{ 'cart.general.subtotal' | t }}</span><span class="cart-form__total-price-value">{{ cart.total_price | money }}</span>
+                    </div>
+
+                    {% if cart.total_discounts > 0 %}
+                        <p>{{ 'cart.general.savings' | t }} {{ cart.total_discounts | money }}</p>
+                    {% endif %}
+
+                    {% comment %}<p class="cart-form__shipping">{{ 'cart.general.shipping_at_checkout' | t }}</p> {% endcomment %}
+                    
+                    {% if section.blocks.size > 0 and false %}
+                        <ul class="trust-indicators">
+                        {% for block in section.blocks %}
+                            <li>{{ block.settings.heading }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="cart-form__submits form-action-mobile">
+                    {% if settings.continue_url != blank %}
+                        {% assign continue_url = settings.continue_url %}
+                    {% else %}
+                        {% assign continue_url = shop.url %}
+                    {% endif %}
+                    <a href="{{ continue_url }}">{{ 'cart.general.continue_shopping' | t }}</a>
+                    <input class="button button--secondary button--small" type="submit" name="update" value="{{ 'cart.general.update' | t }}">
+                    <input class="button button--primary button--small" type="submit" name="checkout" value="{{ 'cart.general.checkout' | t }}">
+                </div>
+
+
+
+            
+            <div class="sidebar-right">
+                <div class="cart-form__action form-action-desktop">
+                    <div class="cart-form__total-price">
+                        <span>{{ 'cart.general.subtotal' | t }}</span><span class="cart-form__total-price-value">{{ cart.total_price | money }}</span>
+                    </div>
+
+                    {% if cart.total_discounts > 0 %}
+                        <p>{{ 'cart.general.savings' | t }} {{ cart.total_discounts | money }}</p>
+                    {% endif %}
+
+                    {% comment %}<p class="cart-form__shipping">{{ 'cart.general.shipping_at_checkout' | t }}</p> {% endcomment %}
+                    
+                    {% if section.blocks.size > 0 and false %}
+                        <ul class="trust-indicators">
+                        {% for block in section.blocks %}
+                            <li>{{ block.settings.heading }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                    
+                    <div class="cart-form__submits">
+                        {% if settings.continue_url != blank %}
+                            {% assign continue_url = settings.continue_url %}
+                        {% else %}
+                            {% assign continue_url = shop.url %}
+                        {% endif %}
+                        <a href="{{ continue_url }}">{{ 'cart.general.continue_shopping' | t }}</a>
+                        <input class="button button--secondary button--small" type="submit" name="update" value="{{ 'cart.general.update' | t }}">
+                        <input class="button button--primary button--small" type="submit" name="checkout" value="{{ 'cart.general.checkout' | t }}">
+                    </div>
+                </div>
+
+                <div class="icon--wrapper">
+                    <div class="icons__row">
+
+                        <div class="icons__col">
+                            <div class="icons__item" data-keyword>
+                                <span style="display: none;" class="icons__item-icon icons__item-icon--icon_1_hover" data-icon></span>
+                                <span class="icons__item-title" data-keyword-context>{{ section.settings.icon_1_title }}</span>
+                            </div>
+                        </div>
+
+                        <div class="icons__col">
+                            <div class="icons__item" data-keyword>
+                                <span style="display: none;" class="icons__item-icon icons__item-icon--icon_2_hover" data-icon></span>
+                                <span class="icons__item-title" data-keyword-context>{{ section.settings.icon_2_title }}</span>
+                            </div>
+                        </div>
+
+                        <div class="icons__col">
+                            <div class="icons__item" data-keyword>
+                                <span style="display: none;" class="icons__item-icon icons__item-icon--icon_3_hover" data-icon></span>
+                                <span class="icons__item-title" data-keyword-context>{{ section.settings.icon_3_title }}</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="icons__row">
+                        <div class="have_ques">
+                            {% if section.settings.question_title != blank %}
+                            <span>{{ section.settings.question_title }}</span>
+                            {% endif %}
+                            {% if section.settings.contact_em != blank %}
+                            <a href="mailto:{{section.settings.contact_em}}">{{section.settings.contact_em}}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="cart-form__footer">
+                {% if settings.cart_notes_enable %}
+                    <div class="cart-form__notes">
+                        <label class="cart-form__notes-label" for="CartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
+                        <textarea id="CartSpecialInstructions" class="textarea" name="note">{{ cart.note }}</textarea>
+                    </div>
+
+                {% endif %}
+            </div>
+        </form>
+
+    {% else %}
+        <div class="cart-empty">
+            <h1 class="text-center">{{ 'cart.general.title' | t }}</h1>
+
+            {% comment %}
+                Cart empty state
+            {% endcomment %}
+            <div class="supports-cookies">
+                <p>{{ 'cart.general.empty' | t }}</p>
+                {% if settings.continue_url != blank %}
+                    {% assign continue_url = settings.continue_url %}
+                {% else %}
+                    {% assign continue_url = shop.url %}
+                {% endif %}
+                <p><a href="{{ continue_url }}">{{ 'cart.general.continue_shopping' | t }}</a></p>
+            </div>
+
+            {% comment %}
+                Cart no cookies state
+                ---------------------
+                Browser cookies are required to use the cart. If cookies aren't enabled in the
+                browser a message is displayed prompting the user to enable them.
+            {% endcomment %}
+
+            {% comment %}
+                <div class="supports-no-cookies">
+                    <p>{{ 'cart.general.cookies_required' | t }}</p>
+                </div>
+            {% endcomment %}
+        </div>
+
+    {% endif %}
+</div>
+
+{% include 'subscription-cart-footer' %}
+
+<style>
+{% if section.settings.icon_1_hover != blank %}
+    .icon--wrapper .icons__item-icon--icon_1_hover::before {
+        background-image: url({{ section.settings.icon_1_hover | img_url: "x200" }}) !important;
+    }
+{% endif %}
+{% if section.settings.icon_2_hover != blank %}
+    .icon--wrapper .icons__item-icon--icon_2_hover::before {
+        background-image: url({{ section.settings.icon_2_hover | img_url: "x200" }}) !important;
+    }
+{% endif %}
+{% if section.settings.icon_3_hover != blank %}
+    .icon--wrapper .icons__item-icon--icon_3_hover::before {
+        background-image: url({{ section.settings.icon_3_hover | img_url: "x200" }}) !important;
+    }
+{% endif %}
+</style>
+
+<script>
+
+
+$(document).ready(function(){
+
+    function get_cookie(name){ return( document.cookie.match('(^|; )'+name+'=([^;]*)')||0 )[2] }
+
+    function reChargeBuildCheckoutURL() {
+        // Build the Checkout URL
+        var myshopify_domain = '{{ shop.permanent_domain }}';
+        var token = get_cookie('cart');
+        try {
+            // Cross-domain tracking with Google Analytics
+            var ga_linker = ga.getAll()[0].get('linkerParam');
+        } catch (e) {
+            // 'ga' is not available
+            var ga_linker = '';
+        }
+        // Customer email address for use in the Checkout URL
+        var customer_param = '{% if customer %}customer_id={{ customer.id }}&customer_email={{ customer.email }}{% endif %}';
+        var checkout_url = 'https://checkout.rechargeapps.com/r/checkout?myshopify_domain=' + myshopify_domain + '&cart_token=' + token + '&' + ga_linker + '&' + customer_param
+        return checkout_url;
+    }
+    /*$('body form').on('click', 'input[name="checkout"]', function(e){
+        e.preventDefault();
+        window.location.href = reChargeBuildCheckoutURL();
+    });*/
+});
+Shopify.updateItem = function(variant_id, quantity) {
+  var params = {
+    type: 'POST',
+    url: '/cart/change.js',
+    data: {
+        id: variant_id,
+        quantity: quantity
+    },
+    dataType: 'json',
+    success: function(cart) { 
+      location.href = '/cart';
+    },
+    error: function(XMLHttpRequest, textStatus) {
+      Shopify.onError(XMLHttpRequest, textStatus);
+    }
+  };
+  jQuery.ajax(params);
+};
+
+jQuery('.cart-item').each(function() {
+    var spinner = jQuery(this),
+    input = spinner.find('input[type="number"]'),
+    btnUp = spinner.find('.quantity-up'),
+    btnDown = spinner.find('.quantity-down'),
+    min = input.attr('min'),
+    max = input.attr('max');
+
+    btnUp.click(function() {
+    var oldValue = parseFloat(input.val());
+    if (oldValue >= max) {
+        var newVal = oldValue;
+    } else {
+        var newVal = oldValue + 1;
+    }
+    spinner.find("input").val(newVal);
+    spinner.find("input").trigger("change");
+
+    Shopify.updateItem(spinner.data('variant-id'), newVal);
+    });
+
+    btnDown.click(function() {
+    var oldValue = parseFloat(input.val());
+    if (oldValue <= min) {
+        var newVal = oldValue;
+    } else {
+        var newVal = oldValue - 1;
+    }
+    spinner.find("input").val(newVal);
+    spinner.find("input").trigger("change");
+    Shopify.updateItem(spinner.data('variant-id'), newVal);
+    });
+
+});
+</script>
+
+
+{% schema %}
+{
+    "name": "Cart Page",
+    "max_blocks": 4,
+    "settings": [
+        {
+            "type": "header",
+            "content": "Upsell routine"
+        },
+        {
+            "type": "product",
+            "id": "base_plan_bundle",
+            "label": "Base plan bundle"
+        },
+        {
+            "type": "product",
+            "id": "complete_plan_bundle",
+            "label": "Complete plan bundle"
+        },
+        {
+            "type": "product",
+            "id": "base_plan_product1",
+            "label": "Base plan product1"
+        },
+        {
+            "type": "product",
+            "id": "base_plan_product2",
+            "label": "Base plan product2"
+        },
+        {
+            "type": "product",
+            "id": "complete_plan_product1",
+            "label": "Complete plan product1"
+        },
+        {
+            "type": "product",
+            "id": "complete_plan_product2",
+            "label": "Complete plan product2"
+        },
+        {
+            "type": "product",
+            "id": "complete_plan_product3",
+            "label": "Complete plan product3"
+        },
+        {
+            "type": "product",
+            "id": "complete_plan_product4",
+            "label": "Complete plan product4"
+        },
+        {
+            "type": "product",
+            "id": "combine_base_product1",
+            "label": "Combination base product1"
+        },
+        {
+            "type": "product",
+            "id": "combine_base_product2",
+            "label": "Combination base product2"
+        },
+        {
+            "type": "product",
+            "id": "combine_product",
+            "label": "Combination product"
+        },
+        {
+            "type": "header",
+            "content": "Icon 1"
+        },
+        {
+            "type": "image_picker",
+            "id": "icon_1_hover",
+            "label": "Icon for hover"
+        },
+        {
+            "type": "text",
+            "id": "icon_1_title",
+            "label": "Title"
+        },
+        {
+            "type": "header",
+            "content": "Icon 2"
+        },
+        {
+            "type": "image_picker",
+            "id": "icon_2_hover",
+            "label": "Icon for hover"
+        },
+        {
+            "type": "text",
+            "id": "icon_2_title",
+            "label": "Title"
+        },
+        {
+            "type": "header",
+            "content": "Icon 3"
+        },
+        {
+            "type": "image_picker",
+            "id": "icon_3_hover",
+            "label": "Icon for hover"
+        },
+        {
+            "type": "text",
+            "id": "icon_3_title",
+            "label": "Title"
+        },
+        {
+			"type": "text",
+			"id": "question_title",
+			"label": "Question title",
+			"default": "Have questions?"
+		},
+        {
+			"type": "text",
+			"id": "contact_em",
+			"label": "Contact E-mail",
+			"default": "hello@thisisneeded.com"
+		}
+    ],
+    "blocks": [
+        {
+            "type": "Trust_indicators",
+            "name": "Trust Indicators",
+            "settings": [
+                {
+                    "label": "Heading",
+                    "id": "heading",
+                    "type": "text"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

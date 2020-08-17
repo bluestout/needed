@@ -1,0 +1,127 @@
+<section class="pro-o3-testing-banner" data-section-id="{{ section.id }}" data-section-type="banner">
+    <div class="container">
+        <div class="testing-banner-wrapper js-animate animate-fade-in">
+		{%- if section.settings.title != blank -%}
+			<div class="heading">
+				<h1 class="banner__title"><span class="banner__title-shape">{{ section.settings.title }}</span></h1>
+			</div>
+		{%- endif -%}
+
+         {% if section.blocks.size > 0 %}
+            <div class="icons-wrapper">
+                <div class="better-products-icons__row">
+                    {% for block in section.blocks  %}
+                        <div class="better-products-icons__col">
+                            <a href="{{ block.settings.page_url }}" class="better-products-icons__item" data-keyword>
+                                <span class="better-products-icons__item-icon better-products-icons__item-icon--{{ block.id }}" data-icon></span>
+                                {% if block.settings.const_keyword != blank %}
+                                <span class="hidden" data-keyword-context>{{ block.settings.const_keyword }}</span>
+                                {% endif %}
+                                <span class="better-products-icons__item-title" {% if block.settings.const_keyword == blank %}data-keyword-context{% endif %}>{{ block.settings.title }}</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+</section>
+<section class="pro-o3-testing-banner-mob-desc">
+    <div class="container">
+        <div class="testing-banner-wrapper js-animate animate-fade-in">
+		{%- if section.settings.title != blank -%}
+			<div class="heading">
+				<h1 class="banner__title"><span class="banner__title-shape">{{ section.settings.title }}</span></h1>
+			</div>
+		{%- endif -%}
+
+         {% if section.blocks.size > 0 %}
+            <div class="icons-wrapper">
+                <div class="better-products-icons__row">
+                    {% for block in section.blocks  %}
+                        <div class="better-products-icons__col">
+                            <a href="{{ block.settings.page_url }}" class="better-products-icons__item" data-keyword>
+                                <span class="better-products-icons__item-icon better-products-icons__item-icon--{{ block.id }}" data-icon></span>
+                                {% if block.settings.const_keyword != blank %}
+                                <span class="hidden" data-keyword-context>{{ block.settings.const_keyword }}</span>
+                                {% endif %}
+                                <span class="better-products-icons__item-title" {% if block.settings.const_keyword == blank %}data-keyword-context{% endif %}>{{ block.settings.title }}</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+</section>
+<style>
+    .pro-o3-testing-banner[data-section-id="{{ section.id }}"] {
+      background-image: url({{ section.settings.image | img_url: '2000x' }});
+      background-size: cover;
+      text-align: center;
+    }
+
+    @media screen and (max-width: 767px) {
+     .pro-o3-testing-banner[data-section-id="{{ section.id }}"] {
+        background: linear-gradient( rgba(243, 243, 243, 0), rgba(219, 210, 184, 0), rgba(219, 210, 184, 0.02), rgb(219, 210, 184)), url({{ section.settings.image | img_url: '2000x' }}) center center no-repeat;
+        background-size: cover;
+      }   
+    }
+    {% for block in section.blocks %}
+        {% if block.settings.icon_hover != blank %}
+			.better-products-icons__item .better-products-icons__item-icon--{{ block.id }}::before {
+				background-image: url({{ block.settings.icon_hover | img_url: "x200" }}) !important;
+			}
+        {% endif %}
+    {% endfor %}
+
+</style>
+{% schema %}
+    {
+        "name": "Banner | O3 testing",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Banner background"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Banner main heading",
+				"default": "Healthy Omega-3 Levels support:"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "icon_link",
+                "name": "Icon link",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "icon_hover",
+                        "label": "Icon for hover"
+                    },
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Heading"
+                    },
+                    {
+                        "type": "text",
+                        "id": "const_keyword",
+                        "label": "Defined key"
+                    },
+                    {
+                        "type": "url",
+                        "id": "page_url",
+                        "label": "Link url"
+                    }
+                ]
+            }
+        ]
+    }
+
+{% endschema %}

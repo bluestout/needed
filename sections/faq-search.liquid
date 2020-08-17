@@ -1,0 +1,95 @@
+<section class="faq">
+    <div class="container">
+
+		<!-- search form -->
+		<div class="search-form">
+
+			<h4 class="search-form__title">{{ section.settings.title }}</h4>
+			<div class="search-form__field">
+				<input id="faq-input" type="text" class="search-form__input" name="q" placeholder="{{ section.settings.search_placeholder }}">
+				<button id="faq-button" type="submit" class="search-form__button"><img src="{{ 'icon-search@2x.png' | asset_img_url: "100x" }}" alt=""></button>
+			</div>
+		</div>
+		<!-- search form end -->
+
+        {% if section.blocks.size > 0 %}
+            <div class="faq__row" data-accordion>
+                {% assign types = '' %}
+
+                {% for block in section.blocks %}
+                    {% assign single_type = block.settings.faq_type %}
+                    {% assign types = types | append: single_type | append: ' ,' %}
+                {% endfor %}
+
+                {% assign uniq_types = types | split: ' ,' | uniq %}
+
+                {% for faq_type in uniq_types  %}
+                    <div class="faq__container" data-pane>
+                        <h3 class="faq__title" data-toggler><span>{{ faq_type | capitalize }}</span> <span class="faq__title-toggler" data-state></span></h3>
+
+                        <div class="faq__questions" data-content>
+                            {% for block in section.blocks  %}
+                                {% assign block_type = block.settings.faq_type %}
+
+                                {% if faq_type == block_type %}
+                                    <div class="faq-item" data-pane>
+                                        <h4 class="faq-item__question js-faq-questions" data-toggler><span>{{ block.settings.title }}</span><span class="faq-item__toggler" data-state></span></h4>
+                                        <div class="faq-item__answer" data-content>{{ block.settings.faq_answer }}</div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+
+
+{% schema %}
+  {
+    "name": "Faq search",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Search heading",
+            "default": "what would you like to learn?"
+        },
+        {
+            "type": "text",
+            "id": "search_placeholder",
+            "label": "Search placeholder",
+            "default": "what shipping option are available?"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "question",
+            "name": "Question",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "faq_type",
+                    "label": "FAQ type",
+                    "info": "Use type for separating questions by groups"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "FAQ question" 
+                },
+                {
+                    "type": "richtext",
+                    "id": "faq_answer",
+                    "label": "FAQ answer",
+                    "default": "<p>body copy that explains how needed works with it’s referenced experts. body copy that explains how needed works with it’s referenced experts. body copy that explains how needed works with it’s referenced experts.</p>"
+                }
+            ]
+        }
+    ]
+  }
+{% endschema %}

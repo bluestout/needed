@@ -1,0 +1,85 @@
+<section id="verification" class="verification">
+
+    <div id="verification-container" class="verification__wrapper">
+        <div  class="verification__container">
+
+			<div class="verification__photo">
+				<div class="verification__photo-inner">
+					{% if section.blocks.size > 0%}
+						{% for block in section.blocks  %}
+							<img class="js-verification-image verification__image {% if forloop.index == 1 %}verification__image--active{% endif %}" src="{{ block.settings.step_image | img_url: "1200x" }}" alt="{{ block.settings.step_image.alt }}">
+						{% endfor %}
+					{% endif %}
+				</div>
+			</div>
+
+			<div class="verification__content">
+				{% if section.settings.title != blank %}
+					<h2 class="verification__title">{{ section.settings.title }}</h2>
+				{% endif %}
+
+				<div class="verification__steps">
+					{% if section.blocks.size > 0 %}
+						<div class="verification-nav">
+							{% for block in section.blocks %}
+								<span data-step="{{ forloop.index }}" class="js-verification-nav-link verification-nav__item {% if forloop.index == 1 %}verification-nav__item--active{% endif %}">{{ forloop.index }}</span>
+							{% endfor %}
+						</div>
+
+						{% for block in section.blocks %}
+							<div class="js-verification-step verification__step {% if forloop.index == 1 %}verification__step--active{% endif %}">
+								<h2 class="verification__step-title">{{ block.settings.title }}</h2>
+								<div class="verification__text">
+									{{ block.settings.step_text }}
+								</div>
+							</div>
+						{% endfor %}
+					{% endif %}
+				</div>
+			</div>
+
+        </div>
+    </div>
+
+</section>
+
+
+
+{% schema %}
+    {
+        "name": "Verification process",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Main heading",
+                "default": "testing and  verification process."
+            }
+        ],
+        "blocks": [
+            {
+            "type": "step",
+            "name": "Step",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "step_image",
+                    "label": "Step image"
+                },
+                {
+                    "type": "text", 
+                    "id": "title",
+                    "label": "Step heading",
+                    "default": "Name of step"
+                },               
+               
+                {
+                    "type": "richtext",
+                    "id": "step_text",
+                    "label": "Step description"
+                }
+            ]
+        }
+        ]
+    }
+{% endschema %}

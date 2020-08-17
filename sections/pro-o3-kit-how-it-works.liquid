@@ -1,0 +1,77 @@
+<section class="how-it-works">
+    <div class="container">
+        <div class="js-animate animate-fade-in">
+            <div class="heading">
+                {% if section.settings.section_title != blank %}
+                <h2 class="section__title"><span class="banner__title-shape">{{ section.settings.section_title }}</span></h2>
+                {% endif %}
+                {% if section.settings.section_subtitle != blank %}
+                <p class="section__subtitle">{{ section.settings.section_subtitle }}</p>
+                {% endif %}
+            </div>
+            {% if section.blocks.size > 0 %}
+            <div class="thumbnails__row">
+                {% for block in section.blocks  %}
+                    <div class="thumb__col">
+                        <div class="thumb-img">
+                            <img src='{{ block.settings.image | img_url: "x200" }}' alt="{{ block.settings.image.alt }}">
+                            {% if block.settings.mark != blank %}
+                            <span class="mark">{{ block.settings.mark }}</span>
+                            {% endif %}
+                        </div>
+                        {% if block.settings.description != blank %}
+                        <div class="description">
+                            <p>{{ block.settings.description }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "How it works | O3 testing",
+    "max_blocks": 4,
+    "settings": [
+        {
+            "type": "text",
+            "id": "section_title",
+            "label": "Heading",
+            "default": "How it works"
+        },
+        {
+            "type": "textarea",
+            "id": "section_subtitle",
+            "label": "Sub heading",
+            "default": "Our simple and safe blood collection method does not require a full blood draw or a trip to the doctor. One drop of blood from a finger prick is all that's needed to assess your Omega-3 status."
+        }
+    ],
+    "blocks": [
+        {
+            "type": "icon",
+            "name": "Icon",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "mark",
+                    "label": "Mark"
+                },
+                {
+                    "type": "textarea",
+                    "id": "description",
+                    "label": "Description"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

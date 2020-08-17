@@ -1,0 +1,301 @@
+.addition-contents {
+    padding-top: 100px;
+}
+
+#shopify-section-product-icons-pre-probiotic {
+    .better-products-icons {
+        padding-top: 80px;
+    }
+}
+
+section.why-pp-needed {
+    h2 {
+        font-family: "Copernicus-Bold",sans-serif;
+        font-size: 28px;
+        line-height: 37px;
+        text-align: center;
+        color: #1F3437;
+        width: 100%;
+    }
+
+    .why-pp-needed__row {
+        margin-top: 60px;
+
+        .why-pp-needed__col {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+    
+            img {
+                width: 100%;
+            }
+
+            .why-pp-needed__item-title {
+                @media(max-width: 768px) {
+                    font-size: 18px !important;
+                }
+                display: block;
+                margin-top: 30px;
+                font-family: "Copernicus-Bold",sans-serif;
+                font-size: 22px;
+                line-height: 34px;
+                text-align: left;
+                color: #1F3337;
+            }
+        }
+    }
+}
+
+#nutrient-table {
+    padding: 100px 0;
+    .nutrient-table__container {
+        margin: 0 auto;
+        .nutrient-table__heading {
+            text-align: center;
+            @media (max-width: 767px) {
+                h1 {
+                    font-size: 25px;
+                    line-height: 33px;
+                }
+            }
+            @media (min-width: 768px) {
+                h1 {
+                    font-size: 35px;
+                    line-height: 47px;
+                }
+            }
+
+            h1 {
+                max-width: 1050px;
+                margin: 0 auto;
+                color: #1F3437;
+            }
+            
+            span {
+                max-width: 580px;
+                display: block;
+                margin: 37px auto 47px auto;
+                font-size: 18px;
+                line-height: 26px;
+                color: #1F3337;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .nutrient-table__item {
+                max-width: 457px;
+                margin-bottom: 38px !important;
+            }
+        }
+
+        .nutrient-table__content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            
+            .nutrient-table__item {
+                width: calc(33% - 30px);
+                margin: 0 15px;
+                background-color: #fff;
+                border: 2px solid #1F3437;
+                padding: 30px 0 0 0;
+                display: flex;
+                flex-direction: column;
+
+                @media (max-width: 767px) {
+                    .item-header {
+                        padding: 0 20px 20px 20px !important;
+                        .item-header__description {
+                            height: 50px !important;
+                        }
+                    }
+
+                    .item-content {
+                        padding: 0 20px 0 20px !important;
+                    }
+                }
+                
+                .item-header {
+                    padding: 0 50px 26px 53px;
+                    border-bottom: 1px solid #1F3437;
+                    h3 {
+                        font-size: 24px;
+                        line-height: 31px;
+                        color: #1F3437;
+                        margin: 0;
+                    }
+                    .item-header__capacity {
+                        display: block;
+                        margin-top: 11px;
+                        font-family: "BrownPro-Bold",sans-serif;
+                        font-size: 16px;
+                        line-height: 19px;
+                        color: #85853e;
+                    }
+
+                    .item-header__description {
+                        display: block;
+                        margin-top: 4px;
+                        font-size: 14px;
+                        line-height: 18px;
+                        height: 36px;
+                        color: #1F3337;
+                        opacity: .5;
+                    }
+                }
+                .item-content {
+                    margin-top: 18px;
+                    color: #1F3337;
+                    font-family: "BrownPro-Regular",sans-serif;
+                    font-size: 15px;
+                    line-height: 22px;
+                    padding: 0 50px 0 53px;
+                    .item-content-text {
+                        text-align: left;
+                    }
+                    .item-content__support {
+                        margin-top: 26px;
+                        .support-header {
+                            font-family: "BrownPro-Bold",sans-serif;
+                        }
+                        .support-feature {
+                            margin-top: 13px;
+                            li {
+                                line-height: 19px;
+                                position: relative;
+                                &::before {
+                                    position: absolute;
+                                    content: url(icon-check.svg);
+                                    width: 14px;
+                                    height: 14px;
+                                    top: 2px;
+                                    left: -27px;
+                                }
+                            }
+                        }
+                    }
+                }
+                .item-footer {
+                    border-top: 1px solid #2B4041;
+                    margin-top: auto;
+                    
+                    .more-info {
+                        line-height: 18px;
+                        margin: 0 auto;
+                        display: block;
+                        font-size: 14px;
+                        padding: 25px 0;
+                        width: 80px;
+                        color: #1f3337;
+                        background: transparent;
+                        text-align: center;
+                        position: relative;
+                        cursor: pointer;
+                        &::after {
+                            content: '';
+                            width: 5px;
+                            height: 5px;
+                            border: 1px solid;
+                            border-color: #1F3337 #1F3337 transparent transparent;
+                            display: block;
+                            position: absolute;
+                            right: 0;
+                            top: 48%;
+                            transform: translateY(-50%) rotate(45deg);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#bundle-plan-pp {
+
+    .bundle-plan-pp__title {
+        display: block;
+        padding-top: 100px;
+        font-family: "Copernicus-Bold", sans-serif;
+        font-style: italic;
+        color: #fff;
+        font-size: 35px;
+        line-height: 47px;
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .bundle-plan-pp__content {
+        max-width: 620px;
+        margin: 0 auto;
+        padding: 250px 20px 100px 20px;
+        .content__body {
+            position: relative;
+            img {
+                width: 80px;
+                height: 80px;
+                position: absolute;
+                transform: translateX(-50%);
+                &.content__img1, &.content__img3 {
+                    top: -20px;
+                }
+
+                @for $i from -1 through 1 {
+                    &.content__img#{$i+2} {
+                        left: calc(50% + #{$i * 50}px);
+                    }
+                }
+            }
+        }
+    }
+}
+
+section.why-omega3-needed {
+    margin-top: 100px;
+    // margin-bottom: 100px;
+    h2 {
+        font-family: "Copernicus-Bold",sans-serif;
+        font-size: 28px;
+        line-height: 37px;
+        text-align: center;
+        color: #1F3437;
+        width: 100%;
+    }
+
+    .why-omega3-needed__row {
+        margin-top: 60px;
+
+        .why-omega3-needed__col {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+    
+            img {
+                width: 100%;
+            }
+
+            .why-omega3-needed__item-title {
+                @media(max-width: 768px) {
+                    font-size: 18px !important;
+                }
+                display: block;
+                margin-top: 30px;
+                font-family: "Copernicus-Bold",sans-serif;
+                font-size: 22px;
+                line-height: 34px;
+                text-align: left;
+                color: #1F3337;
+            }
+
+            .why-omega3-needed__item-content {
+                font-size: 16px;
+                line-height: 28px;
+                font-family: "BrownPro-Bold",sans-serif;
+                display: block;
+                margin-top: 26px;
+            }
+
+            span.font-2 {
+                font-family: "BrownPro-Regular",sans-serif;
+            }
+        }
+    }
+}

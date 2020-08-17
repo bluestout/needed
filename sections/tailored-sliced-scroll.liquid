@@ -1,0 +1,158 @@
+<section class="sliced-scroll">
+
+    <div class="container">
+        <div class="sliced-scroll__row" id="container">
+
+            <div class="sliced-scroll__image" id="sidebar">
+                <div class="sidebar__inner">
+                    <div class="sliced-scroll__image-wrapper">
+                        {% for block in section.blocks %}
+                            <img class="sliced-scroll__image-sliced js-slice-image {% if forloop.index == 1 %}active{% endif %}" src="{{ block.settings.step_image | img_url: "1400x" }}" alt="{{ block.settings.step_image.alt }}">
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="sliced-scroll__content">
+                <h2 class="sliced-scroll__title">{{ section.settings.title }}</h2>
+                {% if section.settings.sub_title != blank %}
+                    <p class="sliced-scroll__subtitle">{{ section.settings.sub_title }}</p>
+                {% endif %}
+
+                <div class="sliced-scroll__steps">
+                    <span class="sliced-scroll__progress js-progress-bar"></span>
+
+                    {% for block in section.blocks  %}
+                        <div class="sliced-scroll__item {% if block.settings.step_icon == blank %}sliced-scroll__item--with-circle{% endif %} js-scroll-item">
+                            {% if block.settings.step_icon != blank %}
+                                <span class="sliced-scroll__item-icon">
+                                    <img class="" src="{{ block.settings.step_icon | img_url: "x100" }}" alt="">
+                                </span>
+                            {% endif %}
+
+                            <span class="sliced-scroll__item-tag">{{ block.settings.type }}</span>
+                            <h3 class="sliced-scroll__item-title">{{ block.settings.title }}</h3>
+                            <div class="sliced-scroll__item__text">{{ block.settings.text }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', e => {
+        var sidebar = new StickySidebar('#sidebar', {
+            containerSelector: '#container',
+            innerWrapperSelector: '.sidebar__inner',
+            topSpacing: 150,
+            bottomSpacing: 0
+
+        });
+
+        const slicedScrollSection = $('.sliced-scroll');
+        const sectionPosition = $(slicedScrollSection).offset().top; // positionY
+        const sectionHeight = $(slicedScrollSection).innerHeight(); // height of section
+        const useOneImage = {{ section.settings.use_first_image }};
+
+        const $progressBar = $('.js-progress-bar');
+        const items = $('.js-scroll-item').toArray();
+        const images = $('.js-slice-image');
+        const stepBarHeight = $('.sliced-scroll__steps').innerHeight();
+
+        window.addEventListener('scroll', e => {
+            const sectionOffset = $(window).scrollTop() + 250 - sectionPosition; // positionY inside section + 250
+
+			// un-active state
+            if (sectionOffset < 0)  {
+                $('.js-scroll-item').removeClass('active');
+                $progressBar.css('height', '0%');
+                return;
+            }
+
+			const percentageScrolled = +(sectionOffset * 1 / (stepBarHeight)).toFixed(2) * 100;
+			$progressBar.css('height', Math.min(percentageScrolled, 100) + '%');
+
+            for (const [i, item] of items.entries()) {
+                if (percentageScrolled - (item.offsetTop / stepBarHeight).toFixed(2) * 100 >= 0) {
+                    item.classList.add('active');
+
+                    if (!useOneImage) {
+						images.removeClass('active');
+						images.eq(i).addClass('active');
+					}
+
+                } else {
+                    item.classList.remove('active');
+
+                    if (!useOneImage) {
+						images.eq(i).removeClass('active');
+					}
+                }
+            }
+        })
+    })
+
+</script>
+
+
+{% schema %}
+    {
+        "name": "Sliced section",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Main heading",
+                "default": "nutrition tailored to your lifepath."
+            },
+            {
+                "type": "textarea",
+                "id": "sub_title",
+                "label": "Sub heading",
+                "default": "this area is a short discription of the content."
+            },
+			{
+				"type": "checkbox",
+				"id": "use_first_image",
+				"label": "Use first image for all steps",
+				"default": false
+			}
+        ],
+        "blocks": [
+            {
+            "type": "step",
+            "name": "Step",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "step_image",
+                    "label": "Step image"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "step_icon",
+                    "label": "Step icon"
+                },
+                {
+                    "type": "text", 
+                    "id": "type",
+                    "label": "Type"
+                },               
+                 {
+                    "type": "text", 
+                    "id": "title",
+                    "label": "Heading"
+                },      
+                {
+                    "type": "richtext",
+                    "id": "text",
+                    "label": "Description"
+                }
+            ]
+        }
+        ]
+    }
+{% endschema %}

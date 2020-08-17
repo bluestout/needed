@@ -1,0 +1,90 @@
+<style>
+    #bundle-plans #shopify-section-dynamic-home-banner-3-bundle{
+        margin-top: 140px;
+    }
+
+    #bundle-plans #shopify-section-dynamic-home-banner-3-bundle .banner__title-shape{
+        font-family: "Copernicus-Bold";
+        font-size: 28px;
+        color: #1F3437;
+    }
+
+    #bundle-plans #shopify-section-dynamic-home-banner-3-bundle .banner__title-shape:after{
+        display: none;
+    }
+
+    #bundle-plans #shopify-section-reviews-o3{
+        margin-top: 80px;
+    }
+
+    #bundle-plans [data-section-id="dynamic-home-banner-3-bundle"]{ 
+        background-position: left !important;
+    }
+
+    #bundle-plans [data-section-id="dynamic-home-banner-3-bundle"] .banner__title{
+        max-width: 670px;
+    }
+
+    @media (max-width: 768px){
+        #bundle-plans [data-section-id="dynamic-home-banner-3-bundle"]{ 
+            background-position: bottom !important;
+        }
+
+        #bundle-plans #reviews-mob-slider .review-card__content{
+            background-color: #FFF;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding-top: 20px !important;
+            padding-bottom: 15px !important;
+        }
+
+        #bundle-plans #reviews-mob-slider .review-card__content:after{
+            top: -38px;
+        }
+
+        #bundle-plans #shopify-section-dynamic-home-banner-3-bundle{
+            margin-top: 40px;
+        }
+
+        #shopify-section-index-global-reviews section.index-review{
+                padding: 65px 0;
+        }
+    }
+
+    @media (max-width: 480px){
+        #bundle-plans #shopify-section-dynamic-home-banner-3-bundle .banner__title-shape{
+            font-size: 24px;
+        }
+    }
+
+</style>
+
+{% section 'bundle-plan-banner' %}
+
+{% section 'bundle-plan-items' %}
+
+{% section 'dynamic-home-banner-3-bundle' %}
+
+{% comment %} {% section 'index-global-reviews' %} {% endcomment %}
+
+{% section 'pro-questions-plan' %}
+
+
+<script>
+    function scrollToPlan(planId){
+        //$('html, body').animate({scrollTop: $('#' + planId).offset().top -120 }, '0');
+        setTimeout(function(){$('html, body').scrollTop(($('#' + planId).offset().top-120));},50);
+    }
+
+    $(function(){
+        var urlParams = window.location.href.split("#");
+        if(urlParams.length > 1){
+            scrollToPlan(urlParams[1]);
+        }
+
+        $(".bundle-banner-button").on("click", function(e){
+            e.preventDefault();
+            scrollToPlan($(this).attr("href"));
+        });
+    });
+</script>

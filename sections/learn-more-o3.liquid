@@ -1,0 +1,78 @@
+<div class="learn-more wow fadeIn" id="carousel-{{ section.id }}" data-section-id="{{ section.id }}">
+    <h1 class="section-title">
+        {{section.settings.title}}
+    </h1>
+    <a href="{{section.settings.link_url}}" class="section-link">
+        {{section.settings.link_label}}
+    </a>
+    <hr class="divider"/>
+</div>
+<style>
+    [data-section-id="{{section.id}}"] .section-title {
+        font-family: "Copernicus-Bold";
+        font-size: 35px;
+        line-height: 1.35;
+        text-align: center;
+        color: #1F3437;
+        max-width: 730px;
+        margin: 0 auto;
+    }
+
+    [data-section-id="{{section.id}}"] .section-link {
+        display: block;
+        margin: 0 auto;
+        margin-top: 29px;
+        font-size: 18px;
+        line-height: 1.5;
+        color: #1F3337;
+        font-family: 'BrownPro-Regular';
+        text-align: center;
+        position: relative;
+        width: fit-content;
+    }
+
+    [data-section-id="{{section.id}}"] .section-link:after {
+        content: "";
+        width: 6px;
+        height: 6px;
+        position: absolute;
+        border: 1px solid;
+        border-color: #1f3337 #1f3337 transparent transparent;
+        transform: rotate(45deg);
+        right: -10px;
+        top: 9px;
+    }
+
+    [data-section-id="{{section.id}}"] .divider {
+        width: 110px;
+        margin: 0 auto;
+        margin-top: 100px;
+        background-color: #E6E2DF;
+        height: 1px;
+        border: none;
+    }
+</style>
+{% schema %}
+    {
+        "name": "Learn More-O3",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Title",
+                "default": "Want to learn more about Liposomal Omega-3?"
+            },
+            {
+                "type": "text",
+                "id": "link_label",
+                "label": "Link Text",
+                "default": "Read Science Page explanation"
+            },
+            {
+                "type": "text",
+                "id": "link_url",
+                "label": "Link URL"
+            }
+        ]
+    }
+{% endschema %}

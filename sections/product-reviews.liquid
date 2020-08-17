@@ -1,0 +1,72 @@
+<section 
+    class="reviews" 
+    data-section-type="product-reviews" 
+    data-section-id="{{ section.id }}"
+    data-placeholder-image="{{ section.settings.placeholder_image | img_url: '600x' }}"
+    data-reviews-sorting="{{ section.settings.reviews_sorting }}"
+>
+    <h2 class="reviews__title">{{ section.settings.title }}</h2>
+
+    <div class="reviews__slider" data-reviews-slider>
+    </div>
+
+    <!--Start Stamped.io Auto Installation-->
+    <div 
+        id="stamped-main-widget" 
+        class="stamped-main-widget visually-hidden" 
+        data-widget-style="standard" 
+        data-product-id="{{ product.id }}" 
+        data-name="{{ product.title | escape }}" 
+        data-url="{{ shop.url }}{{ product.url }}" 
+        data-image-url="{{ product.featured_image | product_img_url: "large" }}" 
+        data-description="{{ product.description | escape }}" 
+        data-product-sku="{{product.handle}}"
+        data-take-reviews="{{ section.settings.reviews_limit }}"
+    >
+        {{ product.metafields.stamped.reviews }}
+    </div>
+    <!--End Stamped.io Auto Installation-->
+</section>
+
+{% schema %}
+{
+    "name": "Product reviews",
+    "settings": [{
+        "type": "text",
+        "id": "title",
+        "label": "Section title"
+    }, {
+        "type": "image_picker",
+        "id": "placeholder_image",
+        "label": "Placeholder image for review"
+    }, {
+        "type": "range",
+        "id": "reviews_limit",
+        "label": "Reviews load limit",
+        "default": 10,
+        "max": 30,
+        "min": 3,
+        "step": 1
+    }, {
+        "type": "select",
+        "id": "reviews_sorting",
+        "label": "Sorting to display reviews",
+        "options": [{
+            "value": "featured", "label": "Featured"
+        }, {
+            "value": "recent", "label": "Most recent"
+        }, {
+            "value": "with-photos", "label": "With photos"
+        }, {
+            "value": "highest-rating", "label": "Highest rating"
+        }, {
+            "value": "lowest-rating", "label": "Lowest rating"
+        }, {
+            "value": "most-votes", "label": "Most votes"
+        }, {
+            "value": "least-votes", "label": "Least votes"
+        }],
+        "default": "featured"
+    }]
+}
+{% endschema %}

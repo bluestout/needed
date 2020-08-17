@@ -1,0 +1,79 @@
+<section class="banner banner-integrative" data-section-id="{{ section.id }}" data-section-type="banner">
+    <div class="container">
+		<div class="col-12">
+			<h1 class="banner__title">
+				{% assign words_array = section.settings.banner_animate_words | split: "," %}
+				<span class="js-animate-words">
+                {% for word in words_array  %}
+					<span class="js-word word {% if forloop.index == 1 %}word-visible {% else %}word-hidden{% endif %}">{{ word }}</span>
+				{% endfor %}
+            </span>
+				<span class="banner__title-shape">{{ section.settings.title }}</span>
+			</h1>
+		</div>
+
+
+        {%- if section.settings.description != blank -%}
+			<div class="col-12">
+				<div class="banner__description">{{ section.settings.description }}</div>
+			</div>
+        {%- endif -%}
+
+        {%- if section.settings.cta_text != blank and section.settings.cta_url != blank -%}
+			<div class="col-12">
+				<div class="banner__action">
+					<a href="{{ section.settings.cta_url }}" class="button button--primary">
+						{{ section.settings.cta_text }}
+					</a>
+				</div>
+			</div>
+
+        {%- endif -%}
+    </div>
+</section>
+
+<style>
+    .banner[data-section-id="{{ section.id }}"] {
+        background-image: url({{ section.settings.image | img_url: '2000x' }});
+    }
+</style>
+
+{% schema %}
+    {
+    "name": "Banner",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Banner background"
+        },
+        {
+            "type": "textarea",
+            "id": "title",
+            "label": "Banner main heading",
+            "info": "Use bold text selection to highlight text with primary color"
+        },
+        {
+            "type": "textarea",
+            "id": "banner_animate_words",
+            "label": "Words for animating",
+            "info": "Write words for animate, separating by comma. Example (Needed, helpful)"
+        },
+        {
+            "type": "textarea",
+            "id": "description",
+            "label": "Banner description"
+        },
+        {
+            "type": "text",
+            "id": "cta_text",
+            "label": "Button text"
+        },
+        {
+            "type": "url",
+            "id": "cta_url",
+            "label": "Button URL"
+        }
+        ]
+    }
+{% endschema %}

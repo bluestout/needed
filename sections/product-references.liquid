@@ -1,0 +1,46 @@
+{% assign referenced = product.metafields.airf.referenced %}
+{% if referenced and referenced != blank %}
+    <section class="product-references js-animate animate-fade-in" 
+        data-section-type="product-references" 
+        data-section-id="{{ section.id }}"
+		data-offset="200"
+    >
+        <div class="container js-blocks-container">
+            {% comment %} 
+                CONTENT OF THIS SECTION IS GENERATED IN JAVASCRIPT components/product-references.js 
+                IT`S DONE BECAUSE OF REPEATER AND THE WAY OF ITS RENDERING
+            {% endcomment %}       
+        </div>
+    </section>
+{% endif %}
+
+
+<script>
+{% if referenced and referenced != blank %}
+    {% assign separator = "###" %}
+    {% assign referenced_childs_keys = referenced | split: separator %}
+    window.productReferences = [
+        {%- for referenced_childs_key in referenced_childs_keys -%}
+            [
+                '{{ referenced_childs_key }}', 
+                `{{ product.metafields.airf[referenced_childs_key] | escape }}`
+            ],
+        {%- endfor -%}
+    ]
+{% endif %}
+</script>
+
+
+{% schema %}
+    {
+        "name": "Product references",
+        "settings": [
+            {
+                "type": "text",
+                "id": "info_label",
+                "label": "INFORMATION LABEL",
+                "info": "CONTENT OF THIS SECTION IS GENERATED IN JAVASCRIPT components/product-references.js IT`S DONE BECAUSE OF REPEATER AND THE WAY OF ITS RENDERING. DON'T DELETE THIS SECTION"
+            }
+        ]
+    }
+{% endschema %}

@@ -1,0 +1,53 @@
+<section class="cta-info">
+    <div class="container">
+        <div class="cta-info__content js-animate animate-fade-in">
+            <h2 class="cta-info__title">{{ section.settings.title }}</h2>
+            {% if section.settings.cta_description != blank %}
+                <div class="cta-info__description">{{ section.settings.cta_description }}</div>
+            {% endif %}
+
+            {% if section.settings.link_url != blank %}
+                <a href="{{ section.settings.link_url }}" class="cta-info__link">{{ section.settings.link_text }}</a>
+            {% endif %}
+        </div>
+    </div>
+
+</section>
+
+{% schema %}
+    {
+        "name": "CTA info text",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Heading",
+                "default": "nutrition needs aren’t static."
+            },
+            {
+                "type": "richtext",
+                "id": "cta_description",
+                "label": "Description",
+                "default": "<p>the text in this area brings the value of the quiz to life, and is approximately the length of three longer sentences or four shorter sentences, extending four lines vertically, which will appear to be a brief but elaborative amount of detail.</p>"
+            },
+            {
+                "type": "text",
+                "id": "link_text",
+                "label": "Link text",
+                "default": "identify your needs"
+            },
+            {
+                "type": "url",
+                "id": "link_url",
+                "label": "Link url"
+            }
+        ],
+        "presets": [
+            {
+                "name": "CTA info text",
+                "category": "Information"
+            }
+        ]
+    }
+
+{% endschema %}

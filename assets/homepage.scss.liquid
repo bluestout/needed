@@ -1,0 +1,730 @@
+@media (max-width: 767px){
+    .em-b {
+        /* border-bottom: 3px solid #85853e; */
+        border-bottom: none;
+        font-style: initial;
+    }
+}
+
+/************************************ Main header ****************************************************/
+header .header__logo{
+    margin-left: -15px;
+}
+
+header .header__container--mobile .header__logo{
+    margin-left: 0px !important;
+}
+
+header .header__container--mobile ul.site-nav{
+    width: 100px;
+    margin-right: 95px;
+}
+
+header .header__container--mobile .site-nav .site-nav__item+.site-nav__item{
+    margin-left: 20px;
+}
+
+header .header__container--mobile .site-nav .site-nav__item .site-nav__link{
+    font-family: "BrownPro-Bold";
+    font-size: 14px;
+    color: #1F3337;
+}
+
+@media (max-width: 380px){
+    
+    header .header__container--mobile ul.site-nav{
+        margin-right: 65px;
+    }
+    
+    header .header__container--mobile .site-nav .site-nav__item+.site-nav__item{
+        margin-left: 10px;
+    }
+}
+
+@media (min-width: 1200px){
+    header#header-main{
+        padding-top: 23px;
+    }
+}
+
+.site-nav .site-nav__item+.site-nav__item{
+    margin-left: 38px;
+}
+
+header .header__container--mobile .site-nav .site-nav__item ul.site-nav__dropdown{
+    padding-top: 0px;
+}
+
+.site-nav .site-nav__item[data-menu="dropdown"]:hover ul.site-nav__dropdown{
+    min-width: 340px !important;
+    background: #FFF;
+    padding-top: 30px;
+    left: -54px;
+    box-shadow: 0px 0px 3px #00000020;
+}
+
+header .site-nav .site-nav__item ul.site-nav__dropdown > li.site-nav__item{
+    background-color: #FFF !important;
+    padding: 0px 50px !important;
+    margin-bottom: 30px;
+}
+
+header .site-nav .site-nav__item ul.site-nav__dropdown > li.site-nav__item a.site-nav__link{
+    font-family: "Copernicus-Bold";
+    font-size: 18px;
+    color: #1F3437 !important;
+    padding: 0px;
+}
+
+header .site-nav .site-nav__item ul.site-nav__dropdown > li.site-nav__item a.site-nav__link:hover{
+    color: #86883D !important;
+}
+
+
+header nav.header__nav ul.site-nav li.site-nav__item > .site-nav__link,
+header .other-items .header__user .site-nav__item .site-nav__link,
+header .other-items .site-nav.cart-item .site-nav__link{
+    font-family: "BrownPro-Bold";
+    color: #1F3337;
+    padding: 13px 0px;
+    position: relative;
+}
+
+header nav.header__nav ul.site-nav > li.site-nav__item > .site-nav__link:after,
+header .other-items .header__user .site-nav__item .site-nav__link:after{
+    position: absolute;
+    content: '';
+    height: 2px;
+    width: 100%;
+    background-color: #1F3337;
+    left: 0px;
+    bottom: 8px;
+    opacity: 0;
+}
+
+header nav.header__nav ul.site-nav li.site-nav__item[data-menu="dropdown"]{
+    margin-right: 10px;
+}
+
+header nav.header__nav ul.site-nav li.site-nav__item[data-menu="dropdown"] > .site-nav__link:after{
+    width: calc(100% + 14px);
+}
+
+header nav.header__nav ul.site-nav > li.site-nav__item:hover > .site-nav__link:after,
+header .other-items .header__user .site-nav__item:hover .site-nav__link:after{
+    opacity: 1;
+}
+
+header nav.header__nav ul.site-nav li.site-nav__item[data-menu="dropdown"]:before{
+    opacity: 1;
+    width: 14px;
+    height: 20px;
+    right: -18px;
+    bottom: 13px;
+}
+
+header nav.header__nav ul.site-nav li.site-nav__item:hover > .site-nav__link{
+    color: #1F3337;
+}
+
+section.index-banner-mob .banner-btn a{
+    background-color: #1F3337;
+    width: 90%;
+}
+
+section.index-banner-mob .banner-btn a:hover{
+    background-color: #4d5e5f;
+}
+
+section.index-banner-mob .banner-btn a span{
+    padding: 0px;
+}
+
+@media (min-width: 768px){
+    header#header-main .header__container--mobile{
+        display: none;
+    }
+
+    header#header-main .header__container--desktop{
+        display: flex;
+    }
+}
+
+@media (max-width: 768px){
+    header#header-main .header__container--mobile.has-cart-count #account-link{
+        right: 70px;
+    }
+
+    header#header-main.menu-is-opened .header__container--mobile .account-link{
+        display: block !important;
+    }
+}
+
+@media (max-width: 480px){
+    header#header-main .header__container--mobile.has-cart-count #account-link{
+        right: 70px;
+    }
+}
+
+@media (max-width: 380px){
+    header#header-main .header__container--mobile.has-cart-count #account-link{
+        right: 67px;
+    }
+    header#header-main .header__container--mobile.has-cart-count ul.site-nav{
+        margin-right: 72px;
+    }
+}
+
+
+/*********************************** Mobile Shop Menu *********************************/
+
+@media (max-width: 768px){
+    
+}
+
+/********************************* End Mobile Shop Menu ***********************************/
+
+
+/***************************************************************************************************/
+
+/*************************************** section banner *****************************************/
+
+section.index-banner > .container{
+    max-width: 1170px;
+}
+
+section.index-banner > .container .banner-content-wrapper{
+    max-width: 480px;
+    float: right;
+}
+
+section.index-banner .banner__title .banner__title-shape .em-b{
+    font-family: "Copernicus-Bold-Italic";
+}
+
+section.index-banner-mob .banner__description{
+    font-family: "Copernicus-Bold";
+    font-size: 20px;
+    margin-top: 0px;
+    color: #85853E;
+}
+
+@media (max-width: 350px){
+    section.index-banner-mob .banner__description{
+        font-size: 18px;
+    }
+}
+
+section.index-banner-mob{
+    padding: 40px 0px 45px;
+}
+
+section.index-banner-mob .banner__title{
+    margin-top: 14px;
+    font-size: 32px;
+    line-height: 1.3;
+}
+
+section.index-banner-mob .banner__title .em-b{
+    font-family: "Copernicus-MediumItalic";
+    font-weight: bold;
+}
+
+section.index-banner-mob .banner-btn{
+    margin-top: 30px;
+}
+
+section.index-banner-mob .banner-btn a{
+    padding: 5px;
+    max-width: 300px;
+}
+
+/*************************************************************************************************/
+
+
+/**************************************** Logo Bar **********************************************/
+
+@media (max-width: 768px){
+    .logo-bar button.slick-prev.slick-arrow,
+    .logo-bar button.slick-next.slick-arrow{
+        display: none !important;
+    }
+}
+
+/************************************************************************************************/
+
+/************************************ Most Prenatals are missing... *************************************/
+
+@media (max-width: 500px){
+    .template-index section.why-pp-needed{
+        padding-top: 60px !important;
+    }
+    .template-index section.why-pp-needed .why-pp-needed__title{
+        font-size: 26px;
+    }
+
+    .template-index section.why-pp-needed .why-pp-needed__row{
+        margin-top: 35px !important;
+    }
+
+    .template-index section.why-pp-needed .why-pp-needed__row .why-pp-needed__item-title{
+        margin-top: 15px !important;
+        line-height: 1.4 !important;
+    }
+
+    .template-index section.why-pp-needed .why-pp-needed__row .why-pp-needed__col{
+        margin-top: 45px;
+    }
+}
+
+/*********************************************************************************************************/
+
+
+/********************************** What makes us different section *********************************************/
+
+.better-products-icons__col .better-products-icons__item{
+    cursor: default;
+}
+
+.better-products-icons__col .better-products-icons__item-icon:before{
+    opacity: 1;
+}
+
+#shopify-section-1548073255082 .better-products-icons__title{
+    font-size: 35px;
+    line-height: 1.2;
+}
+
+@media (max-width: 560px){
+    #shopify-section-1548073255082 .better-products-icons__title{
+        font-size: 30px;
+    }
+}
+
+#shopify-section-1548073255082 .better-products-bottom-contents{
+    display: none;
+}
+
+.better-products-icons__row .better-products-icons__col a[data-keyword-found="true"] .better-products-icons__item-icon{
+    background-image: none !important;
+}
+
+/*****************************************************************************************************************/
+
+
+/****************************************** So we designed optimal one for you *************************************/
+
+@media (max-width: 768px){
+    .template-index .product-plan-with-image .content-wrapper{
+        padding-top: 75px !important;
+    }
+
+    .template-index .product-plan-with-image .content-wrapper .product__title{
+        text-align: center;
+        font-size: 24px;
+        margin: 0px auto;
+    }
+
+    .template-index .product-plan-with-image .content-wrapper .product-plan__content-wrapper{
+        padding-left: 0px !important;
+    }
+
+    .template-index .product-plan-with-image .content-wrapper .product-plan__content-wrapper ul.product-plans{
+        margin: 0px auto;
+        padding-left: 33px !important;
+    }
+
+    .template-index .product-plan-with-image .content-wrapper .product-plan__link{
+        margin-top: 36px !important;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px){
+
+    .template-index .product-plan-with-image .content-wrapper .main-title{
+        line-height: 1.4;
+    }
+}
+
+
+/********************************************************************************************************************/
+
+/********************************************* Featured product card ********************************************/
+
+@media (max-width: 768px){
+    [data-section-id="1589890164525"]{
+        padding-top: 35px !important;
+    }
+    [data-section-id="1589890164525"] .sec-ttl{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+@media (max-width: 480px){
+    [data-section-id="1589890164525"] .sec-ttl{
+        font-size: 26px !important;
+        line-height: 1.4;
+    }
+
+    [data-section-id="1589890164525"] .sec-ttl h3 br{
+        display: none;
+    }
+}
+
+/*****************************************************************************************************************/
+
+
+/*****************************************  take our quiz *****************************************************/
+
+#shopify-section-1577312780610 .banner__title .banner__title-shape:after{
+    display: none;
+}
+
+section.home-banner-3{
+    max-height: 470px;
+    background-size: auto 100%;
+    background-position: right !important;
+    background-color: #eef3f9;
+}
+
+#shopify-section-1577312780610 .banner__title{
+    max-width: 740px;
+    font-size: 28px;
+}
+
+@media (max-width: 768px){
+    section.home-banner-3{
+        background-size: 100%;
+        background-position: bottom !important;
+        height: 750px !important;
+        max-height: 750px !important;
+    }
+
+    section.home-banner-3 .banner__title{
+        width: 80%;
+        line-height: 1.5 !important;
+    }
+
+    section.home-banner-3 .banner-btn a span{
+        padding: 0 106px !important;
+    }
+}
+
+@media (max-width: 480px){
+    section.home-banner-3{
+        height: 600px !important;
+        max-height: 600px !important;
+        padding-top: 75px !important;
+    }
+
+    section.home-banner-3 .banner__title{
+        width: 90%;
+        line-height: 1.4 !important;
+        font-size: 24px !important;
+    }
+
+    section.home-banner-3 .banner-btn{
+        margin-top: 32px !important;
+    }
+
+    section.home-banner-3 .banner-btn a{
+        width: 80%;
+    }
+
+    section.home-banner-3 .banner-btn a span{
+        padding: 0px !important;
+    }
+}
+
+@media (max-width: 340px){
+
+    section.home-banner-3 .banner__title{
+        width: 100%;
+        font-size: 23px !important;
+    }
+}
+
+@media (max-width: 400px){
+    section.home-banner-3 .banner__title{
+        font-size: 22px !important;
+    }
+}
+
+/***************************************************************************************************************/
+
+
+/*************************************************** What makes us different ***********************************************/
+
+#shopify-section-1548073255082 section.better-products-icons{
+    background-color: #FFF;
+    padding-top: 110px;
+}
+
+#shopify-section-1548073255082 section.better-products-icons .better-products-icons__row{
+    margin-top: 75px;
+}
+
+@media (max-width: 768px){
+    .template-index section.better-products-icons .better-products-icons__row .better-products-icons__item-title br{
+        display: none;
+    }
+
+    .template-index section.better-products-icons{
+        padding-bottom: 85px;
+    }
+}
+
+@media (max-width: 480px){
+    .template-index section.better-products-icons{
+        padding: 70px 0px 85px !important;
+    }
+
+    .template-index section.better-products-icons .better-products-icons__title{
+        font-size: 26px !important;
+        line-height: 1.4 !important;
+    }
+
+    .template-index section.better-products-icons .better-products-icons__row{
+        margin-top: 50px !important;
+    }
+}
+
+/***************************************************************************************************************************/
+
+/***************************************** Play video section *****************************************/
+
+@media (max-width: 768px){
+    .template-index section.index-review{
+        margin-bottom: 0px !important;
+    }
+
+    .template-index section.index-review .reviews__title{
+        font-size: 25px;
+        line-height: 1.3;
+    }
+}
+
+@media (max-width: 480px){
+    .template-index section.index-review{
+        padding-top: 62px !important;
+    }
+}
+
+/*******************************************************************************************************/
+
+
+/****************************************  Our founding story *********************************************/
+
+#shopify-section-1577137186189 section[data-section-id="1577137186189"]{
+    margin-top: 0px;
+    margin-bottom: 50px;
+}
+
+#shopify-section-1577137186189 section[data-section-id="1577137186189"] .item__content .item__title,
+#shopify-section-1577137186189 section[data-section-id="1577137186189"] .item__content .item__sub_title{
+    font-size: 35px;
+}
+
+@media (max-width: 768px){
+    .template-index #shopify-section-1577137186189 section[data-section-id="1577137186189"] .item__content .item__sub_title{
+        margin-top: 8px;
+    }
+
+    .template-index #shopify-section-1577137186189 section[data-section-id="1577137186189"] .item__description{
+        text-align: center;
+    }
+    .template-index #shopify-section-1577137186189 section[data-section-id="1577137186189"] .thumbnail-imgs{
+        margin: 0px auto;
+    }
+}
+
+@media (max-width: 480px){
+    .template-index #shopify-section-1577137186189 section[data-section-id="1577137186189"] .item__content .item__title,
+    .template-index #shopify-section-1577137186189 section[data-section-id="1577137186189"] .item__content .item__sub_title{
+        font-size: 25px !important;
+    }
+    .template-index #shopify-section-1577137186189 section[data-section-id="1577137186189"] .item__content .item__sub_title{
+        margin-top: 3px;
+    }
+
+    .template-index #shopify-section-1577137186189 section[data-section-id="1577137186189"] .item__description{
+        margin-top: 20px;
+    }
+
+
+    .template-index #shopify-section-1577137186189 section[data-section-id="1577137186189"] .more-link .learn-more{
+        width: 90%;
+        padding: 5px;
+    }
+}
+
+/**********************************************************************************************************/
+
+
+/********************************************** Trusted by health ************************************************/
+
+#shopify-section-1577215974332 .index-review{
+    background-color: #F6F4F2;
+    margin-bottom: 75px;
+}
+
+#shopify-section-1577215974332 .index-review .reviews__title{
+    max-width: 670px;
+}
+
+#shopify-section-1577215974332 .index-review .review-card__content{
+    background-color: #FFF;
+}
+
+@media (max-width: 768px){
+    .shopify-section .index-review .reviews__arrow--right{
+        width: 40px !important;
+        right: -17px !important;
+    }
+}
+
+/******************************************************************************************************************/
+
+/*************************** Most prenatals are missing key nutrients *******************************************************/
+
+.template-index section.why-pp-needed{
+    padding-bottom: 116px !important;
+}
+
+@media (max-width: 500px){
+    
+    .template-index section.why-pp-needed{
+        padding-bottom: 76px !important;
+    }
+}
+
+.template-index section.why-pp-needed .why-pp-needed__row{
+    margin-top: 76px;
+}
+
+.template-index section.why-pp-needed .why-pp-needed__row .why-pp-needed__item-title{
+    padding: 0px 10px;
+}
+
+/*****************************************************************************************************************************/
+
+/********************************************** section instagram *************************************************/
+
+@media (max-width: 768px){
+    .template-index section.instagram .instagram__title a{
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 480px){
+    .template-index section.instagram{
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+}
+
+@media (max-width: 390px){
+    .template-index section.instagram .instagram__title a{
+        font-size: 22px;
+    }
+}
+
+/******************************************************************************************************************/
+
+/************************************************ footer ****************************************************/
+
+@media (max-width: 480px){
+    footer.footer>.container{
+        padding: 0px 10px;
+    }
+}
+
+.footer-menu .footer-menu__item+.footer-menu__item{
+    margin-top: 12px;
+}
+
+.footer-menu .footer-menu__link{
+    max-width: 140px;
+    line-height: 1.2;
+}
+
+.footer .footer-bottom-desc,
+.footer .footer__copyright{
+    float: left;
+}
+
+.footer .footer__copyright{
+    margin-bottom: 80px;
+}
+
+.footer .footer-bottom-icons{
+    max-width: 50%;
+    float: right;
+}
+
+.footer .footer-bottom-icons .footer-bottom-icon{
+    text-decoration: none;
+}
+
+.footer .footer-bottom-icons .footer-bottom-icon+.footer-bottom-icon{
+    margin-left: 36px;
+}
+
+footer .footer__copyright.mobile-copyright{
+    display: none;
+}
+
+@media (max-width: 768px){
+    .footer .footer-bottom-icons{
+        max-width: 100%;
+        float: left;
+        padding-left: 12px;
+        margin-top: 35px;
+    }
+
+    footer.footer .footer__socials ul.social-icons{
+        border-top: 1px solid #F6F4F2;
+        border-bottom: 1px solid #F6F4F2;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    footer.footer .footer__socials ul.social-icons li.social-icons__item{
+        margin-left: 20px !important;
+        margin-right: 20px !important;
+    }
+
+    footer .footer__copyright.mobile-copyright{
+        display: block;
+        margin: 38px 0px 44px;
+    }
+
+    footer .footer__copyright.mobile-copyright .footer__terms{
+        margin-bottom: 40px;
+    }
+
+    footer .footer__copyright.desktop-copyright{
+        display: none;
+    }
+}
+
+@media (max-width: 330px){
+    footer .footer__copyright.mobile-copyright .footer__terms p{
+        font-size: 14px;
+    }
+}
+
+
+/************************************************************************************************************/
+
+
+
+/****************************************** Spacing between blocks *****************************************/
+
+
+
+/***********************************************************************************************************/

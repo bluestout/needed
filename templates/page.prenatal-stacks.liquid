@@ -1,0 +1,68 @@
+{{ 'prenatal-multi-stacks.scss.css' | asset_url | stylesheet_tag }}
+
+<div class="prenatal-multi-stacks">
+    {{ page.content }}
+    {% section 'pro-download-guide-prenatal-multi' %}
+</div>
+
+<style>
+    .prenatal-multi-stacks .content-header ul.right-header li a{
+        visibility: hidden;
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        var currentColumn = 1;
+        var screenWidth = $(window).width();
+        var currentPosition = 0;
+        
+        if(screenWidth > 991) {
+            currentPosition = 3;
+        } else if(screenWidth > 767) {
+            currentPosition = 2;
+        } else {
+            currentPosition = 1;
+        }
+        $(".count-description").html(currentPosition + " of 6 products");
+        $(".standard-table table tr").each(function(i, el) {
+            var height1 = $(this).height();
+            var height2 = $('#carousel-1 table tr').eq(i).height();
+
+            if(height1 > height2) {
+                $('#carousel-1 table tr').eq(i).height(height1);
+            } else {
+                $(this).height(height2);
+            }
+        });
+
+        $(".table-prev").on('click', function() {
+            console.log(currentColumn);
+            if(currentColumn == 1) {
+                return;
+            }
+            currentColumn--;
+            var left = $(".product-info-table thead tr.no-border th:nth-child(" + currentColumn + ")").position().left;
+            $("#carousel-1").animate({scrollLeft: left}, 300);
+            currentPosition--;
+            $(".count-description").html(currentPosition + " of 6 products");
+        });
+
+        $(".table-next").on('click', function() {
+            console.log(currentColumn);
+            if(currentColumn == 6 || $("#carousel-1").scrollLeft() + $($("#carousel-1")).width() > $("#carousel-1 .product-info-table").width() - 10) {
+                return;
+            }
+
+            currentColumn++;
+            var left = $(".product-info-table thead tr.no-border th:nth-child(" + currentColumn + ")").position().left;
+            $("#carousel-1").animate({scrollLeft: left}, 300);
+            currentPosition++;
+            $(".count-description").html(currentPosition + " of 6 products");
+        });
+
+        $(".back-to-multi").on('click', function() {
+            location.href = document.referrer;
+        });
+    });
+</script>

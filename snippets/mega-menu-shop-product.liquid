@@ -1,0 +1,151 @@
+
+
+<li class="site-nav__item dropdown-mega-shop" data-menu="dropdown">
+    <a href="#"
+    class="site-nav__link "
+    data-keyword
+    >
+    
+    <style>
+        ul.mega-menu.mega-shop-product{
+            width: 420px;
+            left: -53px !important;
+            background-color: #FFF;
+            box-shadow: 0px 0px 3px #00000020;
+        }
+
+        ul.mega-menu.mega-shop-product li.mega-menu__item{
+            margin-bottom: 30px;
+            padding-left: 54px;
+            padding-right: 54px;
+        }
+
+        ul.mega-menu.mega-shop-product li.mega-menu__item .site-nav__description{
+            font-family: "BrownPro-Regular";
+            font-size: 16px;
+            color: #1F3337;
+            padding-top: 10px;
+            opacity: 0.5;
+        }
+
+        ul.mega-menu.mega-shop-product li.mega-menu__item .site-nav__link{
+            font-family: "Copernicus-Bold";
+            font-size: 18px;
+            color: #1F3437 !important;
+        }
+
+        ul.mega-menu.mega-shop-product li.mega-menu__item:hover .site-nav__link{
+            color: #86883D !important;
+        }
+
+        ul.mega-menu.mega-shop-product li.mega-menu__item .site-nav__footer_desc{
+            font-family: "BrownPro-Regular";
+            font-size: 16px;
+            color: #1F3337;
+            opacity: 0.5;
+        }
+
+        ul.mega-menu.mega-shop-product li.mega-menu__item .site-nav__footer_desc .site-nav-take-quiz{
+            color: #1F3337;
+        }
+
+        .site-nav__footer{
+            padding-top: 30px;
+            border-top: 1px solid #dddddd85;
+        }
+
+        .site-nav__footer .site-nav__footer_desc .em-b{
+            font-family: "Copernicus-Bold";
+            font-size: 14px;
+            color: #000;
+        }
+    </style>
+
+    <script>
+        //$(function(){
+        //    $("ul.mega-menu.mega-shop-product li.mega-menu__item .site-nav__link").on('mouseover', function(){
+        //        var hoverSrc = $(this).data('hover-img');
+
+        //        if(hoverSrc == "" || hoverSrc == null) return false;
+
+        //        $('.banner[data-section-id="1547794545780"]').fadeOut(200, function() {
+        //            $('.banner[data-section-id="1547794545780"]').css('background-image', 'url('+hoverSrc+')');
+        //        }).fadeIn(100);
+        //    });
+            
+        //    $("ul.mega-menu.mega-shop-product li.mega-menu__item .site-nav__link").on('mouseleave', function(){
+                
+        //        var hoverSrc = $(this).data('hover-img');
+
+        //        if(hoverSrc == "" || hoverSrc == null) return false;
+                
+        //        $('.banner[data-section-id="1547794545780"]').fadeOut(200, function() {
+        //            $('.banner[data-section-id="1547794545780"]').css('background-image', 'url(https://cdn.shopify.com/s/files/1/0195/3293/9328/files/home-hero_2000x.jpg?v=1594387436)');
+        //        }).fadeIn(100);
+
+                //$('.banner[data-section-id="1547794545780"]').css('background-image', 'url(https://cdn.shopify.com/s/files/1/0195/3293/9328/files/home-hero_2000x.jpg?v=1594387436)');
+        //    });
+        //}) 
+    </script>
+    
+
+    <span data-keyword-context>Shop products</span>
+    <span data-icon></span>
+    </a>
+    <ul class="site-nav__dropdown mega-menu mega-shop-product">
+
+        <li class="mega-menu__item">
+            <p class="site-nav__description">Supplements for mamas</p>
+        </li>
+
+        {% comment %} {% for product in collections["all"].products %}
+            {% if product.vendor != "this-is-needed" %}
+                {% continue %}
+            {% endif %}
+            <li class="mega-menu__item">
+                <a href="{{product.url}}" class="site-nav__link" data-hover-img="{{product.images.first | img_url : '1400x770'}}">{{product.title}}</a>
+            </li>
+        {% endfor %} {% endcomment %}
+        {% assign product = all_products['prenatal-multi'] %}
+        <li class="mega-menu__item">
+            <a href="{{product.url}}" class="site-nav__link" data-hover-img="{{product.images.first | img_url : '1400x770'}}">Prenatal Multi</a>
+        </li>
+        {% assign product = all_products['omega-3'] %}
+        <li class="mega-menu__item">
+            <a href="{{product.url}}" class="site-nav__link" data-hover-img="{{product.images.first | img_url : '1400x770'}}">Omega-3</a>
+        </li>
+        {% assign product = all_products['collagen-protein'] %}
+        <li class="mega-menu__item">
+            <a href="{{product.url}}" class="site-nav__link" data-hover-img="{{product.images.first | img_url : '1400x770'}}">Collagen Protein</a>
+        </li>
+        {% assign product = all_products['prenatal-pre-probiotic'] %}
+        <li class="mega-menu__item">
+            <a href="{{product.url}}" class="site-nav__link" data-hover-img="{{product.images.first | img_url : '1400x770'}}">Pre/Probiotic</a>
+        </li>
+
+        <li class="mega-menu__item">
+            <p class="site-nav__description">At-home test</p>
+        </li>
+
+        {% comment %} {% for product in collections["all"].products %}
+            {% if product.vendor != "needed." %}
+                {% continue %}
+            {% endif %}
+            <li class="mega-menu__item">
+                <a href="{{product.url}}" class="site-nav__link" data-hover-img="{{product.images.first | img_url : '1400x770'}}">{{product.title}}</a>
+            </li>
+        {% endfor %} {% endcomment %}
+        
+        {% assign product = all_products['omega-3-nutrient-testing-kit'] %}
+        <li class="mega-menu__item">
+            <a href="{{product.url}}" class="site-nav__link" data-hover-img="{{product.images.first | img_url : '1400x770'}}">Omega-3 Test</a>
+        </li>
+
+        <li class="mega-menu__item site-nav__footer">
+            <p class="site-nav__footer_desc">Need help finding the right products for an <span class="em-b spec-text">optimal you?</span> 
+                <a href="https://thisisneeded.com/pages/quiz" class="site-nav-take-quiz">&nbsp;Take our quiz to explore your needs.</a>
+            </p>
+        </li>
+    </ul>
+</li> 
+

@@ -1,0 +1,118 @@
+<section class="product-slider js-animate animate-fade-in"
+    data-offset="200"
+    data-section-type="level-based-content"
+    data-section-id="{{ section.id }}"
+    data-show-all-pips="{{ section.settings.show_all_pips }}"
+    data-mobile-scroll="{{ section.settings.mobile_scroll }}"
+    data-desktop-scroll="{{ section.settings.desktop_scroll }}"
+>
+    <div class="container">
+        <div class="product-slider__content row">
+            <div class="product-slider__blocks js-blocks-container order-last order-lg-first col-12 col-lg-6 offset-lg-1">
+                {% assign title = product.metafields.airf.title %}
+                {% if title and title != '&nbsp' %}
+                    <div class="product-slider__heading">
+                        <div class="product-slider__title">
+                            {% assign pre_heading = product.metafields.airf.pre_head %}
+                            {% if pre_heading and pre_heading != '&nbsp' %}
+                                <span>{{ pre_heading }}</span>
+                            {% endif %}
+
+                            <h2 class="product-slider__keyword">{{ title }}</h2>
+                        </div>
+                        {% assign slider_img = product.metafields.airf.slider_img %}
+                        {% if slider_img and slider_img != '&nbsp' %}
+                            <div class="product-slider__image product-slider__image--mobile">
+                                <img src="{{ slider_img }}" alt="{{ title }}">
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            {% if slider_img and slider_img != '&nbsp' %}
+                <div class="product-slider__image product-slider__image--desktop order-fist order-lg-last col-12 offset-lg-1 col-lg-3">
+                    <img src="{{ slider_img }}" alt="{{ title }}">
+                </div>
+            {% endif %}
+        </div>
+        <div class="product-slider__slider row">
+            <div class="col-12 col-lg-10 offset-lg-1">
+                <div data-slider></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.product-slider[data-section-id="{{ section.id }}"] .container {
+    background-color: {{ section.settings.background_color }};
+}
+
+.product-slider[data-section-id="{{ section.id }}"] .utd-connects {
+    background: linear-gradient(to right, {{ section.settings.start_color }}, {{ section.settings.end_color }});
+}
+</style>
+
+<script>
+{% assign levels = product.metafields.airf.levels %}
+{% if levels and levels != blank %}
+    {% assign separator = "###" %}
+    {% assign levels_childs_keys = levels | split: separator %}
+    window.productLevelsContent = [
+        {%- for levels_child_key in levels_childs_keys -%}
+
+            {% if levels_child_key contains "content" %}
+                [
+                    '{{ levels_child_key }}',
+                    `{{ product.metafields.airf[levels_child_key] }}`
+                ],
+            {% else %}
+                [
+                    '{{ levels_child_key }}',
+                    '{{ product.metafields.airf[levels_child_key] }}'
+                ],
+            {% endif %}
+        {%- endfor -%}
+    ]
+{% endif %}
+</script>
+
+
+
+{% schema %}
+{
+    "name": "Slider",
+    "settings": [{
+        "type": "color",
+        "id": "background_color",
+        "label": "Section background color",
+        "default": "#f6f4f2"
+    }, {
+        "type": "header",
+        "content": "Slider settings"
+    }, {
+        "type": "color",
+        "id": "start_color",
+        "label": "Start gradient color"
+    }, {
+        "type": "color",
+        "id": "end_color",
+        "label": "End gradient color"
+    },{
+        "type": "checkbox",
+        "id": "show_all_pips",
+        "label": "Show pip for each point",
+        "default": true
+    },{
+        "type": "checkbox",
+        "id": "mobile_scroll",
+        "label": "Scroll to the last opened content on mobile",
+        "default": true
+    },{
+        "type": "checkbox",
+        "id": "desktop_scroll",
+        "label": "Scroll to the last opened content on desktop",
+        "default": true
+    }]
+}
+{% endschema %}

@@ -1,0 +1,99 @@
+<section class="better-products-icons">
+    <div class="container">
+        <div class="row js-animate animate-fade-in">
+            {% if section.settings.section_subtitle != blank %}
+                <p class="better-products-icons__subtitle pro-ico">{{ section.settings.section_subtitle }}</p>
+            {% endif %}
+
+            <h2 class="better-products-icons__title pro-ico">{{ section.settings.section_title }}</h2>
+
+            {% if section.blocks.size > 0 %}
+                <div class="better-products-icons__row">
+                    {% for block in section.blocks  %}
+                        <div class="better-products-icons__col">
+                            <a href="{{ block.settings.page_url }}" class="better-products-icons__item" data-keyword>
+                                <span class="better-products-icons__item-icon better-products-icons__item-icon--{{ block.id }}" data-icon></span>
+                                <span class="better-products-icons__item-title" data-keyword-context>{{ block.settings.title }}</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        {% if section.settings.section_bottom_title != blank or section.settings.section_bottom_sub_title != blank or section.settings.section_bottom_desc != blank %}
+        <div class="better-products-bottom-contents">
+            {% if section.settings.section_bottom_title != blank %}
+            <h1 class="btm-heading">{{ section.settings.section_bottom_title }}</h1>
+            {% endif %}
+            {% if section.settings.section_bottom_sub_title != blank %}
+            <h1 class="btm-sub-heading">{{ section.settings.section_bottom_sub_title }}</h1>
+            {% endif %}
+            <div class="btm-contents">
+                <h3 class="btm-desc">{{ section.settings.section_bottom_desc }}{% if section.settings.quiz_url != nil %}<a href="/pages/{{ section.settings.quiz_url }}" class="quiz-link">{{ section.settings.quiz_text }} {% include 'icon-arrow' direction: 'right' %}</a>{% endif %}</h3>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+#MainContent .better-products-icons {
+    background-color: {{ section.settings.background_color }};
+}
+{% for block in section.blocks %}
+    {% if block.settings.icon_hover != blank %}
+        .better-products-icons__item .better-products-icons__item-icon--{{ block.id }}::before {
+            background-image: url({{ block.settings.icon_hover | img_url: "x200" }}) !important;
+        }
+    {% endif %}
+{% endfor %}
+</style>
+
+{% schema %}
+    {
+        "name": "Products icons | O3",
+        "settings": [
+            {
+                "type": "text",
+                "id": "section_title",
+                "label": "Heading",
+                "default": "better products begin with better standards."
+            },
+            {
+                "type": "textarea",
+                "id": "section_subtitle",
+                "label": "Subheading",
+                "default": "We care about empowering everyone to manage their health through thoughtful nutrition products and education."
+            },
+            {
+                "type": "color",
+                "id": "background_color",
+                "label": "Background Color"
+            }
+            ],
+            "blocks": [
+                {
+                    "type": "icon_link",
+                    "name": "Icon link",
+                    "settings": [
+                        {
+                            "type": "image_picker",
+                            "id": "icon_hover",
+                            "label": "Icon for hover"
+                        },
+                        {
+                            "type": "text",
+                            "id": "title",
+                            "label": "Heading"
+                        },
+                        {
+                            "type": "url",
+                            "id": "page_url",
+                            "label": "Link url"
+                        }
+                    ]
+                }
+            ]
+    }
+
+{% endschema %}

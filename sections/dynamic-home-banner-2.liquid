@@ -1,0 +1,87 @@
+<section class="banner index-banner home-banner-2" data-section-id="{{ section.id }}" data-section-type="banner">
+  <div class="container">
+
+  {%- if section.settings.title != blank -%}
+    <div class="col-12 js-animate animate-fade-in">
+      <h1 class="banner__title"><span class="banner__title-shape">{{ section.settings.title }}</span></h1>
+    </div>
+  {%- endif -%}
+
+  
+    <div class="col-12 offset-lg-7 col-lg-5 desc-wrapper js-animate animate-fade-in">
+      {%- if section.settings.description != blank -%}
+      <div class="banner__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+      {% if section.settings.button_url != nil %}
+      <div class="banner-btn" data-btn="{{section.settings.button_url}}"><a href="{{ section.settings.button_url }}"><span>{{ section.settings.button_text }}</span></a></div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .banner[data-section-id="{{ section.id }}"] {
+    {% if section.settings.image != nil %}
+    background-image: url({{ section.settings.image | img_url: '2000x' }});
+    {% endif %}
+    text-align: center;
+  }
+
+  @media screen and (max-width: 767px) {
+    .banner[data-section-id="{{ section.id }}"] {
+      {% if section.settings.image_mob != nil %}
+      background-image: url({{ section.settings.image_mob | img_url: '800x' }});
+      {% else %}
+        {% if section.settings.image != nil %}
+        background-image: url({{ section.settings.image | img_url: '800x' }});
+        {% endif %}
+      {% endif %}
+    } 
+  }
+</style>
+{% schema %}
+    {
+        "name": "Home banner | middle",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Desktop background"
+            },
+            {
+                "type": "image_picker",
+                "id": "image_mob",
+                "label": "Mobile background"
+            },
+            {
+                "type": "textarea",
+                "id": "title",
+                "label": "Banner main heading",
+				        "info": "Use html tag <strong>text</strong> for highlight text with primary color"
+            },
+            {
+                "type": "textarea",
+                "id": "description",
+                "label": "Banner description"
+            },
+            {
+                "type": "text",
+                "id": "button_text",
+                "label": "Button text",
+                "default": "take the quiz"
+            },
+            {
+                "type": "url",
+                "id": "button_url",
+                "label": "Button url"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Home banner | middle",
+                "category": "Banner"
+            }
+        ]
+    }
+
+{% endschema %}

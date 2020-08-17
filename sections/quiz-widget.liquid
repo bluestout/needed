@@ -1,0 +1,54 @@
+{% if false %}
+<script>
+	window.typeform = window.typeform || {}
+
+	if (__st && __st instanceof Object && __st.cid) {
+		window.typeform.customer_id = __st.cid
+	}
+
+	window.typeform.form_id = {{ section.settings.form_id | json }};
+	window.typeform.subdomain = {{ section.settings.form_subdomain | json }};
+	window.typeform.submission_url = {{ section.settings.success_url | json }};
+</script>
+
+<section
+    data-section-type="quiz-widget" 
+    data-section-id="{{ section.id }}"
+    class="quiz"
+>
+    {% include 'quiz-body' %}
+</section>
+{% else %}
+<section class="quiz-widget">
+<div class="container">
+    <div class="typeform-widget" data-url="https://needed.typeform.com/to/DFammk8g" data-transparency="50" data-hide-headers=true data-hide-footer=true style="width: 100%; height: 750px;"></div> 
+</div>
+<script> 
+(function() { var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm", b="https://embed.typeform.com/"; if(!gi.call(d,id)) { js=ce.call(d,"script"); js.id=id; js.src=b+"embed.js"; q=gt.call(d,"script")[0]; q.parentNode.insertBefore(js,q) } })() 
+</script> 
+{% comment %}<div style="font-family: Sans-Serif;font-size: 12px;color: #999;opacity: 0.5; padding-top: 5px;"> powered by <a href="https://admin.typeform.com/signup?utm_campaign=aEw5NT&utm_source=typeform.com-13295899-ProPlus&utm_medium=typeform&utm_content=typeform-embedded-poweredbytypeform&utm_term=EN" style="color: #999" target="_blank">Typeform</a> </div> {% endcomment %}
+</section>
+{% endif %}
+{% schema %}
+{
+    "name": "Quiz Widget",
+    "settings": [{
+        "type": "url",
+        "id": "success_url",
+        "label": "URL for CTA after submission"
+    },{
+        "type": "header",
+        "content": "Typeform settings"
+    },{
+        "type": "text",
+        "id": "form_id",
+        "label": "Form ID",
+        "info": "You should take it from [URL](http:\/\/prntscr.com\/ml29l7)"
+    },{
+        "type": "text",
+        "id": "form_subdomain",
+        "label": "Form subdomain",
+        "info": "You should take it from [URL](http:\/\/prntscr.com\/ml29l7)"
+    }]
+}
+{% endschema %}

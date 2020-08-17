@@ -1,0 +1,75 @@
+<section class="pro-o3-testing-science" data-section-id="{{ section.id }}" data-section-type="banner">
+    <div class="container">
+        <div class="testing-banner-wrapper js-animate animate-fade-in">
+		{%- if section.settings.title != blank -%}
+			<div class="heading">
+				<h1 class="banner__title"><span class="banner__title-shape">{{ section.settings.title }}</span></h1>
+			</div>
+		{%- endif -%}
+
+         {% if section.blocks.size > 0 %}
+            <div class="items-wrapper">
+                <div class="items__row">
+                    {% for block in section.blocks  %}
+                        <div class="item__col">
+                        {% if block.settings.item_title != blank or block.settings.item_desc != blank %}
+                            <div class="item-wrapper">
+                            {% if block.settings.item_title != blank %}
+                                <h2 class="item-heading">{{ block.settings.item_title }}</h2>
+                            {% endif %}
+                            {% if block.settings.item_desc != blank %}
+                                <p class="item-desc">{{ block.settings.item_desc }}</p>
+                            {% endif %}
+                            </div>
+                        {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+</section>
+
+<style>
+    .pro-o3-testing-science[data-section-id="{{ section.id }}"] {
+      background-image: url({{ section.settings.image | img_url: '2000x' }});
+    }
+</style>
+{% schema %}
+{
+    "name": "Science | O3 testing ",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Banner background"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Results backed by science"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "item",
+            "name": "Text",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "item_title",
+                    "label": "Title"
+                },
+                {
+                    "type": "textarea",
+                    "id": "item_desc",
+                    "label": "Description"
+                }
+            ]
+        }
+    ]
+}
+
+{% endschema %}

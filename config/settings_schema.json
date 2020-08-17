@@ -1,0 +1,229 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Slate",
+    "theme_version": "0.11.0",
+    "theme_author": "Shopify",
+    "theme_documentation_url": "https:\/\/shopify.github.io\/slate\/",
+    "theme_support_url": "https:\/\/github.com\/Shopify\/slate"
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "select",
+        "id": "type_base_size",
+        "label": "Base size",
+        "default": "16px",
+        "options": [
+          {
+            "value": "14px",
+            "label": "14px"
+          },
+          {
+            "value": "15px",
+            "label": "15px"
+          },
+          {
+            "value": "16px",
+            "label": "16px"
+          },
+          {
+            "value": "17px",
+            "label": "17px"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "General colors"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary color",
+        "default": "#000",
+        "info": "Used for text links, and primary buttons"
+      },
+      {
+        "type": "color",
+        "id": "color_body_text",
+        "label": "Text color",
+        "default": "#000",
+        "info": "Color used for content and paragraph text"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social sharing options"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_sharing_blog",
+        "label": "Enable sharing for blog articles",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_facebook",
+        "label": "Share on Facebook",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_twitter",
+        "label": "Tweet on Twitter",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_pinterest",
+        "label": "Pin on Pinterest",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Sharing links"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter link"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook link"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest link"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram link"
+      },
+      {
+        "type": "text",
+        "id": "social_snapchat_link",
+        "label": "Snapchat link"
+      },
+      {
+        "type": "text",
+        "id": "social_tumblr_link",
+        "label": "Tumblr link"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "Youtube link"
+      },
+      {
+        "type": "text",
+        "id": "social_vimeo_link",
+        "label": "Vimeo link"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": "Enable cart notes",
+        "default": true
+      },
+      {
+        "type": "url",
+        "id": "continue_url",
+        "label": "Continue link url"
+      },
+      {
+        "type": "text",
+        "id": "purchasing_for",
+        "label": "Purchasing for label",
+        "info": "This is additional field label on cart and checkout. Visible only if you fill 'who is this for?' on product page",
+        "default": "Purchasing for"
+      }
+    ]
+  },
+  {
+    "name": "BOGO Discount",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Buy X get Y"
+      },
+      {
+        "type": "product",
+        "id": "buys_product",
+        "label": "Customer buys",
+        "info": "This should be only a product that belongs to a ruleset created by you at [Apps\/eCharge Recurring Billing & Subscriptions -> Rulesets](https:\/\/this-is-needed.myshopify.com\/admin\/apps\/shopify-recurring-payments)"
+      },
+      {
+        "type": "product",
+        "id": "gets_product",
+        "label": "Customer gets",
+        "info": "This should be matched with a product created by you at [Admin\/eCharge Recurring Billing & Subscriptions -> Discounts](https:\/\/this-is-needed.myshopify.com\/admin\/apps\/shopify-recurring-payments)"
+      },
+      {
+        "type": "text",
+        "id": "discount_code",
+        "label": "Discount code",
+        "info": "This should be matched with a new discount code created by you at [Admin\/eCharge Recurring Billing & Subscriptions -> Discounts](https:\/\/this-is-needed.myshopify.com\/admin\/apps\/shopify-recurring-payments)"
+      }
+    ]
+  },
+  {
+    "name": "Newsletter",
+    "settings": [
+      {
+        "type": "text",
+        "id": "klaviyo_list_id",
+        "label": "Klaviyo list id",
+        "info": "Open list and copy ID from [URL](http:\/\/prntscr.com\/m4teyg)"
+      },
+      {
+        "type": "text",
+        "id": "klaviyo_form_id",
+        "label": "Klaviyo form id",
+        "info": "Open form and copy ID from [URL](http:\/\/prntscr.com\/m4tho4)"
+      },
+      {
+        "type": "textarea",
+        "id": "newsletter_error_message",
+        "label": "Newsletter error message",
+        "default": "Email invalid"
+      },
+      {
+        "type": "textarea",
+        "id": "newsletter_success_message",
+        "label": "Newsletter success message",
+        "default": "Check your email for conformation"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "Will be scaled down to 32 x 32px"
+      }
+    ]
+  }
+]

@@ -1,0 +1,118 @@
+{% assign title = section.settings.heading %}
+{% assign slider_img = section.settings.image | img_url: 'x450' %}
+<section class="based-level-slider"
+    data-offset="200"
+    data-section-type="custom-based-level-content"
+    data-section-id="{{ section.id }}"
+    data-show-all-pips="{{ section.settings.show_all_pips }}"
+    data-mobile-scroll="{{ section.settings.mobile_scroll }}"
+    data-desktop-scroll="{{ section.settings.desktop_scroll }}"
+>
+    <div class="container">
+        {% if title != blank %}
+        <div class="based-level-slider__title js-animate animate-fade-in">
+            <h2 class="based-level-slider__keyword">{{ title }}</h2>
+        </div>
+        {% endif %}
+        <div class="based-level-slider__content row js-animate animate-fade-in">
+            <div class="based-level-slider__blocks js-blocks-container order-last order-lg-first col-12 col-lg-5 offset-lg-2">
+                <div class="based-level-slider__heading">
+                    {% if slider_img != nil %}
+                    <div class="based-level-slider__image based-level-slider__image--mobile">
+                        <img src="{{ slider_img }}" alt="{{ section.settings.image.alt }}">
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% if slider_img != nil %}
+            <div class="based-level-slider__image based-level-slider__image--desktop order-fist order-lg-last col-12 offset-lg-1 col-lg-4 js-animate animate-fade-in">
+                <img src="{{ slider_img }}" alt="{{ section.settings.image.alt }}">
+            </div>
+            {% endif %}
+        </div>
+        <div class="based-level-slider__slider js-animate animate-fade-in">
+            <div data-slider></div>
+        </div>
+    </div>
+</section>
+
+<style>
+.based-level-slider[data-section-id="{{ section.id }}"] .container {
+    background-color: {{ section.settings.background_color }};
+}
+
+.based-level-slider[data-section-id="{{ section.id }}"] .utd-vertical {
+    background: linear-gradient(to right, {{ section.settings.start_color }}, {{ section.settings.end_color }});
+}
+</style>
+
+<script>
+    window.productLevelsContent = [
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        ["level_name_{{ forloop.index }}", "{{ block.settings.level_name }}"],
+        ["level_link_{{ forloop.index }}", "&nbsp"],
+        ["content_{{ forloop.index }}", '{{ block.settings.content }}'],
+        {% endfor %}
+        {% endif %}
+    ]
+</script>
+
+{% schema %}
+{
+    "name": "Based level",
+    "settings": [{
+        "type": "color",
+        "id": "background_color",
+        "label": "Section background color",
+        "default": "#f6f4f2"
+    }, {
+        "type": "header",
+        "content": "Slider settings"
+    }, {
+        "type": "color",
+        "id": "start_color",
+        "label": "Start gradient color"
+    }, {
+        "type": "color",
+        "id": "end_color",
+        "label": "End gradient color"
+    },{
+        "type": "checkbox",
+        "id": "show_all_pips",
+        "label": "Show pip for each point",
+        "default": true
+    },{
+        "type": "checkbox",
+        "id": "mobile_scroll",
+        "label": "Scroll to the last opened content on mobile",
+        "default": true
+    },{
+        "type": "checkbox",
+        "id": "desktop_scroll",
+        "label": "Scroll to the last opened content on desktop",
+        "default": true
+    },{
+        "type": "text", 
+        "id": "heading",
+        "label": "Heading"
+    },{
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+    }],
+    "blocks": [{
+        "type": "step",
+        "name": "Step",
+        "settings": [{
+            "type": "text", 
+            "id": "level_name",
+            "label": "Level Name"
+        },{
+            "type": "textarea",
+            "id": "content",
+            "label": "Content"
+        }]
+    }]
+}
+{% endschema %}

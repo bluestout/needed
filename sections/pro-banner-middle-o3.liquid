@@ -1,0 +1,493 @@
+<section class="pro-banner-middle-o3" data-section-id="{{ section.id }}" data-section-type="banner">
+  <div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="top-heading js-animate animate-fade-in">
+                {%- if section.settings.title != blank -%}
+                <h1 class="banner__title"><span class="banner__title-shape">{{ section.settings.title }}</span></h1>
+                {%- endif -%}
+                
+                {%- if section.settings.description != blank -%}
+                <p>{{ section.settings.description }}</p>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+
+    <div class="row desktop-section">
+        <div class="col-lg-6 desc-wrapper left-desc">
+            {% if section.settings.sub_heading_1 != blank or section.settings.sub_desc_1 != blank %}
+            <div class="item--wrapper js-animate animate-fade-in">
+                
+                {% if section.settings.sub_heading_1 != blank %}
+                <h3 class="item-title">{{ section.settings.sub_heading_1 }}</h3>
+                {% endif %}
+                {% if section.settings.sub_desc_1 != blank %}
+                <div class="item-text">{{ section.settings.sub_desc_1 }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if section.settings.sub_heading_4 != blank or section.settings.sub_desc_4 != blank %}
+            <div class="item--wrapper js-animate animate-fade-in mobile-show">
+                
+                {% if section.settings.sub_heading_4 != blank %}
+                <h3 class="item-title">{{ section.settings.sub_heading_4 }}</h3>
+                {% endif %}
+                {% if section.settings.sub_desc_4 != blank %}
+                <div class="item-text">{{ section.settings.sub_desc_4 }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if section.settings.sub_heading_2 != blank or section.settings.sub_desc_2 != blank %}
+            <div class="item--wrapper js-animate animate-fade-in">
+                
+                {% if section.settings.sub_heading_2 != blank %}
+                <h3 class="item-title">{{ section.settings.sub_heading_2 }}</h3>
+                {% endif %}
+                {% if section.settings.sub_desc_2 != blank %}
+                <div class="item-text">{{ section.settings.sub_desc_2 }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if section.settings.sub_heading_3 != blank or section.settings.sub_desc_3 != blank %}
+            <div class="item--wrapper js-animate animate-fade-in">
+                
+                {% if section.settings.sub_heading_3 != blank %}
+                <h3 class="item-title">{{ section.settings.sub_heading_3 }}</h3>
+                {% endif %}
+                {% if section.settings.sub_desc_3 != blank %}
+                <div class="item-text">{{ section.settings.sub_desc_3 }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-lg-6 desc-wrapper right-desc">
+            {% if section.settings.sub_heading_4 != blank or section.settings.sub_desc_4 != blank %}
+            <div class="item--wrapper js-animate animate-fade-in">
+                
+                {% if section.settings.sub_heading_4 != blank %}
+                <h3 class="item-title">{{ section.settings.sub_heading_4 }}</h3>
+                {% endif %}
+                {% if section.settings.sub_desc_4 != blank %}
+                <div class="item-text">{{ section.settings.sub_desc_4 }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if section.settings.sub_heading_5 != blank or section.settings.sub_desc_5 != blank %}
+            <div class="item--wrapper js-animate animate-fade-in">
+                
+                {% if section.settings.sub_heading_5 != blank %}
+                <h3 class="item-title">{{ section.settings.sub_heading_5 }}</h3>
+                {% endif %}
+                {% if section.settings.sub_desc_5 != blank %}
+                <div class="item-text">{{ section.settings.sub_desc_5 }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+            
+
+            {% if section.settings.sub_heading_6 != blank or section.settings.sub_desc_6 != blank %}
+            <div class="item--wrapper js-animate animate-fade-in">
+                
+                {% if section.settings.sub_heading_6 != blank %}
+                <h3 class="item-title">{{ section.settings.sub_heading_6 }}</h3>
+                {% endif %}
+                {% if section.settings.sub_desc_6 != blank %}
+                <div class="item-text">{{ section.settings.sub_desc_6 }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if section.settings.sub_heading_3 != blank or section.settings.sub_desc_3 != blank %}
+            <div class="item--wrapper js-animate animate-fade-in mobile-show">
+                
+                {% if section.settings.sub_heading_3 != blank %}
+                <h3 class="item-title">{{ section.settings.sub_heading_3 }}</h3>
+                {% endif %}
+                {% if section.settings.sub_desc_3 != blank %}
+                <div class="item-text">{{ section.settings.sub_desc_3 }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mobile-section">
+        <div class="desc-wrapper">
+            {% if section.settings.sub_heading_1 != blank or section.settings.sub_desc_1 != blank %}
+            <div class="item--wrapper js-animate animate-fade-in">
+                
+                {% if section.settings.sub_heading_1 != blank %}
+                <h3 class="item-title">{{ section.settings.sub_heading_1 }}</h3>
+                {% endif %}
+                {% if section.settings.sub_desc_1 != blank %}
+                <div class="item-text">{{ section.settings.sub_desc_1 }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if section.settings.sub_heading_4 != blank or section.settings.sub_desc_4 != blank %}
+            <div class="item--wrapper js-animate animate-fade-in mobile-show">
+                
+                {% if section.settings.sub_heading_4 != blank %}
+                <h3 class="item-title">{{ section.settings.sub_heading_4 }}</h3>
+                {% endif %}
+                {% if section.settings.sub_desc_4 != blank %}
+                <div class="item-text">{{ section.settings.sub_desc_4 }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if section.settings.sub_heading_2 != blank or section.settings.sub_desc_2 != blank %}
+            <div class="item--wrapper js-animate animate-fade-in">
+                
+                {% if section.settings.sub_heading_2 != blank %}
+                <h3 class="item-title">{{ section.settings.sub_heading_2 }}</h3>
+                {% endif %}
+                {% if section.settings.sub_desc_2 != blank %}
+                <div class="item-text">{{ section.settings.sub_desc_2 }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if section.settings.sub_heading_5 != blank or section.settings.sub_desc_5 != blank %}
+            <div class="item--wrapper js-animate animate-fade-in">
+                
+                {% if section.settings.sub_heading_5 != blank %}
+                <h3 class="item-title">{{ section.settings.sub_heading_5 }}</h3>
+                {% endif %}
+                {% if section.settings.sub_desc_5 != blank %}
+                <div class="item-text">{{ section.settings.sub_desc_5 }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+            
+
+            {% if section.settings.sub_heading_6 != blank or section.settings.sub_desc_6 != blank %}
+            <div class="item--wrapper js-animate animate-fade-in">
+                
+                {% if section.settings.sub_heading_6 != blank %}
+                <h3 class="item-title">{{ section.settings.sub_heading_6 }}</h3>
+                {% endif %}
+                {% if section.settings.sub_desc_6 != blank %}
+                <div class="item-text">{{ section.settings.sub_desc_6 }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if section.settings.sub_heading_3 != blank or section.settings.sub_desc_3 != blank %}
+            <div class="item--wrapper js-animate animate-fade-in mobile-show">
+                
+                {% if section.settings.sub_heading_3 != blank %}
+                <h3 class="item-title">{{ section.settings.sub_heading_3 }}</h3>
+                {% endif %}
+                {% if section.settings.sub_desc_3 != blank %}
+                <div class="item-text">{{ section.settings.sub_desc_3 }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+        <img src="{{section.settings.image_mob | img_url: '800x'}}" class="mobile-background">
+    </div>
+  </div>
+</section>
+
+<style>
+  .pro-banner-middle-o3 {
+    {% if section.settings.image != nil %}
+    background-image: url({{ section.settings.image | img_url: '2000x' }});
+    {% endif %}
+    text-align: center;
+  }
+  .pro-banner-middle-o3 .desc-wrapper.right-desc .item--wrapper:nth-child(3) {
+    display: none;
+  }
+  @media screen and (max-width: 991px) {
+    .pro-banner-middle-o3 {
+        {% if section.settings.image_mob != nil %}
+        background-image: url({{ section.settings.image_mob | img_url: '800x' }});
+        {% endif %}
+    }   
+
+    .pro-banner-middle-o3 .desc-wrapper.left-desc .item--wrapper:nth-child(3) {
+        margin-bottom: 0 !important;
+    }
+
+    .pro-banner-middle-o3 .desc-wrapper.left-desc .item--wrapper:nth-child(4) {
+        display: none;
+    }
+
+    .pro-banner-middle-o3 .desc-wrapper.right-desc .item--wrapper:nth-child(3) {
+        display: block;
+    }
+  }
+  .pro-banner-middle-o3 .top-heading .banner__title .banner__title-shape:after {
+      display: none;
+  }
+  @media(max-width: 1700px) {
+    .pro-banner-middle-o3 .desc-wrapper.left-desc .item--wrapper:nth-child(3) {
+        margin-bottom: 220px;
+    }
+  }
+  
+
+    section.pro-banner-middle-o3 .row.mobile-section{
+        display: none;
+    }
+
+  @media (max-width: 768px){
+      section.pro-banner-middle-o3{
+          background-color: #f1dee2;
+          background-image: none;
+      }
+
+      section.pro-banner-middle-o3 .row.desktop-section{
+          display: none;
+      }
+
+      section.pro-banner-middle-o3 .row.mobile-section{
+          display: block;
+          width: calc(100% + 100px);
+          margin-left: -50px;
+          margin-top: 50px;
+          background-color: #f1dee2;
+          position: relative;
+          z-index: 0;
+          padding-bottom: 150px;
+          padding-top: 10px;
+          padding-left: 160px;
+          padding-right: 40px;
+          text-align: left;
+      }
+
+      section.pro-banner-middle-o3 .row.mobile-section .desc-wrapper .item--wrapper{
+          padding-bottom: 45px;
+      }
+
+      section.pro-banner-middle-o3 .row.mobile-section .desc-wrapper .item--wrapper:first-child{
+          padding-bottom: 0px;
+      }
+
+      section.pro-banner-middle-o3 .row.mobile-section .desc-wrapper .item--wrapper .item-title{
+          position: relative;
+      }
+
+      section.pro-banner-middle-o3 .row.mobile-section .desc-wrapper .item--wrapper .item-title:before{
+        right: initial;
+        width: 9px;
+        left: -26px;
+        height: 2px;
+        background-color: #1f3337;
+        content: "";
+        position: absolute;
+        top: 8px;
+        display: inline-block;
+        transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+      }
+
+      section.pro-banner-middle-o3 .row.mobile-section .desc-wrapper .item--wrapper .item-title:after{
+        right: initial;
+        width: 9px;
+        left: -20px;
+        height: 2px;
+        background-color: #1f3337;
+        content: "";
+        position: absolute;
+        top: 8px;
+        display: inline-block;
+        transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+      }
+
+      section.pro-banner-middle-o3 .row.mobile-section .desc-wrapper .item--wrapper .item-title.open:before{
+        transform: rotate(135deg);
+        -ms-transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+        transition: none;
+      }
+
+      section.pro-banner-middle-o3 .row.mobile-section .desc-wrapper .item--wrapper .item-title.open:after{
+        transform: rotate(-135deg);
+        -ms-transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
+        transition: none;
+      }
+
+      section.pro-banner-middle-o3 .row.mobile-section .desc-wrapper{
+          margin-top: 0px;
+      }
+
+      section.pro-banner-middle-o3 .row.mobile-section img.mobile-background{
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            height: 100%;
+            z-index: -1;
+      }
+  }
+
+  @media (max-width: 452px){
+      section.pro-banner-middle-o3 .row.mobile-section .desc-wrapper .item--wrapper .item-title{
+          font-size: 18px;
+      }
+  }
+
+  @media (max-width: 420px){
+    section.pro-banner-middle-o3 .row.mobile-section{
+        padding-bottom: 130px;
+    }
+
+    section.pro-banner-middle-o3 .row.mobile-section .desc-wrapper .item--wrapper{
+        padding-bottom: 55px;
+    }
+
+    section.pro-banner-middle-o3 .row.mobile-section .desc-wrapper .item--wrapper:first-child .item-title{
+        line-height: 1.2;
+        padding-bottom: 5px;
+    }
+
+    section.pro-banner-middle-o3 .row.mobile-section .desc-wrapper .item--wrapper:nth-child(2){
+        padding-bottom: 30px;
+    }
+
+    section.pro-banner-middle-o3 .row.mobile-section .desc-wrapper .item--wrapper .item-text{
+        margin: 0px;
+    }
+
+    section.pro-banner-middle-o3 .row.mobile-section .desc-wrapper .item--wrapper{
+        
+    }
+  }
+</style>
+
+<script>
+    $(function(){
+        var mobileImage = $("section.pro-banner-middle-o3 .row.mobile-section img.mobile-background");
+        mobileImage.css("max-height", mobileImage.height()+"px");
+    });
+</script>
+
+{% schema %}
+    {
+        "name": "Banner O3 | middle",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Desktop background"
+            },
+            {
+                "type": "image_picker",
+                "id": "image_mob",
+                "label": "Mobile background"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Banner main heading",
+                "info": "Use html tag <strong>text</strong> for highlight text with primary color"
+            },
+            {
+                "type": "textarea",
+                "id": "description",
+                "label": "Banner description"
+            },
+            {
+                "type": "header",
+                "content": "Item 1"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading_1",
+                "label": "Sub heading"
+            },
+            {
+                "type": "textarea",
+                "id": "sub_desc_1",
+                "label": "Sub description"
+            },
+            {
+                "type": "header",
+                "content": "Item 2"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading_2",
+                "label": "Sub heading"
+            },
+            {
+                "type": "textarea",
+                "id": "sub_desc_2",
+                "label": "Sub description"
+            },
+            {
+                "type": "header",
+                "content": "Item 3"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading_3",
+                "label": "Sub heading"
+            },
+            {
+                "type": "textarea",
+                "id": "sub_desc_3",
+                "label": "Sub description"
+            },
+            {
+                "type": "header",
+                "content": "Item 4"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading_4",
+                "label": "Sub heading"
+            },
+            {
+                "type": "textarea",
+                "id": "sub_desc_4",
+                "label": "Sub description"
+            },
+            {
+                "type": "header",
+                "content": "Item 5"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading_5",
+                "label": "Sub heading"
+            },
+            {
+                "type": "textarea",
+                "id": "sub_desc_5",
+                "label": "Sub description"
+            },
+            {
+                "type": "header",
+                "content": "Item 6"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading_6",
+                "label": "Sub heading"
+            },
+            {
+                "type": "textarea",
+                "id": "sub_desc_6",
+                "label": "Sub description"
+            }
+        ]
+    }
+
+{% endschema %}

@@ -1,0 +1,51 @@
+{% if section.settings.text != blank %}
+    <div class="community-about js-animate animate-fade-in animated">
+        {{ section.settings.text }}
+
+		{% if section.settings.button_text != blank and section.settings.button_url != blank %}
+			<a class="button button--primary" href="{{ section.settings.button_url }}">{{ section.settings.button_text }}</a>
+		{% endif %}
+    </div>
+{% endif %}
+
+<style>
+    #shopify-section-community-about-text .community-about{
+        max-width: 760px;
+    }
+
+    #shopify-section-community-about-text .community-about p{
+        margin-top: 0px;
+        font-size: 18px;
+    }
+
+    @media (max-width: 768px){
+        #shopify-section-community-about-text .community-about{
+            padding-top: 20px;
+        }
+    }
+</style>
+
+
+{% schema %}
+ {
+        "name": "About community",
+        "settings": [          
+            {
+                "type": "richtext",
+                "id": "text",
+                "label": "Description",
+                "default": "<p>this is a robust section of copy that will describe the value of community. this is a robust section of copy that will describe the value of community.</p>"
+            },
+			{
+				"type": "text",
+				"id": "button_text",
+				"label": "Button text"
+			},
+			{
+				"type": "url",
+				"id": "button_url",
+				"label": "Button url"
+			}
+        ]
+    }
+{% endschema %}

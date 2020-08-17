@@ -1,0 +1,151 @@
+<section class="community-info js-animate animate-fade-in">
+    <h2 class="info-main-title">
+        {{ section.settings.main_title }}
+    </h2>
+    <div class="container">
+        <div class="community-info__row">
+            <div class="community-info__content js-animate animate-fade-in animate-delay-300">
+                <h2 class="community-info__title">{{ section.settings.title }}</h2>
+
+                {% if section.settings.description != blank %}
+                    <div class="community-info__description">{{ section.settings.description }}</div>
+                {% endif %}
+
+                {% if section.settings.button_url != blank and section.settings.button_text != blank %}
+                    <a href="{{ section.settings.button_url }}" class="button button--primary">{{ section.settings.button_text }}</a>
+                {% endif %}
+            </div>
+
+            <div class="community-info__media">
+                {% if section.settings.image != blank %}
+                    <div class="community-info__image" style="background-image: url({{ section.settings.image | img_url: '530x450' }});"></div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    section.community-info{
+        padding-top: 110px;
+    }
+
+    section.community-info .info-main-title{
+        text-align: center;
+        font-family: 'Copernicus-Bold';
+        font-size: 35px;
+        color: #1F3437;
+        margin-bottom: 65px;
+    }
+
+    section.community-info .community-info__row .community-info__content{
+        padding: 63px 70px 57px 100px;
+    }
+
+    section.community-info .community-info__row .community-info__content .community-info__title{
+        font-family: "Copernicus-Bold";
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    section.community-info .community-info__row .community-info__content .community-info__description p{
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    section.community-info .community-info__row .community-info__content .button.button--primary{
+        font-family: "BrownPro Bold";
+        font-size: 16px;
+    }
+
+    @media (max-width: 768px){
+        section.community-info{
+            padding-top: 70px;
+        }
+
+        section.community-info .info-main-title{
+            font-size: 26px;
+            line-height: 1.6;
+            margin-bottom: 27px;
+        }
+
+        section.community-info .community-info__row .community-info__content{
+            padding: 40px 29px 43px 33px;
+        }
+
+        section.community-info .community-info__row .community-info__content .community-info__title{
+            font-size: 24px;
+        }
+
+        section.community-info .community-info__row .community-info__content .community-info__description p{
+            font-size: 16px;
+            text-align: left;
+        }
+
+        section.community-info .community-info__row .community-info__content .button.button--primary{
+            font-family: "BrownPro Bold";
+            font-size: 16px;
+        }
+
+        section.community-info .community-info__row .community-info__media{
+            display: block;
+            order: 1;
+            width: 100%;
+        }
+
+        section.community-info .community-info__row .community-info__content{
+            order: 2;
+        }
+    }
+
+    @media (max-width: 480px){
+        section.community-info .community-info__row .community-info__media{
+            min-height: 260px;
+        }
+    }
+</style>
+
+
+{% schema %}
+ {
+        "name": "Community information",
+        "settings": [
+            {
+                "type": "text",
+                "id": "main_title",
+                "label": "Main title",
+                "default": "Join Our Practitioner Community"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Heading",
+                "default": "practictioner partners."
+            },      
+            {
+                "type": "richtext",
+                "id": "description",
+                "label": "Description",
+                "default": "<p>This area provides information on becoming a practicioner partner. This area describes the information about becoming a practicioner partner. This area describes the information about becoming a practicioner partner. This area describes the information about becoming a practicioner partner.</p>"
+            },
+            {
+
+                "type": "url",
+                "id": "button_url",
+                "label": "Button url"
+            },
+            {
+                "type": "text",
+                "id": "button_text",
+                "label": "Button text",
+                "default": "join as a practictioner partner"
+            },
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"
+            }
+        ]
+    }
+{% endschema %}

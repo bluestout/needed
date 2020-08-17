@@ -1,0 +1,174 @@
+<script>
+    let blogs = {};
+    let articles = [];
+    let article = null;
+    let blogColors = {};
+
+    {% assign blogs_handles = '' %}
+
+    {% for block in section.blocks %}
+
+      {% if block.settings.blog == blank %}
+			  {% continue %}
+		  {% endif %}
+
+      {% assign blog = block.settings.blog %}
+      {% assign blog_color = block.settings.blog_color %}
+
+		  blogColors["{{ blog }}"] = "{{ blog_color }}";
+
+        {% if blogs_handles == '' %}
+            {% assign blogs_handles = blogs_handles | append: blog %}
+        {% else %}
+            {% assign blogs_handles = blogs_handles | append: ',' %}
+            {% assign blogs_handles = blogs_handles | append: blog %}
+        {% endif %}
+    {% endfor %}
+
+    {% assign blogs_list = blogs_handles | split: ',' %}
+    {% assign tags = '' | split: "," %}
+
+    {% for single_blog in blogs_list %}
+        {% assign feature_blog = blogs[single_blog] %}
+        {% assign tags = tags | concat: feature_blog.all_tags %}
+
+        articles = [];
+        {% if feature_blog.articles %}
+            {% for article in feature_blog.articles limit: 4 %}
+                article = {{ article | json }};
+
+                article.url = '{{ article.url }}';
+                article.bigImage = '{{ article.image.src | img_url: '1400x' }}';
+                article.previewImage = '{{ article.image.src | img_url: '1400x' }}';
+
+                articles.push(article);
+            {% endfor %}
+        {% endif %}
+
+        blogs['{{ single_blog }}'] = {
+            title: '{{ feature_blog.title }}',
+            handle: '{{ single_blog }}',
+            articles_count: {{ feature_blog.articles_count | json }},
+            url: {{ feature_blog.url | json }},
+            postsToShow: 4,
+            articles: articles,
+			blogColor: blogColors['{{ single_blog }}']
+        };
+    {% endfor %}
+
+    {% assign tags = tags | uniq %}
+
+    let tags = [];
+
+    {% if tags %}
+        {% for tag in tags %}
+
+			if (!tags.includes('{{ tag }}')) {
+				tags.push('{{ tag }}');
+			}
+        {% endfor %}
+    {% endif %}
+
+    window.blogsListData = {
+        tags: tags,
+        blogs: blogs
+    };
+</script>
+
+<div id="blogs-list" class="blog-lists">
+    <div class="container">
+        <!-- search form -->
+        <form type="get" action="/search" class="search-form" @submit="search($event)">
+            <input type="hidden" name="type" value="article" />
+
+            <h4 class="search-form__title">
+                {{ section.settings.search_title }}
+            </h4>
+            <div class="search-form__field">
+                <input id="faq-input" type="text" class="search-form__input" name="q" placeholder="{{ section.settings.search_placeholder }}" v-model="searchQuery">
+                <button type="submit" class="search-form__button"><img src="{{ 'icon-search@2x.png' | asset_img_url: "100x" }}" alt=""></button>
+            </div>
+        </form>
+        <!-- search form end -->
+
+        <!-- filters -->
+        <div class="filters" v-if="tags">
+            <span class="filters__label">filter by</span>
+
+            <!-- add class .tag--active for active tag -->
+            <ul class="filters__list">
+                <tag v-for="tag in tags" :key="tag" :tag="tag" :active="activeTags.includes(tag)" @tags-update="updateTags" />
+            </ul>
+        </div>
+        <!-- filters end -->
+
+		<div class="blog-lists__message" v-if="showMessageForEmptyFilters">{{ section.settings.no_articles_text }}</div>
+
+        <blog-section :blog="blog" v-for="(blog, key) in filteredBlogs" :key="key"  @articles-loaded="articlesLoaded" />
+    </div>
+</div>
+
+
+
+{% schema %}
+{
+    "name": "Blogs list",
+    "max_blocks": 10,
+    "settings": [
+        {
+            "type": "text",
+            "id": "search_title",
+            "label": "Search heading",
+            "default": "what would you like to learn?"
+        },
+        {
+            "type": "text",
+            "id": "search_placeholder",
+            "label": "Search placeholder",
+            "default": "what shipping option are available?"
+        },
+		{
+			"type": "text",
+			"id": "no_articles_text",
+			"label": "Text when no articles",
+			"default": "No articles matching filters."
+		}
+    ],
+    "blocks": [
+        {
+            "type": "blog",
+            "name": "Blog",
+            "settings": [
+                {
+                    "label": "Blog",
+                    "id": "blog",
+                    "type": "blog"
+                },
+				{
+					"type": "color",
+					"id": "blog_color",
+					"label": "Blog color",
+					"default": "#eaf0e5"
+				}
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Blogs list",
+            "category": "Blog",
+            "blocks": [
+                {
+                    "type": "blog"
+                },
+                {
+                    "type": "blog"
+                },
+                {
+                    "type": "blog"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,177 @@
+{% comment %}
+	We need set the current blog in a variable, because when we start use filter,
+	blog articles will be view that articles, that includes in filter
+{% endcomment %}
+
+{% capture slides %}
+	{% assign current_blog = blogs[blog.handle] %}
+	{% for article in current_blog.articles limit: section.settings.slides_count %}
+		{% if article.published_at != blank %}
+			<div>
+				<div class="blog-slider__slide">
+					<div class="blog-slider__content">
+						<div class="blog-slider__information">
+							<h2 class="blog-slider__title" data-keyword><span class="blog-slider__title-icon" data-icon></span>{{ article.title }}</h2>
+
+							<div class="blog-slider__description">
+								{% if article.excerpt != blank %}
+									{{ article.excerpt | truncatewords: 50 }}
+								{% else %}
+									{{ article.content | truncatewords: 50 }}
+								{% endif %}
+							</div>
+
+							<a href="{{ article.url }}" class="button button--primary button--small">read more</a>
+						</div>
+					</div>
+
+					<div class="blog-slider__image">
+						{% if article.image != blank %}
+							<img src="{{ article.image | img_url: '1800x' }}" alt="{{ article.image.alt }}">
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+{% endcapture %}
+
+{% if slides != "" %}
+	<section id="blog-slider" class="blog-slider">
+		{{ slides }}
+	</section>
+{% else %}
+	<div class="blog-lists__empty-slider"></div>
+{% endif %}
+
+{% comment %}
+	<section class="banner" data-section-id="{{ section.id }}" data-section-type="banner" style="background-image: url('{{ blog.articles[0].image | img_url: "2000x" }}')">
+		<div class="container">
+			<h1 class="col-12 banner__title">{{ blog.title }}</h1>
+		</div>
+	</section>
+{% endcomment %}
+
+
+
+
+{% paginate blog.articles by section.settings.articles_count %}
+
+	<div class="blog-lists">
+		<div class="container">
+			<!-- search form -->
+			<form type="get" action="/search" class="search-form js-search-form">
+				<input type="hidden" name="type" value="article" />
+
+				<h4 class="search-form__title">what would you like to learn?</h4>
+				<div class="search-form__field">
+					<input type="text" class="search-form__input js-search-input" name="q" placeholder="omega-3 recipes">
+					<button type="submit" class="search-form__button"><img src="{{ 'icon-search@2x.png' | asset_img_url: "100x" }}" alt=""></button>
+				</div>
+			</form>
+			<!-- search form end -->
+
+			{% if blog.all_tags.size > 0 %}
+				<!-- filters -->
+				{% assign filtered_tags = '' %}
+
+				{% for current_tag in current_tags %}
+					{% assign tag_handle = current_tag | handle %}
+					{% assign filtered_tags = filtered_tags | append: tag_handle | append: ', ' %}
+				{% endfor %}
+
+				{% assign filtered_tags = filtered_tags | split: ', ' | join: '+' %}
+
+				<div class="filters">
+					<span class="filters__label">filter by</span>
+
+					<!-- add class .tag--active for active tag -->
+					<ul class="filters__list" data-current-tags="{{ filtered_tags }}">
+
+						{% for tag in blog.all_tags %}
+							{% if current_tags contains tag %}
+								<li class="tag tag--active">
+									{{ tag | link_to_remove_tag: tag }}
+								</li>
+							{% else %}
+								<li class="tag">{{ tag | link_to_tag: tag }}</li>
+
+								{% comment %}
+									Use this code, if need filter with AND operator
+									<li class="tag">
+										{% if current_tags.size > 0 %}
+											<a href="{{ blog.url }}/tagged/{{ filtered_tags }}+{{ tag | handle }}">{{ tag }}</a>
+										{% else %}
+											<a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+										{% endif %}
+									</li>
+								{% endcomment %}
+							{% endif %}
+						{% endfor %}
+					</ul>
+				</div>
+				<!-- filters end -->
+			{% endif %}
+
+			<div class="blog-lists__articles">
+				<h2 class="blog-lists__title"><span class="blog-lists__title-name">{{ blog.title }}</span></h2>
+
+				<div class="row">
+					{% for article in blog.articles %}
+						<div class="col-md-4">
+							<article
+								class="article-card"
+								{% if article.image != blank %}
+									style="background-image: url({{ article.image | img_url: '1200x' }});"
+								{% endif %}
+							>
+								<div class="article-card__content">
+									<h3 class="article-card__title">
+										<a href="{{ article.url }}">{{ article.title }}</a>
+									</h3>
+								</div>
+							</article>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+
+			{% if paginate.pages > 1 %}
+				{% include 'pagination' %}
+			{% endif %}
+
+		</div>
+	</div>
+
+{% endpaginate %}
+
+
+{% schema %}
+	{
+		"name": "Blog page",
+		"settings": [
+			{
+				"type":   "range",
+				"id":     "slides_count",
+				"label": "Number of articles in slider",
+				"min":       2,
+				"max":       8,
+				"step":      1,
+				"default":   4,
+				"info": "This setting global for all single blog page. The latest published posts are added to the slider."
+			},
+			{
+				"type":   "range",
+				"id":     "articles_count",
+				"label": "Number of articles per page",
+				"min":       2,
+				"max":       30,
+				"step":      1,
+				"default":   12,
+				"info": "This setting global for all single blog page"
+			}
+		]
+	}
+
+{% endschema %}
+

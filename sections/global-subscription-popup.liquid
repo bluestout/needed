@@ -1,0 +1,192 @@
+{% if section.settings.enable_popup %}
+	<style>
+		.subscription-popup .subscription-popup__content{
+			padding-top: {{ section.settings.desktop_padding_top }}px;
+			padding-bottom: {{ section.settings.desktop_padding_bottom }}px;
+			background-image: url('{{ section.settings.image_desktop | img_url: "master" }}');
+		}
+
+		@media screen and (max-width: 767px) {
+			{% if section.settings.image_mobile %}
+				.subscription-popup .subscription-popup__content{
+					padding-top: {{ section.settings.mobile_padding_top }}px;
+					padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+					background-image: url('{{ section.settings.image_mobile | img_url: "master" }}');
+				}
+			{% endif %}
+		}
+	</style>
+
+	<div
+		class="subscription-popup-wrapper js-subscription-popup-wrapper"
+		data-frequency="{{ section.settings.frequency }}"
+		data-close-delay="{{ section.settings.popup_close_delay }}"
+	>
+		<div class="subscription-popup-overlay" data-popup-overlay></div>
+
+		<div class="subscription-popup" data-popup>
+			<div class="subscription-popup__content-wrapper">
+				<div class="subscription-popup__content">
+					<div class="subscription-popup__close-wrapper">
+						<span class="subscription-popup__close" data-close></span>
+					</div>
+
+					<div class="subscription-popup__form">
+						<h2 class="subscription-popup__heading">{{ section.settings.heading }}</h2>
+
+						<div class="subscription-popup__description">{{ section.settings.description }}</div>
+
+						<form action="/"
+							  data-subscribe-form
+							  data-klaviyo-list-id="{{ settings.klaviyo_list_id }}"
+							  data-klaviyo-form-id="{{ settings.klaviyo_form_id }}"
+						>
+							<div class="subscribe-form subscribe-form--popup">
+								<input type="hidden" id="contact_tags" name="contact[tags]" value="newsletter" />
+								<input class="subscribe-form__input" type="email" required placeholder="{{ section.settings.placeholder }}" name="contact[email]" />
+								<input type="submit" class="subscribe-form__button" value="{{ section.settings.button }}" name="subscribe" />
+							</div>
+
+							<div class="subscription-popup__subscribe-messages">
+								<p class="subscription-popup__subscribe-error hidden" data-error>
+									{{ settings.newsletter_error_message }}
+								</p>
+
+								<p class="subscription-popup__subscribe-success hidden" data-success>
+									{{ settings.newsletter_success_message }}
+								</p>
+							</div>
+						</form>
+
+						<span class="subscription-popup__close-bottom" data-close>{{ section.settings.close_text }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
+
+{% schema %}
+	{
+	"name": "Subscription popup",
+	"settings": [
+		{
+			"type":      "header",
+			"content":   "General"
+		},
+		{
+			"id": "enable_popup",
+			"type": "checkbox",
+			"label": "Enable popup",
+			"default": true
+		},
+		{
+			"id": "popup_close_delay",
+			"type": "range",
+			"min": 0,
+			"max": 60,
+			"step": 1,
+			"label": "Close delay",
+			"unit": "s",
+			"default": 3
+		},
+		{
+			"id": "image_desktop",
+			"type": "image_picker",
+			"label": "Desktop image"
+		},
+		{
+			"id": "image_mobile",
+			"type": "image_picker",
+			"label": "Mobile image"
+		},
+		{
+			"id": "heading",
+			"type": "text",
+			"label": "Heading",
+			"default": "This is a tagline to grab attention."
+		},
+		{
+			"id": "description",
+			"type": "richtext",
+			"label": "Description",
+			"default": "<p>This is an area to describe why the user may want to sign up for needed’s email and what value you will bring them.</p>"
+		},
+		{
+			"id": "placeholder",
+			"type": "text",
+			"label": "Input placeholder",
+			"default": "your email address"
+		},
+		{
+			"id": "button",
+			"type": "text",
+			"label": "Button text",
+			"default": "sign up"
+		},
+		{
+			"id": "close_text",
+			"type": "text",
+			"label": "Close text",
+			"default": "no thanks, i’m just looking."
+		},
+		{
+			"type": "range",
+			"id": "frequency",
+			"min": 1,
+			"max": 100,
+			"step": 1,
+			"unit": "ds",
+			"label": "Popup frequency",
+			"default": 7
+		},
+		{
+			"type":      "header",
+			"content":   "Desktop padding"
+		},
+		{
+			"type": "range",
+			"id": "desktop_padding_top",
+			"min": 20,
+			"max": 600,
+			"step": 10,
+			"unit": "px",
+			"label": "Padding top",
+			"default": 480
+		},
+		{
+			"type": "range",
+			"id": "desktop_padding_bottom",
+			"min": 20,
+			"max": 400,
+			"step": 5,
+			"unit": "px",
+			"label": "Padding bottom",
+			"default": 100
+		},
+		{
+			"type": "header",
+			"content": "Mobile padding"
+		},
+		{
+			"type": "range",
+			"id": "mobile_padding_top",
+			"min": 10,
+			"max": 300,
+			"step": 5,
+			"unit": "px",
+			"label": "Padding top",
+			"default": 250
+		},
+		{
+			"type": "range",
+			"id": "mobile_padding_bottom",
+			"min": 10,
+			"max": 300,
+			"step": 5,
+			"unit": "px",
+			"label": "Padding bottom",
+			"default": 35
+		}]
+	}
+{% endschema %}

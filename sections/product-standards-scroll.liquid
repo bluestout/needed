@@ -1,0 +1,207 @@
+<section class="sliced-scroll product-standards-scroll">
+
+    <div class="container">
+        <h2 class="section-title">
+            {{ section.settings.section_title }}
+        </h2>
+        <div class="sliced-scroll__row" id="container">
+
+            <div class="sliced-scroll__image" id="sidebar">
+                <div class="sidebar__inner">
+                    <div class="sliced-scroll__image-wrapper">
+                        {% for block in section.blocks %}
+                            <img class="sliced-scroll__image-sliced js-slice-image {% if forloop.index == 1 %}active{% endif %}" src="{{ block.settings.step_image | img_url: "master" }}" alt="">
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="sliced-scroll__content">
+                <h2 class="sliced-scroll__title text-center">{{ section.settings.title }}</h2>
+                {% if section.settings.sub_title != blank %}
+                    <p class="sliced-scroll__subtitle">{{ section.settings.sub_title }}</p>
+                {% endif %}
+
+                <div class="sliced-scroll__steps">
+                    <span class="sliced-scroll__progress js-progress-bar"></span>
+
+                    {% for block in section.blocks  %}
+                        <div class="sliced-scroll__item sliced-scroll__item--with-circle js-scroll-item">
+                            {% if block.settings.step_icon != blank %}
+                                <span class="sliced-scroll__item-icon">
+                                    <img class="" src="{{ block.settings.step_icon | img_url: "x100" }}" alt="">
+                                </span>
+                            {% endif %}
+
+                            {% if block.settings.type != blank %}
+                                <span class="sliced-scroll__item-tag">{{ block.settings.type }}</span>
+                            {% endif %}
+
+                            <h3 class="sliced-scroll__item-title">{{ block.settings.title }}</h3>
+                            <div class="sliced-scroll__item__text">{{ block.settings.text }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<style>
+
+    section.product-standards-scroll{
+        padding-top: 70px;
+    }
+
+    section.product-standards-scroll .section-title{
+        font-family: "Copernicus-Bold";
+        font-size: 35px;
+        line-height: 1.4;
+        color: #193438;
+        margin: 0px auto;
+        margin-bottom: 50px;
+        text-align: center;
+        max-width: 840px;
+    }
+
+    section.product-standards-scroll .sliced-scroll__content .sliced-scroll__title{
+        font-family: "Copernicus-Bold";
+        font-size: 24px;
+        line-height: 1.4;
+        text-align: left;
+        letter-spacing: 0px;
+    }
+
+    section.product-standards-scroll .sliced-scroll__content .sliced-scroll__item__text{
+        font-size: 16px;
+    }
+
+    @media (max-width: 768px){
+        section.product-standards-scroll{
+            padding-top: 40px;
+        }
+
+        section.product-standards-scroll .section-title{
+            font-size: 26px;
+            margin-bottom: 40px;
+        }
+
+        section.product-standards-scroll .sliced-scroll__content .sliced-scroll__title{
+            font-size: 20px;
+            text-align: center;
+            max-width: 100%;
+        }
+    }
+
+</style>
+
+
+<script type="text/javascript">
+
+    document.addEventListener('DOMContentLoaded', e => {
+        var sidebar = new StickySidebar('#sidebar', {
+            containerSelector: '#container',
+            innerWrapperSelector: '.sidebar__inner',
+            topSpacing: 150,
+            bottomSpacing: 0
+
+        });
+
+        const slicedScrollSection = document.querySelector('.sliced-scroll');
+        const sectionPosition = $(slicedScrollSection).offset().top;
+        const stepsHeight = $('.sliced-scroll__steps').innerHeight();
+
+        const $progressBar = $('.js-progress-bar');
+        const items = $('.js-scroll-item').toArray();
+        const images = $('.js-slice-image');
+		const useOneImage = {{ section.settings.use_first_image }};
+
+        let offsetBetweenItems = $('.js-scroll-item').eq(0).innerHeight() || 300;
+
+        window.addEventListener('scroll', e => {
+
+            const sectionOffset = $(window).scrollTop() + offsetBetweenItems - sectionPosition;
+
+            // console.log(sectionOffset);
+
+            if (sectionOffset < 0)  {
+                $('.js-scroll-item').removeClass('active');
+                $progressBar.css('height', '0%');
+                return;
+            }
+
+			const percentageScrolled = +(sectionOffset * 1 / stepsHeight ).toFixed(2) * 100;
+			$progressBar.css('height', Math.min(percentageScrolled, 100) + '%')
+
+            for (const [i, item] of items.entries()) {
+                if (percentageScrolled - (item.offsetTop / stepsHeight).toFixed(2) * 100 >= 0) {
+                    item.classList.add('active');
+
+					if (!useOneImage) {
+						images.removeClass('active');
+						images.eq(i).addClass('active');
+					}
+                } else {
+                    item.classList.remove('active');
+
+					if (!useOneImage) {
+						images.eq(i).removeClass('active');
+					}
+                }
+            }
+        })
+    })
+
+</script>
+
+
+{% schema %}
+    {
+        "name": "Sliced section",
+        "settings": [
+            {
+                "type": "textarea",
+                "id": "section_title",
+                "label": "Section title",
+                "default": "We meet your needs at each stage along the journey to motherhood."
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Main heading",
+                "default": "why we do it."
+            },
+			{
+				"type": "checkbox",
+				"id": "use_first_image",
+				"label": "Use first image for all steps",
+				"default": false
+			}
+        ],
+        "blocks": [
+            {
+            "type": "step",
+            "name": "Step",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "step_image",
+                    "label": "Step image"
+                },              
+                {
+                    "type": "text", 
+                    "id": "title",
+                    "label": "Heading"
+                },      
+                {
+                    "type": "richtext",
+                    "id": "text",
+                    "label": "Description"
+                }
+            ]
+        }
+        ]
+    }
+{% endschema %}

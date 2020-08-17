@@ -1,0 +1,20 @@
+{% form 'contact', class: 'form' %}
+    {% if form.posted_successfully? %}
+        {% assign successHiddenClass = '' %}
+        {% assign contentHiddenClass = 'visually-hidden hidden' %}
+    {% else %}
+        {% assign successHiddenClass = 'visually-hidden hidden' %}
+        {% assign contentHiddenClass = '' %}
+    {% endif %}
+    <div class="{{ successHiddenClass }}">
+        {% section 'contact-success' %}
+    </div>
+
+    <div class="{{ contentHiddenClass }}">
+        {% section 'contact-banner' %}
+
+        {% section 'global-ticker' %}
+
+        {% section 'contact-form' %}
+    </div>
+{% endform %}

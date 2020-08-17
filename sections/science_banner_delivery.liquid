@@ -1,0 +1,303 @@
+<section class="science-banner-delivery" data-section-id="{{ section.id }}" data-section-type="banner">
+  <div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="top-heading js-animate animate-fade-in">
+                {%- if section.settings.title != blank -%}
+                <h1 class="banner__title"><span class="banner__title-shape">{{ section.settings.title }}</span></span></h1>
+                {%- endif -%}
+                
+                {%- if section.settings.sub_heading != blank -%}
+                <p>{{ section.settings.sub_heading }}</p>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+
+    <div class="liposomes-wrapper">
+        <div class="left-description">
+            <p class="flex-left js-animate animate-fade-in">
+                {{ section.settings.description1 }}
+            </p>
+        </div>
+        <div class="main-image js-animate animate-fade-in">
+            <img src="{{ section.settings.thumb_main_icon | img_url: '600x' }}">
+        </div>
+        <div class="right-description">
+            <p class="flex-right js-animate animate-fade-in">
+                {{ section.settings.description2 }}
+            </p>
+            <p class="flex-right js-animate animate-fade-in">
+                {{ section.settings.description3 }}
+            </p>
+        </div>
+    </div>
+
+    <div class="description-bottom">
+        <p class="bottom-text js-animate animate-fade-in">
+            {{ section.settings.description_bottom }}
+        </p>
+    </div>
+  </div>
+</section>
+
+
+<style>
+    .science-banner-delivery {
+        text-align: center;
+        background-color: #FFF;
+        padding: 105px 0px 120px;
+    }
+    
+    .science-banner-delivery .top-heading .banner__title .banner__title-shape:after{
+        display: none;
+    }
+
+    .science-banner-delivery .top-heading .banner__title .banner__title-shape{
+        font-size: 35px;
+        line-height: 1.3;
+    }
+
+    .science-banner-delivery .liposomes-wrapper{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        margin-top: 42px;
+    }
+
+    .science-banner-delivery .liposomes-wrapper .left-description{
+        width: 35%;
+    }
+
+    .science-banner-delivery .liposomes-wrapper .main-image{
+        width: 30%;
+    }
+
+    .science-banner-delivery .liposomes-wrapper .right-description{
+        width: 35%;
+    }
+
+    @media (min-width: 769px){
+        .science-banner-delivery .liposomes-wrapper .left-description{
+            padding-left: 45px;
+            padding-right: 90px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .science-banner-delivery .liposomes-wrapper .left-description p.flex-left{
+            border-right: 1px solid #1F3437;
+            padding-right: 20px;
+            text-align: left;
+            position: relative;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .science-banner-delivery .liposomes-wrapper .left-description p.flex-left:after{
+            display: block;
+            content: '';
+            width: 58px;
+            height: 1px;
+            border-top: 1px dashed #000;
+            position: absolute;
+            right: -65px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .science-banner-delivery .liposomes-wrapper .right-description{
+            padding-left: 75px;
+            padding-right: 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        .science-banner-delivery .liposomes-wrapper .right-description p.flex-right{
+            border-left: 1px solid #1F3437;
+            padding-left: 20px;
+            text-align: left;
+            position: relative;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .science-banner-delivery .liposomes-wrapper .right-description p.flex-right:before{
+            display: block;
+            content: '';
+            width: 58px;
+            height: 1px;
+            border-top: 1px dashed #000;
+            position: absolute;
+            left: -65px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .science-banner-delivery .description-bottom{
+            margin-top: 40px;
+        }
+
+        .science-banner-delivery .description-bottom .bottom-text{
+            font-size: 16px;
+            color: #202F30;
+        }
+
+        .science-banner-delivery .description-bottom .bottom-text a{
+            color: #202F30;
+        }
+    }
+
+    @media (max-width: 768px){
+        .science-banner-delivery{
+            padding: 50px 0px 60px;
+        }
+
+        .science-banner-delivery .liposomes-wrapper{
+            margin-top: 25px;
+        }
+
+        .science-banner-delivery .top-heading .banner__title .banner__title-shape{
+            font-size: 26px;
+            line-height: 1.4;
+        }
+
+        .science-banner-delivery .liposomes-wrapper .left-description{
+            width: 50%;
+            order: 2;
+        }
+
+        .science-banner-delivery .liposomes-wrapper .main-image{
+            width: 100%;
+            order: 1;
+        }
+
+        .science-banner-delivery .liposomes-wrapper .right-description{
+            width: 50%;
+            order: 3;
+        }
+
+        .science-banner-delivery .liposomes-wrapper .main-image img{
+            width: 55%;
+        }
+
+        .science-banner-delivery .liposomes-wrapper .left-description{
+            margin-top: 40px;
+            padding-right: 15px;
+            position: relative;
+        }
+
+        .science-banner-delivery .liposomes-wrapper .left-description:before{
+            content: '';
+            display: block;
+            border: 1px dashed #000;
+            width: 0px;
+            height: 33px;
+            transform: rotate(25deg);
+            position: absolute;
+            top: -42px;
+            left: 65%;
+        }
+
+        .science-banner-delivery .liposomes-wrapper .right-description{
+            margin-top: 40px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .science-banner-delivery .liposomes-wrapper .right-description:before{
+            content: '';
+            display: block;
+            border: 1px dashed #000;
+            width: 0px;
+            height: 33px;
+            transform: rotate(-25deg);
+            position: absolute;
+            top: -42px;
+            left: 35%;
+        }
+
+        .science-banner-delivery .liposomes-wrapper .left-description .flex-left{
+            border-top: 1px solid #1F3337;
+            text-align: left;
+            font-size: 16px;
+            line-height: 1.7;
+            padding-top: 20px;
+        }
+
+        .science-banner-delivery .liposomes-wrapper .right-description .flex-right{
+            border-top: 1px solid #1F3337;
+            text-align: left;
+            font-size: 16px;
+            line-height: 1.7;
+            padding-top: 20px;
+        }
+
+        .science-banner-delivery .liposomes-wrapper .right-description .flex-right + .flex-right{
+            margin-top: 40px;
+        }
+
+        .science-banner-delivery .description-bottom{
+            margin-top: 45px;
+        }
+
+        .science-banner-delivery .description-bottom .bottom-text{
+            font-size: 16px;
+            color: #202F30;
+            line-height: 1.4;
+        }
+
+        .science-banner-delivery .description-bottom .bottom-text a{
+            color: #202F30;
+        }
+    }
+</style>
+
+
+{% schema %}
+    {
+        "name": "Banner | Best nutrition",
+        "settings": [
+            {
+                "type": "textarea",
+                "id": "title",
+                "label": "Heading",
+                "default": "Our liposomes ensure <span class='color-2'>optimal nutrient absorption and protection.</span>"
+            },
+            {
+                "type": "textarea",
+                "id": "sub_heading",
+                "label": "Sub heading",
+                "default": "we paire nutrients found together in nature-that context matters for absorption and optimal usability."
+            },
+            {
+                "type": "image_picker",
+                "id": "thumb_main_icon",
+                "label": "Main Image"
+            },
+            {
+                "type": "textarea",
+                "id": "description1",
+                "label": "Description1"
+            },
+            {
+                "type": "textarea",
+                "id": "description2",
+                "label": "Description2"
+            },
+            {
+                "type": "textarea",
+                "id": "description3",
+                "label": "Description3"
+            },
+            {
+                "type": "textarea",
+                "id": "description_bottom",
+                "label": "Footer content"
+            }
+        ]
+    }
+
+{% endschema %}

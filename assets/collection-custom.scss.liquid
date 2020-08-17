@@ -1,0 +1,330 @@
+.template-collection .collection-banner .collection-banner__title-shape::after{
+    display: none;
+}
+
+.template-collection{
+    .collection-banner{
+        min-height: 320px;
+        padding-top: 100px;
+        padding-bottom: 50px;
+        background-color: #efe0e3b8;
+
+        .collection-banner__title,
+        .collection-banner__subtitle{
+            z-index: 1;
+        }
+
+        .banner-img-wrapper{
+            position: relative;
+
+            @media (max-width: 768px){
+                overflow: hidden;
+            }
+
+            .collection-banner__image{
+                transform: scale(1.4);
+                position: absolute;
+                top: -200px;
+                max-width: none;
+            }
+        }
+
+/*
+        .col-lg-6{
+            width: 100%;
+            max-width: 100%;
+            flex: 0 0 100%;
+        }
+*/
+
+        .collection-banner__title{
+            margin-top: 50px;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 760px;
+            text-align: center;
+
+            .collection-banner__title-shape{
+                font-family: "Copernicus-Bold";
+                font-size: 45px;
+                color: #1F3437;
+
+                .color-2{
+                    color: #85853F;
+                }
+
+                .em-b{
+                    /* font-family: "Copernicus-Bold-Italic"; */
+                    font-family: "Copernicus-Bold";
+                    font-style: italic;
+                    text-decoration: none;
+                }
+            }
+        }
+
+        p.collection-banner__subtitle{
+            max-width: 100%;
+            width: 100%;
+            text-align: center;
+            font-family: "BrownPro-Regular";
+            font-size: 18px;
+            color: #202F30;
+            margin-top: 24px;
+        }
+
+        ul.detail_list{
+            width: max-content;
+            margin: 0px auto;
+            margin-top: 110px;
+
+            li{
+                font-family: "BrownPro-Regular";
+                font-size: 16px;
+                color: #1F3337;
+                max-width: 336px;
+                margin-bottom: 18px;
+                line-height: 1.4;
+                position: relative;
+
+                &:before{
+                    position: absolute;
+                    content: url(https://cdn.shopify.com/s/files/1/0195/3293/9328/t/34/assets/icon-check.svg);
+                    width: 14px;
+                    height: 14px;
+                    top: 2px;
+                    left: -33px;
+                }
+            }
+
+            li.banner-button{
+                margin-left: -33px;
+                &:before{
+                    display: none;
+                }
+
+                .collection-button-link{
+                    padding: 18px 80px;
+                    text-decoration: none;
+                    font-family: "BrownPro-Bold";
+                    font-size: 16px;
+                    color: #FFF;
+                    border-radius: 30px;
+                    background-color: #1F3337;
+                    display: inline-block;
+                    margin-top: 40px;
+                    transition: .3s all;
+
+                    &:hover{
+                        background-color: #4d5e5f;
+                    }
+                }
+            }
+        }
+    }
+
+    #shopify-section-collection-better-products-icons{
+        .better-products-icons{
+            background-color: #efe0e3b8;
+            padding-top: 80px;
+            padding-bottom: 98px;
+
+            .container{
+                .better-products-icons__title{
+                    font-family: "Copernicus-Bold";
+                    font-size: 28px;
+                    max-width: 835px;
+                    margin: 0px auto;
+                    line-height: 1.4;
+                }
+
+                .better-products-icons__row{
+                    margin-top: 70px;
+                }
+
+                .collection-button-link{
+                    padding: 18px 80px;
+                    text-decoration: none;
+                    font-family: "BrownPro-Bold";
+                    font-size: 16px;
+                    color: #FFF;
+                    border-radius: 30px;
+                    background-color: #1F3337;
+                    display: inline-block;
+                    margin-top: 40px;
+
+                    &:hover{
+                        background-color: #4d5e5f;
+                    }
+                }
+            }
+        }
+    }
+
+    #shopify-section-featured-product-cards{
+        .content-indent{
+            #carousel-featured-product-cards{
+                padding-bottom: 80px;
+
+                .sec-ttl{
+                    h3{
+                        max-width: 670px;
+                        line-height: 1.4;
+                    }
+                }
+            }
+        }
+    }
+
+    #shopify-section-plan-cards{
+        #carousel-plan-cards{
+            h2.header-title{
+                max-width: max-content;
+            }
+        }
+    }
+
+    #shopify-section-dynamic-home-banner-3{
+        .home-banner-3{
+            height: 470px;
+
+            .container{
+                .banner__title{
+                    font-size: 28px;
+                    max-width: 700px;
+                    line-height: 1.5;
+
+                    .banner__title-shape{
+                        &:after{
+                            display: none;
+                        }
+                    }
+                }
+
+                .banner-btn{
+                    margin-top: 50px;
+                    font-family: "BrownPro-Bold";
+
+                    a{
+                        span{
+                            padding: 0 106px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #shopify-section-collection-grid{
+        .collection{
+            .container{
+                .filters, .collection__count{
+                    display: none;
+                }
+
+                .collection__list{
+                    .row{
+                        .product-card{
+                            max-width: 100%;
+                            min-height: 460px;
+                            padding: 60px 110px;
+                            background-color: #F6F4F2;
+                            margin-bottom: 20px;
+                            opacity: 0.8;
+
+                            .product-card__image-wrapper{
+                                max-width: 320px;
+
+                                img{
+                                    height: auto;
+                                }
+                            }
+
+                            .product-card__hover{
+                                display: none !important;
+                            }
+
+                            .product-card__title{
+                                font-family: "Copernicus-Bold";
+                                font-size: 28px;
+                                color: #1F3437;
+                                margin-top: 0px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px){
+    .collection-banner__title .collection-banner__title-shape{
+        font-size: 38px !important;
+    }
+
+    .template-collection .collection-banner .banner-img-wrapper .collection-banner__image{
+        top: 0px;
+        position: relative;
+        transform: scale(1.2);
+        margin-top: 0px;
+    }
+
+    .collection-banner__subtitle{
+        line-height: 1.5;
+    }
+
+    section.collection-banner{
+        padding-top: 30px !important;
+    }
+
+    #shopify-section-collection-banner ul.detail_list{
+        margin-top: -20px;
+        padding-left: 33px;
+        width: 100% !important;
+    }
+
+    section.better-products-icons{
+        padding: 0px 0px 75px !important;
+    }
+
+    .template-collection #shopify-section-collection-better-products-icons .better-products-icons .container .better-products-icons__row{
+        margin-top: 20px;
+    }
+
+    .template-collection .collection-banner ul.detail_list li.banner-button{
+        max-width: calc(100% + 33px);
+    }
+
+    .template-collection .collection-banner ul.detail_list li.banner-button .collection-button-link{
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .collection-button-link{
+        width: 90%;
+        text-align: center;
+        padding: 18px 0px !important;
+    }
+
+    #carousel-featured-product-cards{
+        padding-top: 90px !important;
+    }
+
+    #carousel-featured-product-cards .sec-ttl{
+        padding: 0px 20px !important;
+    }
+}
+
+@media (max-width: 480px){
+    .collection-banner__title .collection-banner__title-shape{
+        font-size: 32px !important;
+    }
+
+    .better-products-icons__title{
+        font-size: 26px !important;
+    }
+
+    #shopify-section-featured-product-cards #carousel-featured-product-cards .sec-ttl h3{
+        font-size: 26px !important;
+    }
+}

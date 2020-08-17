@@ -1,0 +1,64 @@
+{% if section.settings.blog != blank %}
+    {% assign featured_blog = blogs[section.settings.blog] %}
+
+    {% unless featured_blog.articles_count == 0 %}
+        <section class="featured-blog" data-section-id="{{ section.id }}" data-section-type="featured-blog">
+            <div class="container">
+
+                {% if section.settings.title != blank %}
+                    <h2 class="featured-blog__heading">{{ section.settings.title }}</h2>
+                {% endif %}
+
+                <div id="featured-blog-slider" class="row">
+                    {% assign articles = featured_blog.articles %}
+                    {% for article in articles limit: 4 %}
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <article
+                                    class="article-card"
+                                    {% if article.image != blank %}
+                                        style="background-image: url({{ article.image | img_url: '1000x' }});"
+                                    {% endif %}
+                            >
+                                <div class="article-card__content">
+                                    <h3 class="article-card__title">
+                                        <a href="{{ article.url }}">{{ article.title }}</a>
+                                    </h3>
+                                </div>
+                            </article>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endunless %}
+{% endif %}
+
+<style>
+    .featured-blog[data-section-id="{{ section.id }}"] .article-card .article-card__content {
+        background-color: {{ section.settings.color | color_modify: 'alpha', 0.8 }};
+    }
+</style>
+
+{% schema %}
+    {
+    "name": "Featured blog",
+    "settings": [
+    {
+    "type": "blog",
+    "id": "blog",
+    "label": "Featured blog",
+    "info": "Last 4 articles of the selected blog will be shown."
+    },
+    {
+    "type": "text",
+    "id": "title",
+    "label": "Section heading"
+    },
+    {
+    "type": "color",
+    "id": "color",
+    "label": "Background color for featured articles"
+    }
+    ]
+    }
+{% endschema %}

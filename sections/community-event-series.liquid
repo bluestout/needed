@@ -1,0 +1,449 @@
+{% if section.settings.show_section %}
+    <section class="index-review reviews-community">
+      <div class="container">
+        <h1 class="reviews__title js-animate animate-fade-in">{{ section.settings.section_title }}</h1> 
+        <div id="reviews-slider-wrapper" class="reviews__slider">
+          <div id="community-reviews-slider">
+            {% for block in section.blocks %}
+
+              <div class="reviews__slide">
+                <div class="review-frame">
+                  <div class="review-card">
+                    <div class="review-card__photo">
+                      <img src="{{ block.settings.block_image | img_url: '1200x' }}" alt="{{ block.settings.block_image.alt }}">
+                      {% if block.settings.block_video != blank %}
+                      {% assign videoUrl = block.settings.block_video %}
+                      {% assign videoLink = '' %}
+                      {% assign videoID = '' %}
+                      {% if videoUrl contains 'vimeo' %}
+                        {% assign videoLinkTmp = videoUrl | split: '/' | last %}
+                        {% if videoLinkTmp contains '?' %}
+                          {% assign videoID = videoLinkTmp | split: '?' | first %}
+                        {% else %}
+                          {% assign videoID = videoLinkTmp %}
+                        {% endif %}
+                        {% assign videoLink = 'https://player.vimeo.com/video/' | append: videoID %}
+                      {% elsif videoUrl contains 'youtube' %}
+                        {% assign videoLinkTmp = videoUrl | split: '&' %}
+                        {% if videoLinkTmp.size > 0 %}
+                          {% assign videoLinkTmp = videoLinkTmp | first %}
+                          {% assign videoID = videoLinkTmp | split: '?v' | last %}
+                        {% else %}
+                          {% assign videoID = videoLinkTmp | split: '?v' | last %}
+                        {% endif %}
+                        {% assign videoLink = 'https://www.youtube.com/embed/' | append: videoID %}
+                      {% endif %}
+                      <div class="video-play"><a class="video-play-btn" data-video-id="{{ videoID }}" href="{{ videoLink }}"><img src="{{ 'play-icon.png' | asset_url }}">{{ block.settings.video_btn_txt }}</a></div>
+                      {% endif %}
+                    </div>
+
+                    <div class="review-card__content">
+                      {% if block.settings.block_title != blank %}
+                      <h3 class="review-card__title">{{ block.settings.block_title }}</h3>
+                      {% endif %}
+                      {% if block.settings.block_text != blank %}
+                      <div class="review-card__quote">{{ block.settings.block_text }}</div>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              
+            {% endfor %}
+          </div>
+
+          <div id="community-reviews-mob-slider">
+            {% for block in section.blocks  %}
+              <div class="reviews__slide">
+
+                {% if block.settings.block_image != nil or block.settings.block_video != blank or block.settings.video_btn_txt != blank or block.settings.block_title != blank or block.settings.block_text != blank or block.settings.author_1 != blank %}
+                <div class="review-card">
+                  <div class="review-card__photo">
+                    <img src="{{ block.settings.block_image | img_url: '1200x' }}" alt="{{ block.settings.block_image.alt }}">
+                    {% if block.settings.block_video != blank %}
+                      {% assign videoUrl = block.settings.block_video %}
+                      {% assign videoLink = '' %}
+                      {% assign videoID = '' %}
+                      {% if videoUrl contains 'vimeo' %}
+                        {% assign videoLinkTmp = videoUrl | split: '/' | last %}
+                        {% if videoLinkTmp contains '?' %}
+                          {% assign videoID = videoLinkTmp | split: '?' | first %}
+                        {% else %}
+                          {% assign videoID = videoLinkTmp %}
+                        {% endif %}
+                        {% assign videoLink = 'https://player.vimeo.com/video/' | append: videoID %}
+                      {% elsif videoUrl contains 'youtube' %}
+                        {% assign videoLinkTmp = videoUrl | split: '&' %}
+                        {% if videoLinkTmp.size > 0 %}
+                          {% assign videoLinkTmp = videoLinkTmp | first %}
+                          {% assign videoID = videoLinkTmp | split: '?v' | last %}
+                        {% else %}
+                          {% assign videoID = videoLinkTmp | split: '?v' | last %}
+                        {% endif %}
+                        {% assign videoLink = 'https://www.youtube.com/embed/' | append: videoID %}
+                      {% endif %}
+                    <div class="video-play"><a class="video-play-btn" data-video-id="{{ videoID }}" href="{{ videoLink }}"><img src="{{ 'play-icon.png' | asset_url }}">{{ block.settings.video_btn_txt }}</a></div>
+                    {% endif %}
+                  </div>
+                  <div class="review-card__content">
+                    {% if block.settings.block_title != blank %}
+                    <h3 class="review-card__title">{{ block.settings.block_title }}</h3>
+                    {% endif %}
+                    {% if block.settings.block_text != blank %}
+                    <div class="review-card__quote">{{ block.settings.block_text }}</div>
+                    {% endif %}
+                  </div>
+
+                </div>
+                {% endif %}
+              
+              </div>
+            {% endfor %}
+          </div>
+
+
+        </div>
+      </div>
+    </section>
+    
+    <script>
+    $(document).ready(function ($) {
+      $('.index-review .video-play-btn').fancybox({
+        openEffect: 'fade',
+        closeEffect: 'fade',
+        helpers: {
+          media: {}
+        }
+      });
+    });
+
+    
+    (function() {
+
+
+        $(document).ready(function() {
+            let reviewsSlider = $('section #community-reviews-slider');
+            let reviewsMobSlider = $('section #community-reviews-mob-slider');
+            initReviewsSlider();
+
+            function initReviewsSlider() {
+                let typeLink = $('.js-review-type-link');
+
+                if (window.innerWidth >= 767) {
+                    if (!reviewsSlider.length) {
+                        return;
+                    }
+                    reviewsSlider.slick({
+                        adaptiveHeight: true,
+                        slidesToShow: 3,
+                        autoplay: false,
+                        arrows: true,
+                        dots: true,
+                        appendDots: $('#reviews-slider-wrapper'),
+                        prevArrow: '<button type="button" class="slick-arrow reviews__arrow reviews__arrow--left"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="chevron-bottom"><line class="cls-1" x1="16" x2="7" y1="20.5" y2="11.5"/><line class="cls-1" x1="25" x2="16" y1="11.5" y2="20.5"/></g></svg></button>',
+                        nextArrow: '<button type="button" class="slick-arrow reviews__arrow reviews__arrow--right"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="chevron-bottom"><line class="cls-1" x1="16" x2="7" y1="20.5" y2="11.5"/><line class="cls-1" x1="25" x2="16" y1="11.5" y2="20.5"/></g></svg></button>'
+                    }).on('setPosition', function() {
+                        $(this).find('.slick-slide').height('auto');
+                        var slickTrack = $(this).find('.slick-track');
+                        var slickTrackHeight = $(slickTrack).height();
+                        $(this).find('.slick-slide').css('height', slickTrackHeight + 'px');
+                    });
+                } else {
+                    if($('body').hasClass('template-product') && (!reviewsMobSlider.length)) {
+                        reviewsSlider.slick({
+                            adaptiveHeight: true,
+                            slidesToShow: 1,
+                            autoplay: false,
+                            arrows: true,
+                            dots: true,
+                            appendDots: $('#reviews-slider-wrapper'),
+                            prevArrow: '<button type="button" class="slick-arrow reviews__arrow reviews__arrow--left"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="chevron-bottom"><line class="cls-1" x1="16" x2="7" y1="20.5" y2="11.5"/><line class="cls-1" x1="25" x2="16" y1="11.5" y2="20.5"/></g></svg></button>',
+                            nextArrow: '<button type="button" class="slick-arrow reviews__arrow reviews__arrow--right"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="chevron-bottom"><line class="cls-1" x1="16" x2="7" y1="20.5" y2="11.5"/><line class="cls-1" x1="25" x2="16" y1="11.5" y2="20.5"/></g></svg></button>'
+                        });
+                    } else if (!reviewsMobSlider.length) {
+                        return;
+                    }
+
+                    reviewsMobSlider.slick({
+                        adaptiveHeight: true,
+                        slidesToShow: 1,
+                        autoplay: false,
+                        arrows: true,
+                        dots: true,
+                        appendDots: $('#reviews-slider-wrapper'),
+                        prevArrow: '<button type="button" class="slick-arrow reviews__arrow reviews__arrow--left"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="chevron-bottom"><line class="cls-1" x1="16" x2="7" y1="20.5" y2="11.5"/><line class="cls-1" x1="25" x2="16" y1="11.5" y2="20.5"/></g></svg></button>',
+                        nextArrow: '<button type="button" class="slick-arrow reviews__arrow reviews__arrow--right"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="chevron-bottom"><line class="cls-1" x1="16" x2="7" y1="20.5" y2="11.5"/><line class="cls-1" x1="25" x2="16" y1="11.5" y2="20.5"/></g></svg></button>'
+                    });
+                }
+
+                typeLink.click(filterSlides);
+
+                if (typeLink.length > 0) {
+                    typeLink.first().trigger('click');
+                }
+
+
+
+                function filterSlides(e) {
+                    e.preventDefault();
+                    let type = $(this).attr('href');
+
+
+                    $(this).addClass('reviews__filter-link--active');
+                    typeLink.not($(this)).removeClass('reviews__filter-link--active');
+
+                    reviewsSlider.slick('slickUnfilter');
+                    reviewsSlider.slick('slickFilter', `[data-type='${type}']`);
+                }
+            }
+
+        });
+
+
+    }());
+
+
+    </script>
+
+
+{% endif %}
+
+
+<style>
+
+    section.reviews-community{
+        background-color: #F6F4F2;
+        padding: 80px 0;
+    }
+    #shopify-section-{{section.id}} #community-reviews-mob-slider{
+        display: none;
+    }
+    
+    #shopify-section-{{section.id}} #community-reviews-slider{
+    }
+
+    section.reviews-community .reviews__title{
+        font-family: "Copernicus-Bold";
+        font-size: 35px;
+        max-width: 670px;
+    }
+
+    #community-reviews-slider .reviews__slide .review-card{
+        display: block;
+        margin: 0 15px;
+    }
+
+    #community-reviews-slider .reviews__slide .review-card .review-card__photo{
+        width: 100%;
+        height: 250px;
+    }
+
+    #community-reviews-slider .reviews__slide .review-card .review-card__content{
+        width: 100%;
+        height: 410px;
+        background-color: #fff;
+        padding: 23px 31px 30px;
+    }
+
+    #community-reviews-slider .reviews__slide .review-card .review-card__content:before{
+        display: none;
+    }
+
+    #community-reviews-slider .reviews__slide .review-card .review-card__title{
+        font-family: "Copernicus-Bold";
+        font-size: 20px;
+        color: #1F3437;
+        padding: 0px;
+        line-height: 1.3;
+    }
+
+    #community-reviews-slider .reviews__slide .review-card .review-card__title:after{
+        display: none;
+    }
+
+    #community-reviews-slider .reviews__slide .review-card .review-card__quote p{
+        font-family: "BrownPro Regular";
+        font-size: 16px;
+        color: #202F30;
+        line-height: 1.6;
+        text-indent: 0px;
+    }
+
+    #community-reviews-slider .reviews__slide .review-card .review-card__quote:after{
+        display: none;
+    }
+
+    #community-reviews-slider .reviews__slide .review-card .video-play-btn{
+        font-family: "BrownPro Regular";
+        font-size: 16px;
+    }
+
+    @media (max-width: 768px){
+        #shopify-section-{{section.id}} #community-reviews-slider{
+            display: none;
+        }
+
+        #shopify-section-{{section.id}} #community-reviews-mob-slider{
+            display: block;
+        }
+
+        section.reviews-community{
+            padding: 56px 0px;
+        }
+
+        section.reviews-community .reviews__title{
+            font-size: 26px;
+            padding: 0px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        section.reviews-community #reviews-slider-wrapper{
+            padding: 0px;
+        }
+
+        #community-reviews-mob-slider .review-card__content{
+            background-color: #FFF;
+            padding: 27px 30px;
+        }
+
+        #community-reviews-mob-slider .review-card__content:after{
+            display: none;
+        }
+
+        #community-reviews-mob-slider .review-card__content .review-card__title{
+            font-family: "Copernicus-Bold";
+            font-size: 20px;
+            line-height: 1.3;
+            color: #1F3437;
+        }
+
+        #community-reviews-mob-slider .review-card__content .review-card__title:after{
+            display: none;
+        }
+
+        #community-reviews-mob-slider .review-card__content .review-card__quote p{
+            text-indent: 0px;
+            font-family: "BrownPro Regular";
+            font-size: 16px;
+            color: #202F30;
+            line-height: 1.6;
+        }
+
+        #community-reviews-mob-slider button.reviews__arrow--left{
+            left: -8px;
+            width: 27px;
+            overflow: hidden;
+        }
+
+        #community-reviews-mob-slider button.reviews__arrow--right{
+            right: -6px !important;
+            width: 28px !important;
+            overflow: hidden;
+        }
+    }
+    
+
+  @media (max-width: 1350px){
+    #shopify-section-{{section.id}} #community-reviews-slider button.reviews__arrow svg{
+      display: none;
+    }
+
+    #shopify-section-{{section.id}} #community-reviews-slider button.reviews__arrow{
+      padding: 0px;
+    }
+
+    #shopify-section-{{section.id}} #community-reviews-slider button.reviews__arrow:before{
+      content: '';
+      display: block;
+      height: 35px;
+      width: 35px;
+      border: 2px solid #000;
+      border-radius: 2px;
+      opacity: 0.3;
+      transform: rotate(45deg);
+    }
+
+    #shopify-section-{{section.id}} #community-reviews-slider button.reviews__arrow.reviews__arrow--right:before{
+      border-color: #000 #000 transparent transparent;
+    }
+    #shopify-section-{{section.id}} #community-reviews-slider button.reviews__arrow.reviews__arrow--right{
+      right: 23px;
+    }
+
+    #shopify-section-{{section.id}} #community-reviews-slider button.reviews__arrow.reviews__arrow--left:before{
+      border-color: transparent transparent #000 #000;
+    }
+    #shopify-section-{{section.id}} #community-reviews-slider button.reviews__arrow.reviews__arrow--left{
+      left: 32px;
+    }
+  }
+
+</style>
+
+
+{% schema %}
+  {
+    "name": "Reviews",
+    "max_blocks": 10,
+    "settings": [
+      {
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+      },
+      {
+          "type": "textarea",
+          "id": "section_title",
+          "label": "Main heading"
+      }
+    ],
+    "blocks": [
+        {
+            "type": "slide",
+            "name": "Review",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "block_image",
+                    "label": "Photo"
+                },
+                {
+                    "type": "text",
+                    "id": "block_title",
+                    "label": "Title"
+                },
+                {
+                    "type": "richtext",
+                    "id": "block_text",
+                    "label": "Description"
+                },
+                {
+                    "type": "text",
+                    "id": "video_btn_txt",
+                    "label": "Video Button Text",
+                    "default": "Play Video"
+                },
+                {
+                    "type": "text",
+                    "id": "block_video",
+                    "label": "Video URL"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+        "name": "Reviews",
+        "category": "Review",
+        "blocks": [
+            {
+            "type": "slide"
+            }
+        ]
+        }
+    ]
+  }
+{% endschema %}

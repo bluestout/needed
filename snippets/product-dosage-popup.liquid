@@ -1,0 +1,26 @@
+{% assign table = product.metafields.airf.table %}
+
+{% if table and table != '&nbsp' %}
+    <div class="popup popup--dosage" data-popup="product-dosage">
+
+        <div class="popup__container">
+            <div class="popup__close-wrapper">
+                <span class="popup__close"></span>
+            </div>
+            <img src="{{ table }}" />
+        </div>
+    </div>
+
+    <div class="product__popup-trigger" data-keyword data-popup-trigger="product-dosage">
+        <span data-icon></span>
+        <a 
+            href="table"
+            target="_blank" 
+            class="js-dosage-popup-trigger-222"
+            data-keyword-context
+        >
+            {{ section.settings.dosage_trigger }}
+        </a>
+    </div>
+{% endif %}
+

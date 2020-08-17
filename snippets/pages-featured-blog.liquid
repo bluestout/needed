@@ -1,0 +1,55 @@
+{% assign f_posts = page.metafields.airf['f_posts'] %}
+
+<p class="hide">{{ f_posts | strip }}</p>
+
+{% if f_posts and f_posts != blank and f_posts != '&nbsp' %}
+
+<section class="featured-blog">
+	<div class="container">
+		{% if section.settings.title != blank %}
+			<h2 class="featured-blog__heading">{{ section.settings.title }}</h2>
+		{% endif %}
+
+		{% if f_posts and f_posts != blank %}
+			{% assign separator = "###" %}
+			{% assign f_posts_related_handles = f_posts | split: separator %}
+
+			<div class="row" id="featured-blog-slider">
+				{% for handle in f_posts_related_handles limit: 4 %}
+
+					{% assign article = articles[handle] %}
+					{% unless article.empty? %}
+						<div class="col-12 col-md-6 col-lg-3">
+							<article
+								class="article-card"
+								{% if article.image != blank %}
+									style="background-image: url({{ article.image | img_url: '1000x' }});"
+								{% endif %}
+							>
+								<div class="article-card__content">
+									<h3 class="article-card__title">
+										<a href="{{ article.url }}">{{ article.title }}</a>
+									</h3>
+								</div>
+							</article>
+						</div>
+					{% endunless %}
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+</section>
+
+{% endif %}
+
+
+{% assign bgc_articles_card = product.metafields.airf.bgc_arts %}
+
+<style>
+	.featured-blog .article-card .article-card__content {
+	{% if bgc_articles_card and bgc_articles_card != '&nbsp' %}
+		background-color: {{ bgc_articles_card | color_modify: 'alpha', 0.8 }};
+	{% endif %}
+	}
+</style>
+

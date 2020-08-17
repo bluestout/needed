@@ -1,0 +1,75 @@
+{% if section.settings.featured_product != blank %}
+    {% assign featured_product = all_products[section.settings.featured_product] %}
+    {% assign product_url = featured_product.url %}
+
+    {% else %}
+        {% assign product_url = section.settings.button_url %}
+{% endif %}
+
+
+<section class="featured-product js-animate animate-fade-in" data-offset="50">
+    <div class="container">
+        <div class="featured-product__row">
+            <div class="featured-product__content js-animate animate-fade-in animate-delay-300">
+                <h2 class="featured-product__title">{{ section.settings.title }}</h2>
+
+                {% if section.settings.description != blank %}
+                    <div class="featured-product__description">{{ section.settings.description }}</div>
+                {% endif %}
+
+                <a href="{{ product_url }}" class="button button--primary">{{ section.settings.button_text }}</a>
+            </div>
+
+            <div class="featured-product__image" style="{% if section.settings.image != blank %} background-image: url({{ section.settings.image | img_url: "1600x" }}); {% endif %}"></div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+    {
+        "name": "Featured product",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Heading",
+                "default": "better products"
+            },
+            {
+                "type": "richtext",
+                "id": "description",
+                "label": "Description",
+                "default": "<p>the text in this area brings to life products, and is approximately the length of three longer sentences or four shorter sentences, extending four lines vertically, which will appear to be a brief but elaborative amount of detail.</p>"
+            },
+            {
+                "type": "text",
+                "id": "button_text",
+                "label": "Button text",
+                "default": "get started for $25/mo"
+            },
+            {
+                "type": "url",
+                "id": "button_url",
+                "label": "Button url",
+                "info": "Use it, if product not set"
+            },
+            {
+                "type": "product",
+                "id": "featured_product",
+                "label": "Product"
+            },
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Product image"
+            }
+            ],
+            "presets": [
+                {
+                    "name": "Featured product",
+                    "category": "product"
+                }
+        ]
+    }
+
+{% endschema %}

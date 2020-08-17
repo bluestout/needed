@@ -1,0 +1,651 @@
+{% assign subscription_product = product.metafields.subscriptions %}
+{%comment%}
+{% assign product_description = product.description %}
+{%endcomment%}
+{% if false %}
+	{% capture product_description %}
+	Details<!--tabtitle-->Why powder<!--tabtitle-->How to use<!--tabsplitter-->
+	We deliver our Omega-3 in the most nourishing formulation, ensuring you and your baby get the optimal amount of Omega-3 DHA (300mg) and EPA (150mg).
+	<br /><br />
+30 daily powder packets, delivered straight to your door.
+	<!--tabcontent-->Our powdered format enables us to deliver the most nourishing formulation for mamas and mamas-to-be. It's 5x better absorbed by the body than pills, and is delivered with other needed nutrients that help your body use the Omega-3 DHA and EPA that you and our baby need.<!--tabcontent-->Tastes like sunflower lecithin, which has a sweet nutty taste. If you are extra sensitive to taste and smell, you may also detect some algae notes. The powder pairs well with: nut milk-based "lattes" with cinnamon or chai spice and a hint of maple syrup; smoothies with banana, berries, chocolate or vanilla protein and almond butter; yogurt; and oil & vinegar-based salad dressings. We do not recommend taking it with plain water, orange juice, soymilk, or plain coffee and tea.<!--splitter-->I love that this product combines Omega-3 DHA, EPA, Choline, and Phospholipids, key nutrients that pair optimally to nourish a mama and her baby. Most Omega-3 products contain just DHA. I take it every morning mixed with almond milk and cinnamon."<!--review_splitter-->- Dr. Leah Gordon, Naturopathic + Functional Medicine Doctor"
+	{% endcapture %}
+{% else %}
+	{% capture product_description %}
+		{{ product.description }}
+	{% endcapture %}
+{% endif %}
+
+{% if product_description != nil %}
+	{% assign desc_array = product_description | split: '<!--splitter-->' %}
+	{% assign tab_text = desc_array[0] %}
+	{% assign review = desc_array[1] %}
+{% endif %}
+{% if subscription_product != nil %}
+  {% assign shipping_interval_unit_type = subscription_product.shipping_interval_unit_type %}
+  {% assign shipping_interval_frequency = subscription_product.shipping_interval_frequency | split: ',' %}
+{% endif %}
+
+<div data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" itemscope
+	 itemtype="http://schema.org/Product" class="product">
+
+	{%- assign current_variant = product.selected_or_first_available_variant -%}
+	{%- assign selected_variant = product.selected_variant -%}
+	{%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+
+	<meta itemprop="name"
+		  content="{{ product.title }}{% unless product.has_only_default_variant %} - {{ current_variant.title }}{% endunless %}">
+	<meta itemprop="url" content="{{ shop.url }}{{ current_variant.url }}">
+	<meta itemprop="brand" content="{{ product.vendor }}">
+	<meta itemprop="image" content="{{ featured_image | img_url: '600x600' }}">
+    <meta itemprop="description" content="{{ product.description | strip_html | escape }}">
+    {{ 'custom.scss.css' | asset_url | stylesheet_tag }}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-lg-6">
+				{% assign images_count = product.images | size %}
+				<div {% if images_count > 1 %}id="product-main-slider"{% endif %} class="product__image">
+					{% for image in product.images  %}
+						<div>
+							<div class="product__image-slide">
+								<img src="{{ image | img_url: '1200x' }}" alt="{{ image.alt | escape }}">
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+
+			<div class="col-12 col-lg-6">
+				<div class="product__information">
+					<h1 class="product__title">{{ product.title }}</h1>
+
+					{% comment %}
+					<div class="product__description">
+						{{ product.description }}
+					</div>
+					{% endcomment %}
+					{% assign tab_array = tab_text | split: '<!--tabsplitter-->' %}
+					{% include 'product-tabs-pp' %}	
+
+					<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="product__form">
+						<meta itemprop="priceCurrency" content="{{ shop.currency }}">
+						<meta itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+						<link itemprop="availability"
+							  href="http://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}">
+
+						<form action="/cart/add" method="post" enctype="multipart/form-data" data-product-original-form data-productid="{{product.id}}">
+							{% if product.id == 5395202343064 or product.id == 5395225182360 %}  {%comment%} Pre-order for prenatal multi and Pre/Probiotic {%endcomment%}
+								{% comment %} {% assign product = all_products['subscribed-prenatal-multi'] %} {% endcomment %}
+								{% if product.available %}{% include 'preorder-product' %}{% endif %}
+							{% else %}
+								<br>
+								{% if product.available %}{% include 'subscription-product' %}{% endif %}
+							{% endif %}
+
+							<div class="product__dosage {% if product.variants.size == 1 %} hide-this{% endif %}">
+								{% unless product.has_only_default_variant %}
+									{% for option in product.options_with_values %}
+										<div class="selector-wrapper js">
+											<select
+												class="select"
+												id="SingleOptionSelector-{{ forloop.index0 }}"
+												data-single-option-selector
+												data-index="option{{ option.position }}"
+											>
+												<option value="" disabled {% if selected_variant.id != current_variant.id %}selected{% endif %}>
+													Select your {{ option.name | downcase }}
+												</option>
+
+												{% for value in option.values %}
+													<option
+														value="{{ value | escape }}"
+														{% if selected_variant.id == current_variant.id or product.variants.size == 1 %}{% if option.selected_value == value or product.variants.size == 1 %}selected="selected"{% endif %}{% endif %}
+													>
+														{{ value }}
+													</option>
+												{% endfor %}
+											</select>
+										</div>
+									{% endfor %}
+								{% endunless %}
+
+								{% include 'product-dosage-popup' %}
+							</div>
+							
+							<select id="product-select-{{ product.id }}" data-productid="{{product.id}}" name="id" class="visually-hidden" data-product-select>
+								{% for variant in product.variants %}
+									<option
+										{% if selected_variant.id == current_variant.id and variant.available %}selected="selected"{% endif %}
+										{% unless variant.available %}disabled="disabled"{% endunless %}
+										value="{{ variant.id }}"
+									>
+										{{ variant.title }}
+									</option>
+								{% endfor %}
+							</select>
+
+							{% if settings.purchasing_for != blank %}
+							<div class="product__what-for">
+								<input type="text" class="input" placeholder="who's this for?" name="properties[{{ settings.purchasing_for }}]" data-this-for>
+							</div>
+                          {% endif %}
+
+							<div class="product__action">
+								<button
+									type="submit"
+									name="add"
+									class="button button--primary"
+									data-add-to-cart
+									{% unless current_variant.available %}disabled="disabled"{% endunless %}
+
+									{% if subscription_product != nil %}
+										data-add-to-cart-subscribe="true"
+										data-price-per-day="{% if section.settings.show_price_per_day %}true{% else %}false{% endif %}"
+										data-subscribe-unit-type='{{ shipping_interval_unit_type }}'
+										data-subscribe-frequency='{{ shipping_interval_frequency | json }}'
+									{% endif %}
+								>
+									<span data-add-to-cart-text>
+                                        Add to cart
+										{%comment%}{% if selected_variant.id == current_variant.id or product.variants.size == 1 %}
+											{% if current_variant.available %}
+												{%- if shipping_interval_frequency and shipping_interval_frequency.size > 0 -%}
+													{%- if section.settings.show_price_per_day -%}
+
+														{%- if shipping_interval_frequency contains "1" and shipping_interval_unit_type == "Months" -%}
+															<span class="product-single__price">{{ current_variant.price | money }}</span><span class="subscription_only"> (per month)</span>
+														{%- else -%}
+															{%- case shipping_interval_unit_type -%}
+																{%- when "Months" -%}
+																	<span class="product-single__price">{{ current_variant.price | money_without_trailing_zeros }}</span> / {{ shipping_interval_frequency }} (per month)
+																{%- when "Days" -%}
+																	{%- assign days_number = shipping_interval_frequency[0] | times: 1 -%}
+																	{%- assign price_per_item = current_variant.price | divided_by: days_number -%}
+																	<span class="product-single__price">{{ price_per_item | money }}</span> (per day)
+																{%- when "Weeks" -%}
+																	{%- assign days_number = shipping_interval_frequency[0] | times: 7 -%}
+																	{%- assign price_per_item = current_variant.price | divided_by: days_number -%}
+																	<span class="product-single__price">{{ price_per_item | money }}</span> (per week)
+																{% else %}
+																	{{ current_variant.price | money_without_trailing_zeros }} / {{ shipping_interval_frequency }} {{ shipping_interval_unit_type }}
+															{%- endcase -%}
+														{%- endif -%}
+														<span class="btn dot">-</span><span class="pro-btn-txt">{{ 'products.product.add_to_cart_subscribe' | t }}</span>
+													{%- else -%}
+														{%- if shipping_interval_frequency and shipping_interval_frequency.size > 0 -%}
+															{{ current_variant.price | money_without_trailing_zeros }}<span class="btn dot">-</span><span class="pro-btn-txt">{{ 'products.product.add_to_cart_subscribe' | t }}</span>
+															{%- if shipping_interval_frequency contains "1" and shipping_interval_unit_type == "Months" -%}
+																(per month)
+															{%- else -%}
+																{%- if shipping_interval_unit_type == "Months" -%}
+																	/ {{ shipping_interval_frequency }} (per month)
+																{%- else -%}
+																	/ {{ shipping_interval_frequency }} {{ shipping_interval_unit_type }}
+																{%- endif -%}
+															{%- endif -%}
+														{%- else -%}
+															{{ 'products.product.add_to_cart' | t | downcase }} {{ product.price | money_without_trailing_zeros }}
+														{%- endif -%}
+													{%- endif -%}
+												{%- else -%}
+													{{ 'products.product.add_to_cart' | t | downcase }} {{ product.price | money_without_trailing_zeros }}
+												{%- endif -%}
+											{% else %}
+												{{ 'products.product.sold_out' | t | downcase }}
+											{% endif %}
+										{% else %}
+											Select your dosage
+                                        {% endif %}
+                                        {%endcomment%}
+									</span>
+                                </button>
+                            </div>
+                            <div class="product__action">
+                                <a class="add-to-bundle button button--primary" href="/pages/bundle-plans#bundle-item-container-2">
+                                    <span>Shop Plans and Save</span>
+								</a>
+							</div>
+							<!-- <label class="bogo_recomment_comment hidden-bogo-comment">
+								Subscribe to the Omega-3 Powdered Supplement and get a Nutrient Testing Kit <span class="for-free">for FREE</span>
+							</label> -->
+						</form>
+					</div>
+					<!-- <div class="apply-custom-code-wrapper">
+                        <p>Use code <a href="javascript:;" data-testing-code="{{ section.settings.testing_code }}">omegatesting</a> at checkout</p>
+                    </div> -->
+					<div class="product__icons-container">
+						<div class="product__icons">
+							{% include 'product-icons' %}
+						</div>
+						{% include 'product-supplement-popup' %}
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	{% comment %} {% if section.settings.show_share_buttons %}
+		{% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
+	{% endif %} {% endcomment %}
+
+	<div class="product-fixed-form" data-fixed-form>
+		<div class="container">
+			<div class="row">
+				<div class="col-4 col-lg-6 product-fixed-form__title">
+					{{ section.settings.fixed_form_title }} {{ product.title }}
+				</div>
+				<div class="col-8 col-lg-6 product-fixed-form__action">
+					<button class="button button--primary" data-add-to-cart
+							{% unless current_variant.available %}disabled="disabled"{% endunless %}
+					>
+						<span data-add-to-cart-text>
+							{% if selected_variant.id == current_variant.id or product.variants.size == 1 %}
+								{% if current_variant.available %}
+									{%- if shipping_interval_frequency and shipping_interval_frequency.size > 0 -%}
+										{%- if section.settings.show_price_per_day -%}
+											{% comment %}
+											{{ 'products.product.add_to_cart_subscribe' | t }}
+											{% endcomment %}
+											<span class="sticky-buy-now">Buy now</span>
+											{%- if true or shipping_interval_frequency contains "1" and shipping_interval_unit_type == "Months" -%}
+												{{ current_variant.price | money_without_trailing_zeros }}
+											{%- else -%}
+												{%- case shipping_interval_unit_type -%}
+												{%- when "Months" -%}
+													{{ current_variant.price | money_without_trailing_zeros }} / {{ shipping_interval_frequency }}
+												{%- when "Days" -%}
+												{%- assign days_number = shipping_interval_frequency[0] | times: 1 -%}
+												{%- assign price_per_item = current_variant.price | divided_by: days_number -%}
+													{% comment %}
+													{{ price_per_item | money_without }}
+													{% endcomment %}
+												{%- when "Weeks" -%}
+												{%- assign days_number = shipping_interval_frequency[0] | times: 7 -%}
+												{%- assign price_per_item = current_variant.price | divided_by: days_number -%}
+													{{ price_per_item | money_without }}
+													{% else %}
+													{{ current_variant.price | money_without_trailing_zeros }} / {{ shipping_interval_frequency }} {{ shipping_interval_unit_type }}
+												{%- endcase -%}
+											{%- endif -%}
+										{%- else -%}
+											{%- if shipping_interval_frequency and shipping_interval_frequency.size > 0 -%}
+												{{ 'products.product.add_to_cart_subscribe' | t }} {{ current_variant.price | money_without_trailing_zeros }}
+
+												{%- if shipping_interval_frequency contains "1" and shipping_interval_unit_type == "Months" -%}
+													(per month)
+												{%- else -%}
+													{%- if shipping_interval_unit_type == "Months" -%}
+														/ {{ shipping_interval_frequency }} mo
+													{%- else -%}
+														/ {{ shipping_interval_frequency }} {{ shipping_interval_unit_type }}
+													{%- endif -%}
+												{%- endif -%}
+											{%- else -%}
+												{{ 'products.product.add_to_cart' | t | downcase }} {{ product.price | money_without_trailing_zeros }}
+											{%- endif -%}
+										{%- endif -%}
+									{%- else -%}
+										{{ 'products.product.add_to_cart' | t | downcase }} {{ product.price | money_without_trailing_zeros }}
+									{%- endif -%}
+								{% else %}
+									{{ 'products.product.sold_out' | t | downcase }}
+								{% endif %}
+							{% else %}
+								Select your dosage
+							{% endif %}
+						</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="addition-contents">
+			{% assign review_array = review | split: '<!--review_splitter-->' %}
+			{% assign review_desc = review_array[0] %}
+			{% assign review_author = review_array[1] %}
+			{% if review_desc != blank %}
+			<p class="contents">{{ review_desc }}</p>
+			{% endif %}
+			{% if review_author != blank %}
+			<p class="addition-author">{{ review_author }}</p>
+			{% endif %}
+		</div>
+	</div>
+	{% unless product == empty %}
+		<script type="application/json" data-product-json>
+			{{ product | json }}
+		</script>
+	{% endunless %}
+</div>
+
+{% comment %} BOGO product {% endcomment %}
+{% comment %}
+{% assign bogoProduct = all_products[section.settings.bogo_product] %}
+{% if bogoProduct.metafields.subscriptions.subscription_id %}
+	{% assign bogo_subscription_product = bogoProduct.metafields.subscriptions %}
+	{% assign bogo_subscription_id = bogo_subscription_product.subscription_id %}
+	{% assign bogo_shipping_interval_unit_type = bogo_subscription_product.shipping_interval_unit_type | default: 'Days' %}
+	{% assign bogo_shipping_interval_frequency = bogo_subscription_product.shipping_interval_frequency | split: ',' | default: 30 %}
+
+	{% for bogo_variant in bogoProduct.variants limit: 1 %}
+		{% assign bogo_discount_variant_id = bogo_variant.metafields.subscriptions.discount_variant_id %}
+	{% endfor %}
+{% endif %}
+{% endcomment %}
+<style>
+	.product .product__icons-container {
+		margin-top: 22px !important;
+	}
+	.product .product__supplement-fact {
+		margin-top: 16px !important;
+	}
+	.product-fixed-form.product-fixed-form--shown {
+		padding: 17px 0 !important;
+	}
+	.add-to-bundle {
+		cursor: pointer;
+	}
+
+	.product__action * {
+		font-family: "BrownPro-Bold",sans-serif;
+		font-size: 16px !important;
+		line-height: 1.2 !important;
+	}
+	@media (max-width: 991px) {
+		.product__title {
+			text-align: center;
+		}
+		.accordHeaderLinks {
+			text-align: center;
+		}
+		/* .addition-contents {
+			border-left: 5px solid #85853E;
+		} */
+		.addition-contents .contents {
+			font-size: 17px;
+			line-height: 1.5;
+		}
+		.addition-contents .addition-author {
+			line-height: 1.2;
+		}
+	}
+
+	@media (min-width: 769px){
+		.product__information .product__form{
+			margin-top: 0px;
+		}
+
+		.product__information .product__form .product__action button[data-add-to-cart]{
+			margin-top: 15px;
+		}
+	}
+
+	@media (max-width: 374px){
+		#shopify-section-product .product-fixed-form .product-fixed-form__action{
+			max-width: 150px;
+		}
+
+		#shopify-section-product .product-fixed-form .product-fixed-form__action button{
+			max-width: 150px;
+			font-size: 14px;
+			padding: 12px 12px 10px;
+		}
+
+		#shopify-section-product .product-fixed-form .product-fixed-form__title{
+			max-width: calc(100% - 150px);
+		}
+	}
+
+</style>
+
+
+<script>
+$(document).ready(function(){
+	
+	var bogoProductId = "{{ all_products[section.settings.bogo_product].first_available_variant.id }}";
+	var productHandle = "{{ product.handle }}";
+	
+	$('body.template-product [data-product-original-form]').on('click', '[data-add-to-cart]', function(e){
+		var recurringOption = $('#rc_container .rc_block__type--active').find('input[type="radio"]').val();
+		e.preventDefault();
+		e.stopPropagation();
+		
+		if(recurringOption == 'autodeliver') {
+			/*
+			//Add BOGO product to cart
+			bogoData = {
+				"quantity": 1,
+				"id": {{bogo_discount_variant_id}},
+				"properties[shipping_interval_frequency]": {{ bogo_shipping_interval_frequency }},
+				"properties[shipping_interval_unit_type]": "{{ bogo_shipping_interval_unit_type }}"
+			};
+			jQuery.ajax({
+				type: 'POST',
+				url: '/cart/add.js',
+				data: bogoData,
+				dataType: 'json',
+				success: function() {
+					$('body.template-product [data-product-original-form]').submit();
+				}
+			});
+			*/
+			
+			jQuery.getJSON('/cart.js', function(cart) {
+				if(cart.item_count > 0) {
+					//get BOGO product added via cart item
+					var bogoCnt = cart.items.filter(function(row){
+						return row.id == bogoProductId;
+					});
+					//if(productHandle.search("omega-") != -1 || !bogoCnt.length) {
+					if(false) {
+
+						//Add BOGO product to cart
+						jQuery.ajax({
+							type: 'POST',
+							url: '/cart/add.js',
+							data: {
+								quantity: 1,
+								id: bogoProductId
+							},
+							dataType: 'json',
+							success: function() {
+								$('body.template-product [data-product-original-form]').submit();
+							}
+						});
+					} else {
+						$('body.template-product [data-product-original-form]').submit();
+					}
+				} else {
+					//Add BOGO product to cart
+					//if(productHandle.search("omega-") != -1){
+					if(false){
+						jQuery.ajax({
+							type: 'POST',
+							url: '/cart/add.js',
+							data: {
+								quantity: 1,
+								id: bogoProductId
+							},
+							dataType: 'json',
+							success: function() {
+								$('body.template-product [data-product-original-form]').submit();
+							}
+						});
+					}
+					else{
+						$('body.template-product [data-product-original-form]').submit();
+					}
+				}
+			});
+		} else {
+			$('body.template-product [data-product-original-form]').submit();
+		}
+	});
+});
+</script>
+{% schema %}
+{
+	"name": "Product pages",
+	"settings": [
+		{
+			"type": "checkbox",
+			"id": "show_share_buttons",
+			"label": "Show social sharing buttons",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "show_price_per_day",
+			"label": "Show price per day",
+			"default": true,
+			"info": "This setting only work if ReCharge frequency type is 'days' or 'weeks'"
+		},
+		{
+			"type": "text",
+			"id": "dosage_trigger",
+			"label": "Dosage popup trigger text",
+			"default": "what's my dosage?"
+		},
+		{
+			"type": "textarea",
+			"id": "subscription_info",
+			"label": "Subscription tab info",
+			"default": "This block will tell user something about subscription services."
+		},
+		{
+			"type": "header",
+			"content": "Details Tab"
+		},
+		{
+			"type": "text",
+			"id": "tab_1",
+			"label": "Heading",
+			"default": "Details"
+		},
+		{
+			"type": "textarea",
+			"id": "tab_1_desc",
+			"label": "Description",
+			"default": "A strong and healthy microbiome (digestive system, skin, vagina) is critically important for both mom and baby. A healthy microbiome keeps you optimally well, dramatically decreasing the risk of pregnancy complications, and seeds your baby’s microbiome through the amniotic sac, placenta, and umbilical cord in gestation and the birth canal at birth. Our Probiotic is formulated with the exact strains of bacteria you and your baby need to support you before, during, and after pregnancy, and to set baby on a path of optimal health throughout her life. 30 daily capsules."
+		},
+		{
+			"type": "header",
+			"content": "Why capsules Tab"
+		},
+		{
+			"type": "text",
+			"id": "tab_2",
+			"label": "Heading",
+			"default": "Why capsules"
+		},
+		{
+			"type": "textarea",
+			"id": "tab_2_desc",
+			"label": "Description",
+			"default": "protect the strains, can be swallowed whole, or opened to add to a powder mixture"
+		},
+		{
+			"type": "header",
+			"content": "How to use Tab"
+		},
+		{
+			"type": "text",
+			"id": "tab_3",
+			"label": "Heading",
+			"default": "How to use"
+		},
+		{
+			"type": "textarea",
+			"id": "tab_3_desc",
+			"label": "Description",
+			"default": "Copy to come"
+		},
+		{
+			"type": "header",
+			"content": "Fixed form"
+		},
+		{
+			"type": "text",
+			"id": "fixed_form_title",
+			"label": "Fixed form heading",
+			"default": "Purchase"
+		},
+		{
+			"type": "header",
+			"content": "Shipping info"
+		},
+		{
+			"type": "text",
+			"id": "shipping_info_1",
+			"label": "Label 1",
+			"default": "Free shipping"
+		},
+		{
+			"type": "text",
+			"id": "shipping_info_2",
+			"label": "Label 2",
+			"default": "Easy Cancellation"
+		},
+		{
+			"type": "text",
+			"id": "shipping_info_3",
+			"label": "Label 3",
+			"default": "100% Satisfaction Guarantee"
+		},
+		{
+			"type": "header",
+			"content": "Supplement popup"
+		},
+		{
+			"type": "text",
+			"id": "supplement_link_text",
+			"label": "View supplement popup link",
+			"default": "Supplements Facts"
+		},
+		{
+			"type": "text",
+			"id": "question_title",
+			"label": "Question title",
+			"default": "Have question?"
+		},
+		{
+			"type": "text",
+			"id": "link_title",
+			"label": "Page title",
+			"default": "faq"
+		},
+		{
+			"type": "page",
+			"id": "link_page",
+			"label": "Choose a page"
+		},
+		{
+			"type": "header",
+			"content": "Product review"
+		},
+		{
+			"type": "text",
+			"id": "review_author",
+			"label": "Author"
+		},
+		{
+			"type": "textarea",
+			"id": "review_desc",
+			"label": "Review description"
+		},
+		{
+			"type": "header",
+			"content": "Free Produc for BOGO"
+		},
+		{
+			"type": "product",
+			"id": "bogo_product",
+			"label": "Choose a product for BOGO"
+		}
+	]
+}
+{% endschema %}

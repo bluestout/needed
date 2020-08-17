@@ -1,0 +1,1328 @@
+{% assign page_ingredients = page.content %}
+
+{% capture ingredient_names %}
+
+    {% assign item_names = page_ingredients | split: '<!-- ingredient_name -->' %}
+    {% assign forindex = 0 %}
+
+    <ul class="ingredient-items">
+    {% for item in item_names %}
+        {% unless item contains '<h2 class="ingredient_name">' %}
+            {% continue %}
+        {% endunless %}
+
+        {% assign forindex = forindex| plus: 1 %}
+
+        {% assign ingredient_item = item | split: '<h2 class="ingredient_name">' | last %}
+        {% assign ingredient_item = ingredient_item | split: '</h2>' | first %}
+        <li class="ingredient-item {% if forindex == 1 %} active {% endif %}">
+            <a href="javascript:;" data-id="ingredient{{ forindex }}" data-param-id="{{ ingredient_item | replace: ' ', '-' | downcase }}">{{ingredient_item}}</a>
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endcapture %}
+
+
+{% capture ingredient_contents %}
+    
+    <div class="ingredients-container">
+
+        {% assign item_contents = page_ingredients | split: '<!-- category_block -->' %}
+        {% assign forindex = 0 %}
+        {% for content in item_contents %}
+        
+            {% if forloop.first == true %}
+                {% continue %}
+            {% endif %}
+
+            {% assign forindex = forindex | plus: 1 %}
+
+            <div class="ingredient-content id-ingredient{{forindex}}" style="display: {% if forindex == 1 %} block {% else %} none {% endif %}">
+                <div class="main-title">
+                    {% assign main_title = content | split: '<!-- main_title -->' %}
+                    {{ main_title[1] }}
+                </div>
+                
+                <div class="supports-section">
+                    <div class="support-mama">
+                        <img class="icon-support-mama" src="{{ 'icon-mama.png' | asset_url }}">
+                        {% assign support_mama = content | split: '<!-- support_mama -->' %}
+                        {{ support_mama[1] }}
+                    </div>
+                    <div class="support-baby">
+                        <img class="icon-support-baby" src="{{ 'icon-baby.png' | asset_url }}">
+                        {% assign support_baby = content | split: '<!-- support_baby -->' %}
+                        {{ support_baby[1] }}
+                    </div>
+                </div>
+                
+                <div class="baseline-needs">
+                    {% assign baseline_needs = content | split: '<!-- baseline_needs -->' %}
+                    {{ baseline_needs[1] }}
+                </div>
+                
+                <div class="why-this">
+                    <div class="why-this-form">
+                        {% assign why_this_form = content | split: '<!-- why_this_form -->' %}
+                        {{ why_this_form[1] }}
+                    </div>
+                    <div class="why-this-dose">
+                        {% assign why_this_dose = content | split: '<!-- why_this_dose -->' %}
+                        {{ why_this_dose[1] }}
+                    </div>
+                </div>
+
+                {% assign rda_chart = content | split: '<!-- rda_chart -->' %}
+
+                <div class="rda-chart">
+                    {{rda_chart[1]}}
+                </div>
+                
+                {% comment %} <div class="rda-chart">
+                    <img class="rda-chart-board" src="https://cdn.shopify.com/s/files/1/0195/3293/9328/files/Capture_1_888x524_crop_center@2x.png?v=1590770874">
+                    {% assign rda_chart = content | split: '<!-- rda_chart -->' %}
+                    {% assign chart_labels = rda_chart[1] | split: '<div class="rda-value">' %}
+                    <ul class="chart-columns">
+                        {% for chart_label in chart_labels %}
+                            {% unless chart_label contains '</div>' %} {% continue %} {% endunless %}
+                            {% assign device_height = 192 %}
+                            {% assign column_label = chart_label | split: '</div>' | first %}
+                            {% assign column_value = column_label | replace: ',', '' | times: 1 %}
+                            {% assign column_height = column_value | divided_by: 1500.00 %}
+                            {% assign column_height = device_height | times: column_height | times: 1 %}
+                            <li class="chart-column">
+                                <span class="column-label">{{ column_label }}</span>
+                                <div class="column-value" data-value="{{ column_value }}" style="height: {{column_height}}px;"></div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="rda-chart-mobile">
+                    <img class="rda-chart-board" src="{{ 'ingredients-mobile-chart.png' | asset_url }}">
+                    {% assign rda_chart = content | split: '<!-- rda_chart -->' %}
+                    {% assign chart_labels = rda_chart[1] | split: '<div class="rda-value">' %}
+                    <div class="chart-columns-container">
+                        <div class="chart-columns-wrapper">
+                            <ul class="chart-columns mobile-768 mobile-750">
+                                {% for chart_label in chart_labels %}
+                                    {% unless chart_label contains '</div>' %} {% continue %} {% endunless %}
+                                    {% assign device_width = 357 %}
+                                    {% assign column_label = chart_label | split: '</div>' | first %}
+                                    {% assign column_value = column_label | replace: ',', '' | times: 1 %}
+                                    {% assign column_width = column_value | divided_by: 1500.00 %}
+                                    {% assign column_width = device_width | times: column_width | times: 1 %}
+                                    <li class="chart-column">
+                                        <div class="column-value" data-value="{{ column_value }}" style="width: {{column_width}}px;"></div>
+                                        <span class="column-label">{{ column_label }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <ul class="chart-columns mobile-640">
+                                {% for chart_label in chart_labels %}
+                                    {% unless chart_label contains '</div>' %} {% continue %} {% endunless %}
+                                    {% assign device_width = 302 %}
+                                    {% assign column_label = chart_label | split: '</div>' | first %}
+                                    {% assign column_value = column_label | replace: ',', '' | times: 1 %}
+                                    {% assign column_width = column_value | divided_by: 1500.00 %}
+                                    {% assign column_width = device_width | times: column_width | times: 1 %}
+                                    <li class="chart-column">
+                                        <div class="column-value" data-value="{{ column_value }}" style="width: {{column_width}}px;"></div>
+                                        <span class="column-label">{{ column_label }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <ul class="chart-columns mobile-601">
+                                {% for chart_label in chart_labels %}
+                                    {% unless chart_label contains '</div>' %} {% continue %} {% endunless %}
+                                    {% assign device_width = 283 %}
+                                    {% assign column_label = chart_label | split: '</div>' | first %}
+                                    {% assign column_value = column_label | replace: ',', '' | times: 1 %}
+                                    {% assign column_width = column_value | divided_by: 1500.00 %}
+                                    {% assign column_width = device_width | times: column_width | times: 1 %}
+                                    <li class="chart-column">
+                                        <div class="column-value" data-value="{{ column_value }}" style="width: {{column_width}}px;"></div>
+                                        <span class="column-label">{{ column_label }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <ul class="chart-columns mobile-480">
+                                {% for chart_label in chart_labels %}
+                                    {% unless chart_label contains '</div>' %} {% continue %} {% endunless %}
+                                    {% assign device_width = 222 %}
+                                    {% assign column_label = chart_label | split: '</div>' | first %}
+                                    {% assign column_value = column_label | replace: ',', '' | times: 1 %}
+                                    {% assign column_width = column_value | divided_by: 1500.00 %}
+                                    {% assign column_width = device_width | times: column_width | times: 1 %}
+                                    <li class="chart-column">
+                                        <div class="column-value" data-value="{{ column_value }}" style="width: {{column_width}}px;"></div>
+                                        <span class="column-label">{{ column_label }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <ul class="chart-columns mobile-414">
+                                {% for chart_label in chart_labels %}
+                                    {% unless chart_label contains '</div>' %} {% continue %} {% endunless %}
+                                    {% assign device_width = 189 %}
+                                    {% assign column_label = chart_label | split: '</div>' | first %}
+                                    {% assign column_value = column_label | replace: ',', '' | times: 1 %}
+                                    {% assign column_width = column_value | divided_by: 1500.00 %}
+                                    {% assign column_width = device_width | times: column_width | times: 1 %}
+                                    <li class="chart-column">
+                                        <div class="column-value" data-value="{{ column_value }}" style="width: {{column_width}}px;"></div>
+                                        <span class="column-label">{{ column_label }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <ul class="chart-columns mobile-375">
+                                {% for chart_label in chart_labels %}
+                                    {% unless chart_label contains '</div>' %} {% continue %} {% endunless %}
+                                    {% assign device_width = 168 %}
+                                    {% assign column_label = chart_label | split: '</div>' | first %}
+                                    {% assign column_value = column_label | replace: ',', '' | times: 1 %}
+                                    {% assign column_width = column_value | divided_by: 1500.00 %}
+                                    {% assign column_width = device_width | times: column_width | times: 1 %}
+                                    <li class="chart-column">
+                                        <div class="column-value" data-value="{{ column_value }}" style="width: {{column_width}}px;"></div>
+                                        <span class="column-label">{{ column_label }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <ul class="chart-columns mobile-360">
+                                {% for chart_label in chart_labels %}
+                                    {% unless chart_label contains '</div>' %} {% continue %} {% endunless %}
+                                    {% assign device_width = 161 %}
+                                    {% assign column_label = chart_label | split: '</div>' | first %}
+                                    {% assign column_value = column_label | replace: ',', '' | times: 1 %}
+                                    {% assign column_width = column_value | divided_by: 1500.00 %}
+                                    {% assign column_width = device_width | times: column_width | times: 1 %}
+                                    <li class="chart-column">
+                                        <div class="column-value" data-value="{{ column_value }}" style="width: {{column_width}}px;"></div>
+                                        <span class="column-label">{{ column_label }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <ul class="chart-columns-mobile-small">
+                                {% for chart_label in chart_labels %}
+                                    {% unless chart_label contains '</div>' %} {% continue %} {% endunless %}
+                                    {% assign device_width = 142 %}
+                                    {% assign column_label = chart_label | split: '</div>' | first %}
+                                    {% assign column_value = column_label | replace: ',', '' | times: 1 %}
+                                    {% assign column_width = column_value | divided_by: 1500.00 %}
+                                    {% assign column_width = device_width | times: column_width | times: 1 %}
+                                    <li class="chart-column">
+                                        <div class="column-value" data-value="{{ column_value }}" style="width: {{column_width}}px;"></div>
+                                        <span class="column-label">{{ column_label }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div> {% endcomment %}
+                
+                <div class="additional-information">
+                    {% assign additional_information = content | split: '<!-- additional_information -->' %}
+                    {% if additional_information[1] %}
+                        {% assign additional_information = additional_information[1] | strip %}
+                        {% unless additional_information.size == 0 %}
+                            {{ additional_information }}
+                        {% endunless %}
+                    {% endif %}
+                </div>
+
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% endcapture %}
+
+{% capture research_support_section %}
+
+    <div class="research-support-container">
+
+        {% assign item_contents = page_ingredients | split: '<!-- category_block -->' %}
+        {% assign forindex = 0 %}
+        {% for content in item_contents %}
+            {% if forloop.first == true %}
+                {% continue %}
+            {% endif %}
+
+            {% assign forindex = forindex | plus: 1 %}
+
+            <div class="research-support id-ingredient{{forindex}}" style="display: {% if forindex == 1 %} block {% else %} none {% endif %}">
+                {% assign research_support = content | split: '<!-- research_support -->' %}
+                {{ research_support[1] | split: '<div class="support-links">' | first }}
+                {% assign support_links = research_support[1] | split: '<div class="support-links">' | last %}
+                {% assign support_links = support_links | split: '</a>' %}
+
+                <ul class="support-links">
+                    {% for support_link in support_links %}
+                        {% if forloop.last == true %} {% continue %} {% endif %}
+
+                        <li class="support-link">
+                            {{ support_link }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        {% endfor %}
+
+    </div>
+{% endcapture %}
+
+
+
+<style>
+
+    #shopify-section-ingredients-page{
+        margin-top: 70px;
+    }
+
+
+    .ingredient-container{
+        margin-top: 180px;
+    }
+
+    @media (max-width: 768px){
+        .ingredient-container{
+            margin-top: 60px;
+        }
+    }
+
+    
+    .ingredient-sidebar{
+        width: 300px;
+        float: left;
+        padding: 0px 28px;
+    }
+
+    @media (min-width: 769px){
+        .ingredient-main-body{
+            float: left;
+            border-left: 1px solid #F6F4F2;
+            width: calc(100% - 300px);
+        }
+    }
+
+    @media (max-width: 768px){
+        .ingredient-sidebar{
+            width: 100%;
+            padding: 0px 20px;
+        }
+        .ingredient-main-body{
+            width: 100%;
+            padding: 0px 20px;
+        }
+    }
+    
+    /******************************* sidebar ******************************************/
+    .ingredient-sidebar ul.ingredient-items{
+        
+    }
+
+    @media (max-width: 768px){
+        .ingredient-sidebar{
+            margin-bottom: 60px;
+        }
+    }
+
+    .ingredient-sidebar .btn-back{
+        font-family: "BrownPro-Regular";
+        font-size: 14px;
+        color: #1F3337;
+        text-decoration: none;
+        margin-bottom: 33px;
+        display: inline-block;
+    }
+
+    .ingredient-sidebar .btn-back:before{
+        content: '';
+        display: block;
+        width: 6px;
+        height: 6px;
+        float: left;
+        margin: 1px 5px 1px 0px;
+        border-radius: 3px;
+        border: 2px solid #1F3337;
+        border-color: transparent transparent #1F3337 #1F3337;
+        transform: rotate(45deg);
+    }
+
+    .ingredient-sidebar ul.ingredient-items li.ingredient-item a{
+        text-decoration: none;
+        font-family: "BrownPro-Bold";
+        font-size: 15px;
+        color: #1F3337;
+        display: inline-block;
+        width: 100%;
+        padding: 11px 17px 8px;
+    }
+    .ingredient-sidebar ul.ingredient-items li.ingredient-item a:hover,
+    .ingredient-sidebar ul.ingredient-items li.ingredient-item.active a{
+        background-color: #F6F4F2;
+    }
+    .ingredient-main-body .ingredients-container .ingredient-content{
+        max-width: 890px;
+        margin: 0px auto;
+    }
+    /**********************************************************************************/
+
+
+    /*************************************** main-content ********************************************/
+
+    .ingredient-content .main-title h2{
+        font-family: "Copernicus-Bold";
+        font-size: 30px;
+        color: #1F3437;
+    }
+
+    .ingredient-content .main-title p{
+        font-family: "BrownPro-Regular";
+        font-size: 16px;
+        color: #1F3437;
+        line-height: 3;
+    }
+
+    .ingredient-content .supports-section{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 46px;
+    }
+
+    .ingredient-content .supports-section .support-mama,
+    .ingredient-content .supports-section .support-baby{
+        width: calc(50% - 7px);
+        background-color: #F6F4F2;
+        padding: 46px 62px 50px 89px;
+    }
+
+    @media (max-width: 768px){
+        .ingredient-content .supports-section{
+            display: block;
+        }
+
+        .ingredient-content .supports-section .support-mama,
+        .ingredient-content .supports-section .support-baby{
+            width: 100%;
+        }
+
+        .ingredient-content .supports-section .support-baby{
+            margin-top: 10px;
+        }
+    }
+
+    .ingredient-content .supports-section .support-mama .icon-support-mama,
+    .ingredient-content .supports-section .support-baby .icon-support-baby{
+        width: 60px;
+    }
+
+    @media (max-width: 768px){
+        .ingredient-content .supports-section .support-mama .icon-support-mama,
+        .ingredient-content .supports-section .support-baby .icon-support-baby{
+            width: 50px;
+        }
+    }
+
+    .ingredient-content .supports-section h3{
+        font-family: "BrownPro-Bold";
+        font-size: 20px;
+        color: #1F3337;
+        margin-top: 35px;
+        margin-bottom: 18px;
+    }
+
+    .ingredient-content .supports-section ul li{
+        font-family: "BrownPro-Regular";
+        font-size: 16px;
+        color: #1F3337;
+        line-height: 1.3;
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+    .ingredient-content .supports-section ul li:before{
+        position: absolute;
+        content: url(https://cdn.shopify.com/s/files/1/0195/3293/9328/t/34/assets/icon-check.svg);
+        width: 14px;
+        height: 14px;
+        top: 2px;
+        left: -27px;
+    }
+
+
+    .baseline-needs{
+        margin-top: 78px;
+    }
+
+    .baseline-needs h2{
+        font-family: "Copernicus-Bold";
+        font-size: 28px;
+        text-align: center;
+        color: #1F3437;
+        max-width: 660px;
+        margin: 0px auto;
+        line-height: 1.4;
+    }
+
+    .baseline-needs .rda-cards{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 42px;
+    }
+
+    .baseline-needs .rda-cards .rda-card-item{
+        width: calc(50% - 1px);
+        height: 160px;
+        background-color: #85853E;
+        display: flex;
+        padding: 0px 70px 0px 60px;
+        flex-direction: column;
+        justify-content: center;
+        color: #FFF;
+    }
+
+    .baseline-needs .rda-cards .card-left p{
+        font-family: "BrownPro-Regular";
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .baseline-needs .rda-cards .card-left .allowance-content{
+        margin-top: 27px;
+    }
+
+    .baseline-needs .rda-cards .card-left .allowance-content span{
+        font-family: "BrownPro-Regular";
+        font-size: 16px;
+    }
+
+    .baseline-needs .rda-cards .card-left .allowance-content span.allowance{
+        font-family: "BrownPro-Bold";
+        font-size: 24px;
+    }
+
+    .baseline-needs .rda-cards .card-right p{
+        font-family: "BrownPro-Regular";
+        font-size: 22px;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 768px){
+        .baseline-needs .rda-cards{
+            display: block;
+        }
+        .baseline-needs .rda-cards .rda-card-item{
+            width: 100% !important;
+        }
+
+        .baseline-needs .rda-cards .rda-card-item+.rda-card-item{
+            margin-top: 10px;
+        }
+    }
+
+    .baseline-needs .rda-description{
+        font-family: "BrownPro-Regular";
+        font-size: 14px;
+        line-height: 1.3;
+        margin-top: 18px;
+    }
+
+    .why-this{
+        margin-top: 70px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .why-this .why-this-form{
+        padding-right: 42px;
+    }
+
+    .why-this .why-this-form,
+    .why-this .why-this-dose{
+        width: calc(50% - 35px);
+    }
+
+    .why-this .why-this-form h2,
+    .why-this .why-this-dose h2{
+        font-family: "Copernicus-Bold";
+        font-size: 28px;
+        color: #1F3437;
+        margin-bottom: 30px;
+    }
+
+    .why-this .why-this-form p,
+    .why-this .why-this-dose p{
+        font-family: "BrownPro-Regular";
+        font-size: 16px;
+        color: #1F3337;
+        margin-bottom: 14px;
+        line-height: 1.4;
+    }
+
+    @media (max-width: 768px){
+        .why-this{
+            display: block;
+        }
+        .why-this .why-this-form,
+        .why-this .why-this-dose{
+            width: 100% !important;
+        }
+
+        .why-this .why-this-dose{
+            margin-top: 40px;
+        }
+    }
+
+    .additional-information{
+        margin-top: 72px;
+        margin-bottom: 96px;
+    }
+
+    .additional-information h2{
+        font-family: "Copernicus-Bold";
+        font-size: 28px;
+        color: #1F3437;
+        margin-bottom: 36px;
+    }
+
+    .additional-information p{
+        font-family: "BrownPro-Regular";
+        font-size: 16px;
+        color: #1F3337;
+        line-height: 1.4;
+        margin-bottom: 14px;
+    }
+
+    /******************************* RDA Chart section ********************************/
+      /*********************** updated chart with image ***********************/
+
+      .rda-chart h2,
+      .rda-chart p.desktop-chart,
+      .rda-chart p.mobile-chart,
+      .rda-chart p,
+      .rda-chart br{
+          display: none;
+      }
+    
+        .rda-chart .desktop-chart + img,
+        .rda-chart .desktop-chart + div img,
+        .rda-chart .mobile-chart + img,
+        .rda-chart .mobile-chart + div img{
+            width: 100%;
+            height: auto;
+        }
+    
+        @media (min-width: 769px){
+            .rda-chart .mobile-chart + img,
+            .rda-chart .mobile-chart + div img{
+                display: none;
+            }
+        }
+
+      
+        @media (max-width: 768px){
+            .rda-chart .desktop-chart + img,
+            .rda-chart .desktop-chart + div img{
+                display: none;
+            }
+            .rda-chart .mobile-chart + img,
+            .rda-chart .mobile-chart + div img{
+                display: block;
+            }
+        }
+
+      /*********************** updated chart with image ***********************/
+    
+    @media (min-width: 769px){
+        .rda-chart-mobile{
+            display: none;
+        }
+    }
+
+    @media (max-width: 768px){
+        .rda-chart-mobile{
+            display: block;
+            padding: 37px 0px;
+            margin: 0px -20px;
+            background-color: #1f3539;
+            position: relative;
+        }
+        /*
+        .rda-chart{
+            display: none;
+        }
+        */
+    }
+    
+    .rda-chart-mobile .rda-chart-board{
+        display: block;
+        margin: 0px auto;
+    }
+
+    @media (max-width: 768px){
+        .rda-chart-mobile .rda-chart-board{
+            max-width: 728px;
+        }
+        .rda-chart-mobile ul.chart-columns{
+            left: 20px;
+            top: 412px;
+            height: 740px;
+            display: none;
+        }
+        .rda-chart-mobile ul.chart-columns.mobile-768{
+            display: flex;
+        }
+        .rda-chart-mobile ul.chart-columns .column-value{
+            height: 86px;
+        }
+    }
+    @media (max-width: 750px){
+        .rda-chart-mobile .rda-chart-board{
+            max-width: 710px;
+        }
+        .rda-chart-mobile ul.chart-columns{
+            left: 20px;
+            top: 413px;
+            height: 740px;
+            display: none;
+        }
+        .rda-chart-mobile ul.chart-columns.mobile-750{
+            display: flex;
+        }
+        .rda-chart-mobile ul.chart-columns .column-value{
+            height: 85px;
+        }
+    }
+    @media (max-width: 640px){
+        .rda-chart-mobile .rda-chart-board{
+            max-width: 600px;
+        }
+        .rda-chart-mobile ul.chart-columns.mobile-750{
+            display: none;
+        }
+        .rda-chart-mobile ul.chart-columns{
+            left: 44px;
+            top: 352px;
+            height: 625px;
+            display: none;
+        }
+        .rda-chart-mobile ul.chart-columns.mobile-640{
+            display: flex;
+        }
+        .rda-chart-mobile ul.chart-columns .column-value{
+            height: 73px;
+        }
+    }
+    @media (max-width: 601px){
+        .rda-chart-mobile .rda-chart-board{
+            max-width: 561px;
+        }
+        .rda-chart-mobile ul.chart-columns.mobile-640{
+            display: none;
+        }
+        .rda-chart-mobile ul.chart-columns{
+            left: 52px;
+            top: 326px;
+            height: 587px;
+            display: none;
+        }
+        .rda-chart-mobile ul.chart-columns.mobile-601{
+            display: flex;
+        }
+        .rda-chart-mobile ul.chart-columns .column-value{
+            height: 69px;
+        }
+    }
+    @media (max-width: 480px){
+        .rda-chart-mobile .rda-chart-board{
+            max-width: 440px;
+        }
+        .rda-chart-mobile ul.chart-columns.mobile-601{
+            display: none;
+        }
+        .rda-chart-mobile ul.chart-columns{
+            left: 79px;
+            top: 257px;
+            height: 459px;
+            display: none;
+        }
+        .rda-chart-mobile ul.chart-columns.mobile-480{
+            display: flex;
+        }
+        .rda-chart-mobile ul.chart-columns .column-value{
+            height: 54px;
+        }
+    }
+    @media (max-width: 414px){
+        .rda-chart-mobile .rda-chart-board{
+            max-width: 374px;
+        }
+        .rda-chart-mobile ul.chart-columns.mobile-480{
+            display: none;
+        }
+        .rda-chart-mobile ul.chart-columns{
+            left: 93px;
+            top: 220px;
+            height: 389px;
+            display: none;
+        }
+        .rda-chart-mobile ul.chart-columns.mobile-414{
+            display: flex;
+        }
+        .rda-chart-mobile ul.chart-columns .column-value{
+            height: 45px;
+        }
+    }
+    @media (max-width: 375px){
+        .rda-chart-mobile .rda-chart-board{
+            max-width: 335px;
+        }
+        .rda-chart-mobile ul.chart-columns.mobile-414{
+            display: none;
+        }
+        .rda-chart-mobile ul.chart-columns{
+            left: 102px;
+            top: 196px;
+            height: 349px;
+            display: none;
+        }
+        .rda-chart-mobile ul.chart-columns.mobile-375{
+            display: flex;
+        }
+        .rda-chart-mobile ul.chart-columns .column-value{
+            height: 40px;
+        }
+    }
+    @media (max-width: 360px){
+        .rda-chart-mobile .rda-chart-board{
+            max-width: 320px;
+        }
+        .rda-chart-mobile ul.chart-columns.mobile-375{
+            display: none;
+        }
+        .rda-chart-mobile ul.chart-columns{
+            left: 105px;
+            top: 187px;
+            height: 334px;
+            display: none;
+        }
+        .rda-chart-mobile ul.chart-columns.mobile-360{
+            display: flex;
+        }
+        .rda-chart-mobile ul.chart-columns .column-value{
+            height: 40px;
+        }
+    }
+
+    .rda-chart{
+        position: relative;
+        margin-top: 76px;
+    }
+    
+    .rda-chart ul.chart-columns{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        position: absolute;
+        bottom: 169px;
+        left: 210px;
+        width: 600px;
+    }
+
+    .rda-chart-mobile .chart-columns-container{
+        position: absolute;
+        width: 350px;
+        height: 636px;
+        top: 37px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .rda-chart-mobile .chart-columns-wrapper{
+        margin: 0px auto;
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .rda-chart-mobile ul.chart-columns{
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        position: absolute;
+    }
+
+    .rda-chart-mobile ul.chart-columns li.chart-column{
+        display: flex;
+        align-items: center;
+    }
+
+    .rda-chart-mobile ul.chart-columns .column-value{
+        background-color: #FFF;
+        opacity: 0.4;
+        margin-right: 12px;
+    }
+
+    .rda-chart-mobile ul.chart-columns li.chart-column .column-label{
+        color: #FFF;
+        font-size: 13px;
+    }
+
+    .rda-chart ul.chart-columns li.chart-column{
+        text-align: center;
+    }
+
+    .rda-chart ul.chart-columns li.chart-column .column-label{
+        font-family: "BrownPro-Bold";
+        font-size: 16px;
+        color: #FFF;
+    }
+
+    .rda-chart ul.chart-columns li.chart-column .column-value{
+        width: 69.5px;
+        background-color: #FFF;
+        opacity: 0.4;
+        margin-top: 8px;
+    }
+
+    .rda-chart-mobile ul.chart-columns-mobile-small{
+        display: none;
+    }
+
+    @media (max-width: 350px){
+        .rda-chart-mobile ul.chart-columns.mobile-360{
+            display: none;
+        }
+        .rda-chart-mobile .rda-chart-board{
+            max-width: 280px;
+        }
+        .rda-chart-mobile .chart-columns-container{
+            width: 280px;
+        }
+        .rda-chart-mobile ul.chart-columns-mobile-small{
+            display: block;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: absolute;
+            left: 79px;
+            top: 165px;
+            height: 290px;
+        }
+
+        .rda-chart-mobile ul.chart-columns-mobile-small .chart-column{
+            display: flex;
+            align-items: center;
+        }
+
+        .rda-chart-mobile ul.chart-columns-mobile-small .chart-column .column-label{
+            color: #FFF;
+            font-size: 10px;
+        }
+
+        .rda-chart-mobile ul.chart-columns-mobile-small .column-value{
+            background-color: #FFF;
+            opacity: 0.4;
+            height: 34px;
+            margin-right: 8px;
+        }
+
+        .rda-chart-mobile ul.chart-columns{
+            display: none;
+        }
+    }
+
+    /************************************************************************************************************/
+
+
+    /***************************************** research support container ****************************************/
+
+    .research-support-container{
+        float: left;
+        width: 100%;
+        background-color: #F6F4F2;
+    }
+
+    .research-support-container .research-support{
+        max-width: 880px;
+        margin: 0px auto;
+    }
+
+    .research-support-container .research-support h2{
+        font-family: "Copernicus-Bold";
+        font-size: 35px;
+        color: #1F3437;
+        text-align: center;
+        margin-top: 110px;
+        margin-bottom: 23px;
+    }
+
+    .research-support-container .research-support p{
+        font-family: "BrownPro-Regular";
+        font-size: 18px;
+        color: #1F3337;
+        text-align: center;
+    }
+
+    .research-support-container .research-support ul.support-links{
+        margin-top: 63px;
+        margin-bottom: 130px;
+    }
+
+    .research-support-container .research-support ul.support-links li.support-link{
+        min-height: 90px;
+        padding-left: 35px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        border-top: 1px solid #1F333720;
+    }
+
+    .research-support-container .research-support ul.support-links li.support-link:last-child{
+        border-bottom: 1px solid #1F333720;
+    }
+
+    .research-support-container .research-support ul.support-links li.support-link:before{
+        background-image: url({{ 'icon-paper.png' | asset_url }});
+        content: '';
+        display: block;
+        width: 18px;
+        height: 24px;
+        position: absolute;
+    }
+
+    .research-support-container .research-support ul.support-links li.support-link br{
+        display: none;
+    }
+
+    .research-support-container .research-support ul.support-links li.support-link a{
+        font-family: "BrownPro-Regular";
+        font-size: 16px;
+        color: #1F3337;
+        margin-left: 40px;
+        text-decoration: none;
+        padding-top: 6px;
+        position: relative;
+    }
+
+    .research-support-container .research-support ul.support-links li.support-link a small{
+        font-family: "BrownPro-Regular";
+        font-size: 13px;
+        color: #1F3337;
+        display: block;
+        opacity: 0.55;
+    }
+/*
+    .research-support-container .research-support ul.support-links li.support-link a:after{
+        content: '';
+        display: block;
+        width: 12px;
+        height: 12px;
+        border: 2px solid;
+        border-color: #1F3437 #1F3437 transparent transparent;
+        border-radius: 2px;
+        position: absolute;
+        right: 40px;
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+    }
+*/
+    @media (max-width: 768px){
+        .research-support-container{
+            padding: 0px 20px;
+        }
+    }
+
+    /*************************************************************************************************************/
+
+    /******************************************** Mobile sidebar *********************************************/
+
+        .ingredient-container .sidebar-header-mobile{
+            display: none;
+        }
+
+        @media (max-width: 768px){
+            .ingredient-container .ingredient-sidebar .btn-back{
+                display: none;
+            }
+
+            .ingredient-container .sidebar-header-mobile{
+                height: 40px;
+                display: flex;
+                border-top: 1px solid #EEEEEE;
+                border-bottom: 1px solid #EEEEEE;
+            }
+
+            .ingredient-container .sidebar-header-mobile .btn-back-mobile{
+                height: 100%;
+                width: 45px;
+                border-right: 1px solid #EEEEEE;
+                position: relative;
+            }
+
+            .ingredient-container .sidebar-header-mobile .btn-back-mobile:before{
+                content: '';
+                display: block;
+                position: absolute;
+                left: 55%;
+                top: 50%;
+                width: 6px;
+                height: 6px;
+                border-radius: 2px;
+                border: 2px solid #1F34377a;
+                border-color: transparent transparent #1F33377a #1F33377a;
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+
+            .ingredient-container .sidebar-header-mobile .btn-dropdown-items{
+                position: relative;
+                height: 100%;
+                width: 50px;
+            }
+
+            .ingredient-container .sidebar-header-mobile .current-item-name:after{
+                content: '';
+                display: block;
+                position: absolute;
+                right: 20px;
+                width: 8px;
+                height: 8px;
+                border-radius: 2px;
+                border: 2px solid #1F34377a;
+                border-color: #1F33377a transparent transparent #1F33377a;
+            }
+
+            .ingredient-container .sidebar-header-mobile .current-item-name.opened:after{
+                transform: rotate(45deg);
+                top: 17px;
+                transition: all .2s ease-in-out;
+            }
+
+            .ingredient-container .sidebar-header-mobile .current-item-name:not(.opened):after{
+                transform: rotate(225deg);
+                top: 9px;
+                transition: all .2s ease-in-out;
+            }
+
+            .ingredient-container .sidebar-header-mobile .current-item-name{
+                width: calc(100% - 45px);
+                position: relative;
+                padding-top: 11px;
+                padding-left: 15px;
+            }
+
+            .ingredient-container .ingredient-sidebar{
+                margin-top: 15px;
+                margin-bottom: 0px;
+                display: none;
+            }
+
+            .ingredient-container .ingredient-main-body{
+                float: left;
+                margin-top: 40px;
+            }
+
+            .ingredient-container .ingredient-sidebar .ingredient-items .ingredient-item a{
+                padding: 15px 15px 12px 40px !important;
+            }
+        }
+
+
+    /**********************************************************************************************************/
+
+    .ingredients-container .main-title p{
+        line-height: 1.4;
+        margin-top: 15px;
+    }
+
+    @media (max-width: 768px){
+        .ingredients-container .main-title{
+            text-align: center;
+        }
+
+        .ingredients-container .main-title h2{
+            font-size: 26px;
+            line-height: 1.4;
+        }
+
+        .ingredients-container .main-title p{
+            line-height: 1.3;
+            margin-top: 12px;
+        }
+
+        .ingredients-container .main-title p:nth-child(3){  
+            color: #85853E;
+        }
+
+        .ingredients-container .why-this{
+            margin-bottom: 50px;
+        }
+        
+        .ingredients-container .why-this .why-this-form{
+            padding-right: 0px;
+        }
+
+        .ingredients-container .why-this .why-this-dose{
+            margin-top: 65px;
+        }
+    }
+
+    @media (max-width: 480px){
+        .ingredients-container .supports-section{
+            margin-top: 40px;
+        }
+
+        .ingredients-container .supports-section .support-mama,
+        .ingredients-container .supports-section .support-baby{
+            padding: 30px 35px 40px 48px;
+        }
+
+        .ingredients-container .supports-section h3{
+            font-size: 17px;
+            margin-top: 20px;
+            margin-bottom: 18px;
+        }
+
+        .ingredients-container .baseline-needs{
+            margin-top: 68px;
+        }
+
+        .ingredients-container .baseline-needs h2{
+            font-size: 26px;
+            line-height: 1.3;
+        }
+
+        .ingredients-container .baseline-needs .rda-cards{
+            margin-top: 30px;
+        }
+
+        .ingredients-container .baseline-needs .rda-cards .rda-card-item.card-left{
+            padding: 20px;
+            height: auto;
+        }
+
+        .ingredients-container .baseline-needs .rda-cards .rda-card-item.card-right{
+            padding: 20px;
+            margin-top: 5px;
+            height: auto;
+        }
+
+        .ingredients-container .baseline-needs .rda-cards .rda-card-item.card-left .allowance-content{
+            margin-top: 15px;
+        }
+
+        .ingredients-container .baseline-needs .rda-cards .rda-card-item.card-right p{
+            font-size: 20px;
+            line-height: 1.3;
+        }
+
+        .ingredients-container .why-this{
+            margin-top: 65px;
+        }
+
+        .ingredients-container .why-this h2{
+            font-size: 24px;
+        }
+
+        .ingredients-container .additional-information{
+            margin-top: 60px;
+        }
+
+        .ingredients-container .additional-information h2{
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .research-support-container .research-support h2{
+            margin-top: 57px;
+            font-size: 26px;
+        }
+
+        .research-support-container .research-support ul.support-links{
+            margin-top: 26px;
+            margin-bottom: 72px;
+        }
+
+        .research-support-container .research-support ul.support-links li.support-link{
+            padding: 10px 0px 12px;
+        }
+
+        .research-support-container .research-support ul.support-links li.support-link:before{
+            background-size: 100%;
+            width: 14px;
+            height: 19px;
+        }
+
+        .research-support-container .research-support ul.support-links li.support-link a{
+            margin-left: 34px;
+        }
+
+        .research-support-container .research-support ul.support-links li.support-link a small{
+            margin-top: 8px;
+        }
+    }
+
+</style>
+
+
+
+<div class="ingredient-container">
+    <div class="sidebar-header-mobile">
+        <a href="/" class="btn-back-mobile"></a>
+        <div class="current-item-name">Vitamin A</div>
+    </div>
+
+    <div class="ingredient-sidebar">
+        <a href="/" class="btn-back">Back to The Needed Prenatal</a>
+        {{ ingredient_names }}
+    </div>
+
+    <div class="ingredient-main-body">
+        {{ ingredient_contents }}
+    </div>
+
+    {{ research_support_section }}
+</div>
+
+<script>
+
+    $(function(){
+        
+        $(".ingredient-sidebar ul.ingredient-items li.ingredient-item a").on('click', function(){
+            $(".ingredient-main-body .ingredients-container .ingredient-content").hide();
+            $(".research-support-container .research-support").hide();
+            $(".id-"+$(this).data("id")).show();
+
+            $(".ingredient-sidebar ul.ingredient-items li.ingredient-item.active").removeClass('active');
+            $(this).parent().addClass('active');
+
+            $(".current-item-name").text($(this).text());
+        });
+
+        $(".sidebar-header-mobile .current-item-name").on('click', function(){
+            if($(this).hasClass('opened') == true){
+                $(".ingredient-sidebar").slideUp("fast");
+                $(this).removeClass('opened');
+            }
+            else{
+                $(".ingredient-sidebar").slideDown("fast");
+                $(this).addClass('opened');
+            }
+        })
+
+        var urlParams = window.location.href.split("#");
+        if(urlParams.length > 1){
+            $(".ingredient-items [data-param-id='"+ urlParams[1] +"']").trigger( "click" );
+            $(".current-item-name").text($(".ingredient-items [data-param-id='"+ urlParams[1] +"']").text());
+        }
+
+    })
+    
+</script>

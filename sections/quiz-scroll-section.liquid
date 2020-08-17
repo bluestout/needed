@@ -1,0 +1,56 @@
+
+
+<script>
+window.quizSections = window.quizSections || {}
+
+window.quizSections['{{ section.settings.id }}'] = {
+    vueComponentAlias: 'scroll-section',
+    settings: {{ section.settings | json }},
+    blocks: [{%- for block in section.blocks -%}
+        {{ block.settings | json }},
+    {%- endfor -%}]
+}
+</script>
+
+{% schema %}
+{
+    "name": "Scroll section",
+    "settings": [{
+        "type": "text",
+        "id": "id",
+        "label": "Unique ID",
+        "info": "Fill in this field to target section from typeform admin."
+    },{
+        "type": "text",
+        "id": "title",
+        "label": "Section main title",
+        "default": "supplements that fill in the gaps."
+    },{
+        "type": "textarea",
+        "id": "description",
+        "label": "Section main description",
+        "default": "this area is a short discription of content."
+    }],
+    "blocks": [{
+        "type": "step",
+        "name": "Step",
+        "settings": [{
+            "type": "image_picker",
+            "id": "step_icon",
+            "label": "Step icon"
+        },{
+            "type": "text", 
+            "id": "type",
+            "label": "Type"
+        },{
+            "type": "text", 
+            "id": "title",
+            "label": "Title"
+        },{
+            "type": "richtext",
+            "id": "text",
+            "label": "Text"
+        }]
+    }]
+}
+{% endschema %}

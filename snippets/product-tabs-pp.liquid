@@ -1,0 +1,248 @@
+<style>
+    @media (max-width: 450px){
+        .product__information .accordian.product-description .accordHeaderLinks{
+            display: flex;
+            justify-content: space-evenly;
+        }
+        
+        .product .product__information .accordian .accordHeaderLinks a:not(:last-child){
+            margin: 0 10px 0 0;
+        }
+
+        .product .product__information .accordian .accordHeaderLinks a{
+            font-size: 14px;
+        }
+    }
+
+    
+    @media (max-width: 340px){
+        .product .product__information .accordian .accordHeaderLinks a{
+            font-size: 13px;
+        }
+        
+        .product .product__information .accordian .accordHeaderLinks a:not(:last-child){
+            margin: 0 8px 0 0;
+        }
+    }
+</style>
+
+{% assign tab_title = tab_array[0] | split: '<!--tabtitle-->' %}
+{% assign tab_content = tab_array[1] | split: '<!--tabcontent-->' %}
+<div class="accordian product-description" itemprop="description">
+    <div class="accordHeaderLinks">
+        {% if tab_title[0] != blank and tab_content[0] != blank %}
+        <a href="#accordian-1" class="active">{{ tab_title[0] }}</a>
+        {% endif %}
+        {% if tab_title[1] != blank and tab_content[1] != blank %}
+        <a href="#accordian-2">{{ tab_title[1] }}</a>
+        {% endif %}
+        {% if tab_title[2] != blank and tab_content[2] != blank %}
+        <a href="#accordian-3">{{ tab_title[2] }}</a>
+        {% endif %}
+    </div>
+    
+    {% if tab_title[0] != blank and tab_content[0] != blank %}
+    <div id="accordian-1" class="active tab-item">
+        <!-- <input type="checkbox" id="expanded1"> -->
+        <p id="accordian1" class="collapsed">{{ tab_content[0] }}</p>
+        <!-- <label for="expanded1" role="button" id="more1">More</label>
+        <label for="expanded1" role="button" id="less1">Less</label> -->
+    </div>
+    {% endif %}
+    {% if tab_title[1] != blank and tab_content[1] != blank %}
+    <div id="accordian-2" class="tab-item">
+        <!-- <input type="checkbox" id="expanded2"> -->
+        <p id="accordian2" class="collapsed">{{ tab_content[1] }}</p>
+        <!-- <label for="expanded2" role="button" id="more2">More</label>
+        <label for="expanded2" role="button" id="less2">Less</label> -->
+    </div>
+    {% endif %}
+    {% if tab_title[2] != blank and tab_content[2] != blank %}
+    <div id="accordian-3" class="tab-item">
+        <!-- <input type="checkbox" id="expanded3"> -->
+        <p id="accordian3" class="collapsed">{{ tab_content[2] }}</p>
+        <!-- <label for="expanded3" role="button" id="more3">More</label>
+        <label for="expanded3" role="button" id="less3">Less</label> -->
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    /* #expanded1 {
+        opacity: 0;
+        position: absolute;
+    }
+
+    #accordian1.expanded {
+
+        -webkit-line-clamp: unset;
+    }
+
+    #accordian1.collapsed {
+
+        -webkit-line-clamp: 4;
+    }
+
+    #accordian1.expanded {
+
+        -webkit-line-clamp: unset;
+    }
+
+    #more1, #less1 {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    #expanded2 {
+        opacity: 0;
+        position: absolute;
+    }
+
+    #accordian2.expanded {
+
+        -webkit-line-clamp: unset;
+    }
+
+    #accordian2.collapsed {
+
+        -webkit-line-clamp: 4;
+    }
+
+    #accordian2.expanded {
+
+        -webkit-line-clamp: unset;
+    }
+
+    #more2, #less2 {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    #expanded3 {
+        opacity: 0;
+        position: absolute;
+    }
+
+    #accordian3.expanded {
+
+        -webkit-line-clamp: unset;
+    }
+
+    #accordian3.collapsed {
+
+        -webkit-line-clamp: 4;
+    }
+
+    #accordian3.expanded {
+
+        -webkit-line-clamp: unset;
+    }
+
+    #more3, #less3 {
+        text-decoration: underline;
+        cursor: pointer;
+    } */
+
+    .product .product__information .accordian .tab-item p {
+        -webkit-line-clamp: unset !important;
+    }
+    div.rc_block__type--active+div.rc_popup {
+        margin-top: 0 !important;
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        // checkButton();
+        // checkButton2();
+        // checkButton3();
+        // toggleCheck();
+        // toggleCheck2();
+        // toggleCheck3();
+    });
+
+    $("#more1").on('click', function() {
+        toggleCheck();
+    });
+
+    $("#less1").on('click', function() {
+        toggleCheck();
+    })
+
+    $("#more2").on('click', function() {
+        toggleCheck2();
+    });
+
+    $("#less2").on('click', function() {
+        toggleCheck2();
+    })
+
+    $("#more3").on('click', function() {
+        toggleCheck3();
+    });
+
+    $("#less3").on('click', function() {
+        toggleCheck3();
+    })
+
+    // $(window).resize(function() {
+    //     checkButton();
+    //     checkButton2();
+    //     checkButton3();
+    // });
+
+    function toggleCheck() {
+        if($("#expanded1").prop("checked") == true) {
+            $("#more1").hide();
+            $("#less1").show();
+            $("#accordian1").removeClass("collapsed").addClass("expanded");
+        } else {
+            $("#more1").show()
+            $("#less1").hide();
+            $("#accordian1").removeClass("expanded").addClass("collapsed");
+        }
+    }
+
+    function toggleCheck2() {
+        if($("#expanded2").prop("checked") == true) {
+            $("#more2").hide();
+            $("#less2").show();
+            $("#accordian2").removeClass("collapsed").addClass("expanded");
+        } else {
+            $("#more2").show()
+            $("#less2").hide();
+            $("#accordian2").removeClass("expanded").addClass("collapsed");
+        }
+    }
+
+    function toggleCheck3() {
+        if($("#expanded3").prop("checked") == true) {
+            $("#more3").hide();
+            $("#less3").show();
+            $("#accordian3").removeClass("collapsed").addClass("expanded");
+        } else {
+            $("#more3").show()
+            $("#less3").hide();
+            $("#accordian3").removeClass("expanded").addClass("collapsed");
+        }
+    }
+
+    function checkButton() {
+        if($("#accordian1")[0].scrollHeight < $("#accordian1").height()) {
+            $("#more1").hide();
+            $("#less1").hide();
+        }
+    }
+
+    function checkButton2() {
+        if($("#accordian2")[0].scrollHeight < $("#accordian2").height()) {
+            $("#more2").hide();
+            $("#less2").hide();
+        }
+    }
+
+    function checkButton3() {
+        if($("#accordian3")[0].scrollHeight < $("#accordian3").height()) {
+            $("#more3").hide();
+            $("#less3").hide();
+        }
+    }
+</script>

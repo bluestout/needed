@@ -1,0 +1,50 @@
+{% if section.settings.keywords_relation_enabled %}
+<script>
+    window.keywordsRelations = Object.assign(window.keywordsRelations || {}, {
+        {%- for block in section.blocks -%}
+            {%- if block.type != 'relation' -%}{%- continue -%}{%- endif -%}
+            "{{ block.settings.title }}": {
+                regex: new RegExp("{{ block.settings.title }}", 'i'),
+                iconURL: "{{ block.settings.image | img_url: 'master' }}"
+            },
+        {%- endfor -%}
+    })
+</script>
+{% endif %}
+
+{% schema %}
+{
+    "name": "Keywords icon relations",
+    "settings": [
+        {
+            "type": "paragraph",
+            "content": "Use this section to declare relations between keywords and icons. Add data attribute `data-keyword` to mark element. You can leave attribute value empty, so the keyword will be searched in content of this element. If you fill the data-keyword attribute it will be compared with the keywords in blocks below"
+        },
+        {
+            "type": "checkbox",
+            "id": "keywords_relation_enabled",
+            "label": "Enable keywords icon icons",
+            "default": true
+        }
+    ],
+    "blocks": [
+        {
+            "type": "relation",
+            "name": "Relation",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Icon"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Keyword",
+                    "info": "You can use regular expressions like nature[\\\\-|\\\\s]first"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,86 @@
+{% if section.settings.title != blank or section.blocks.size > 0 %}
+    <section class="promotion" data-section-id="{{ section.id }}" data-section-type="promotion">
+        <div class="container promotion__container">
+            <h2 class="promotion__heading">{{ section.settings.title }}</h2>
+            {% if section.settings.description != blank %}
+                <p class="promotion__description">{{ section.settings.description }}</p>
+            {% endif %}
+            {% if section.blocks.size > 0 %}
+                <div class="promotion__actions">
+                    {% for block in section.blocks %}
+                        {% if block.settings.url != blank %}
+                            <a 
+                                href="{{ block.settings.url }}" 
+                                class="button {% if block.settings.is_primary %}button--primary{% else %}button--secondary{% endif %}"
+                                {% if block.settings.data_action != blank %}
+                                    data-action="{{ block.settings.data_action }}"
+                                {% endif %}
+                            >
+                                {{ block.settings.title }}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %} 
+        </div>
+    </section>
+{% endif %}
+
+<style>
+.promotion[data-section-id="{{ section.id }}"] {
+    background-color: {{ section.settings.color }};
+}
+</style>
+
+{% schema %}
+{
+    "name": "Promotion",
+    "settings": [
+        {
+            "type": "color",
+            "id": "color",
+            "label": "Section background color"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Section heading"
+        },
+        {
+            "type": "textarea",
+            "id": "description",
+            "label": "Section description"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "action",
+            "name": "Action",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "CTA text"
+                },
+                {
+                    "type": "url",
+                    "id": "url",
+                    "label": "CTA URL"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "is_primary",
+                    "label": "Primary CTA",
+                    "default": true
+                },
+                {
+                    "type": "text",
+                    "id": "data_action",
+                    "label": "Action data",
+                    "info": "This field is for development purposes. We can use it to create specific actions, not only URLs like default buttons."
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
